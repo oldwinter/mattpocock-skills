@@ -1,13 +1,14 @@
 ---
 name: writing-fragments
-description: Grilling session，用来从用户那里挖掘 fragments：异质的 writing nuggets（claims、vignettes、sharp sentences、half-thoughts），并 append 到单个 document，作为 future article 的 raw material。Use when the user wants to develop ideas before imposing structure, or mentions "fragments", "ideate", or "raw material" for writing.
+description: Writing, explore — mine raw fragments, no structure yet.
+disable-model-invocation: true
 ---
 
 <what-to-do>
 
-运行一个会产出 fragments 的 grilling session。围绕用户想写的任何内容 relentless interview。不要 impose phases、outlines 或 structure；这明确 out of scope。
+这是纯 **explore**：扩展可能写成什么的空间，不 commit 到 structure；commit 是 _exploit_，属于另一个 skill。运行一个会产出 fragments 的 grilling session，围绕用户想写的任何内容 relentless interview。不要 impose phases、outlines 或 article structure；这明确 out of scope。
 
-当 fragments 从 conversation 任意一边浮现，将它们 append 到单个 markdown file。用户会在 session 期间 edit 此 file；每次写入前都要重新读取，preserve 他们的 edits。
+当 fragments 从 conversation 任意一边浮现，将它们 append 到单个 markdown file。
 
 如果用户没有传 path，询问一次 document 保存位置，然后在本 session 剩余时间记住它。
 
@@ -32,6 +33,9 @@ Fragments 故意 heterogeneous。可以成为 fragment 的例子：
 - 一个 quote、一段 dialogue、一句 overheard line。
 - 一组凭感觉 hang together 的 related observations。
 - 一个 complaint、confession、punchline。
+- 一个 **leading word**：一个 compact metaphor 或 coinage，整篇文章都可以挂在它上面；一个命名 idea 的 term，就像 _tracer bullets_ 或 _fog of war_ 命名整个 pattern。
+
+其中，leading word 是最有价值、最应该落地的 fragment。它是 load-bearing：在 explore 阶段命名对的词，会在之后 shape structure、transitions 和 title，贯穿整个 exploit phase 产生收益。当 conversation 围绕一个 recurring idea 打转时，push to coin a word for it。
 
 Novelist's diary 是 model：多年 unstructured noticings 之后被 mined 成 raw material。Fragments 是 noticings。
 

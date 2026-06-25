@@ -1,15 +1,16 @@
 ---
 name: writing-shape
-description: 将 raw material markdown file 通过 conversational session 塑造成 article：drafting candidate openings，逐段 growth piece，并在每一步争论 format（lists、tables、callouts、quotes）。Use when the user has a pile of notes, fragments, or a rough draft and wants help turning it into something publishable.
+description: Writing, exploit — shape raw material into an article, paragraph by paragraph.
+disable-model-invocation: true
 ---
 
 <what-to-do>
 
 用户已经传入（或将传入）一个 raw material markdown file。把它视为 input pile：可以是 tidy fragments list、unstructured prose wall 或 transcript。Format 不重要。先 end-to-end 读取它，再做其他事。
 
-然后运行 shaping session，产出一个 separate article document。不要 edit raw material file；对这个 skill 来说它是 read-only。
+然后运行 shaping session，产出一个 separate article document。这是 **exploit**：exploring 已完成，pile 已固定；commit 到一个 structure，并 mine 这个 pile 来填充它。不要 edit raw material file；对这个 skill 来说它是 read-only。
 
-如果用户没有说明 article 保存到哪里，询问一次并记住 path。用户会在 session 期间 edit article file；每次写入前都要重新读取，preserve 他们的 edits。
+如果用户没有说明 article 保存到哪里，询问一次并记住 path。
 
 </what-to-do>
 
@@ -18,10 +19,24 @@ description: 将 raw material markdown file 通过 conversational session 塑造
 ## The loop
 
 1. **Read the pile.** 完整读取 input file。形成对其中内容的 sense。
-2. **Draft 2–3 candidate openings.** 每个 opening 都应暗示 article 的不同 thesis 或 angle。展示全部。Force 用户选择一个，或 compose hybrid。Chosen opening 定义 article 剩余部分必须完成什么。
-3. **Grow paragraph by paragraph.** Opening lands 后，问 “given this opening, what does the reader need to hear next?” 从 pile 中 pull material 回答。争论 next beat 应该是 paragraph、list、table、callout、quote、code block。每个 format choice 都应 deliberate and defensible。
-4. **Append to the article file as you go.** 不要 batch。每个 agreed paragraph 或 block 立刻写入，让用户看到 article taking shape。
-5. **Loop step 3 until the article is done.** 用户决定何时 done。
+2. **Establish the prerequisites.** 和用户 settle reader 进来时知道什么，也就是从一开始就 **grounded** 的 concepts。其他所有 concept 都必须先由某个 block grounded，later block 才能 lean on it。见 [Grounding](#grounding)。
+3. **Draft 2–3 candidate openings.** 每个 opening 都应暗示 article 的不同 thesis 或 angle。展示全部。Force 用户选择一个，或 compose hybrid。Chosen opening 定义 article 剩余部分必须完成什么。
+4. **Grow paragraph by paragraph.** Opening lands 后，问 “given this opening, what does the reader need to hear next?” 从 pile 中 pull material 回答。Next block 只能 lean on grounded concepts，并在 landed 时 ground new ones。争论 next block 的 form：paragraph、list、table、callout、quote、code block。每个 format choice 都应 deliberate and defensible。
+5. **Append to the article file as you go.** 不要 batch。每个 agreed paragraph 或 block 立刻写入，让用户看到 article taking shape。
+6. **Loop step 4 until the article is done.** 用户决定何时 done。
+
+## Grounding
+
+每个 **concept** 都必须先被 **grounded**，block 才能 lean on it：reader 要么进来时就知道它，要么在 earlier block 中遇见过它。一个 reach for ungrounded concept 的 block 会丢掉 reader。Unit 是 concept，不是 word；即使没有 jargon，block 也可能 lean on reader 缺少的 idea。Concept 有 name 时，即 **term**，grounding 它意味着把 idea 和 term 一起落地。
+
+Concept 有两种 grounding 方式：
+
+- **Prerequisite** — opening 前已经 grounded。Reader 自带。Start 时固定。
+- **Introduced** — block 建立它，从那以后它对 article 剩余部分都是 grounded。
+
+维护一个 running list，记录目前 grounded 了什么。当你问 “what does the reader need to hear next?” 时，如果 next move 需要 ungrounded concept，这个 missing foundation 本身就是答案：先在这里或 earlier block ground 它，否则不能做这个 move。这是 [Pulling from the pile](#pulling-from-the-pile) 的 gap-naming 上升一层：那里是 pile 缺 material；这里是 article 缺 foundation。
+
+Lever 是哪些东西设为 prerequisite，哪些东西在 article 内 ground。Up front 要求太多，会把 readers 挡在外面；在 article 内 ground 太多，opening 会淹没在 definitions 中。Establish prerequisites 时和用户 settle。
 
 ## Conversational feel
 
@@ -43,7 +58,7 @@ description: 将 raw material markdown file 通过 conversational session 塑造
 
 ## Format arguments to actually have
 
-选择如何 render 一个 beat 时，要和用户 out loud weigh 这些 tradeoffs，而不是 silently：
+选择如何 render 一个 block 时，要和用户 out loud weigh 这些 tradeoffs，而不是 silently：
 
 - **Prose vs. list.** Prose 承载 argument；lists 承载 parallel items。如果 items 不是真正 parallel，prose 更好。如果是，list 更容易 scan。
 - **Inline vs. callout.** Tips、warnings 和 asides 放进 callouts（`> [!TIP]`、`> [!NOTE]`），但只有在 inline 会真正 derail main argument 时才这样。否则保持 inline。
@@ -57,7 +72,7 @@ description: 将 raw material markdown file 通过 conversational session 塑造
 
 ## Out of scope
 
-- Mining for new fragments that aren't in the pile（pile 是 input；如果 incomplete，name the gap，并让用户补或 cut section）。
+- Mining for new fragments that aren't in the pile（按 "Pulling from the pile" 中的方式处理 gaps）。
 - Editing the raw material file。
 - Publishing、formatting for a specific platform，或添加用户没要求的 frontmatter。
 

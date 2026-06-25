@@ -20,7 +20,7 @@ Numbered entries（“tickets”），每个都有自己的 section，并以 num
 ## #1: Relational Or Non-Relational Database?
 
 Blocked by: #<ticket-number>, #<ticket-number>
-Type: Research | Prototype | Discuss
+Type: Research | Prototype | Grilling
 
 ### Question
 
@@ -39,7 +39,7 @@ Tickets 有三种 types：
 
 - **Research**：阅读 documentation、third-party APIs，或 local resources（例如 knowledge bases）。创建 markdown summary 作为 asset。当需要 current working directory 之外的 knowledge 时使用。
 - **Prototype**：写 UI 或 logic code 来测试 hypothesis，或探索 design space。使用 `/prototype` skill。创建 prototype 作为 asset。当关键问题是 “how should it look” 或 “how should it behave” 时使用。
-- **Discuss**：与 agent 对话。使用 `/grilling` 和 `/domain-modelling` skills。Default case。
+- **Grilling**：与 agent 对话。使用 `/grilling` 和 `/domain-modeling` skills。一次只问一个问题。Default case。
 
 ## Fog of war
 
@@ -55,7 +55,7 @@ Map 在 frontier 之外是 _deliberately_ incomplete。你的工作是调查 fro
 
 用户用 loose idea invoke。
 
-1. 运行 `/grilling` 和 `/domain-modelling` session，surface open decisions。
+1. 运行 `/grilling` + `/domain-modeling` session，surface open decisions。一次只问一个问题。
 2. 写一个新的 decision map：大部分是 fog，frontier 已识别，trivially-decidable entries inline resolved。
 3. Stop。Map-building 是一个 session 的工作；不要同时 resolve tickets。
 
@@ -64,7 +64,7 @@ Map 在 frontier 之外是 _deliberately_ incomplete。你的工作是调查 fro
 用户用 existing map path 和 ticket number invoke。
 
 1. 将 **whole map** 作为 context load。
-2. 运行一个 session resolve 该 ticket，并按需 invoke skills。如果不确定，使用 `/grilling` 和 `/domain-modelling`。
+2. 运行一个 session resolve 该 ticket，并按需 invoke skills。如果不确定，使用 `/grilling` 和 `/domain-modeling`。
 3. 在 ticket body 中记录 session resolved 的内容。
 4. 添加 newly-discovered tickets（带正确的 `blocked_by` edges）。
 5. Stop。

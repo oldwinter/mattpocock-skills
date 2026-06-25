@@ -1,16 +1,20 @@
 # Glossary — Building Great Skills
 
-这是关于什么让 skill 变好的 domain model。Skill 的存在，是为了从 stochastic system 中 wrangle determinism；下面每个 term 都是服务于这个目标的 lever。这是 [`writing-great-skills`](SKILL.zh.md) disclosed 出来的 reference。
+这是关于什么让 skill 变好的 domain model。Skill 的存在，是为了从 stochastic system 中 wrangle determinism；root virtue 是 **Predictability**，下面每个 term 都是它的 lever。这是 [`writing-great-skills`](SKILL.zh.md) disclosed 出来的 reference。
+
+Terms 按 axis 分组：**Invocation**（skill 如何被触达）、**Information Hierarchy**（content 如何安排）、**Steering**（agent runtime behaviour 如何被塑形）和 **Pruning**（如何保持 lean）。每个 **failure mode** 都放在 cure 它的 lever 旁边，并标记为 _failure mode_。
 
 任何 definition 中的 **bold terms** 本身也在这个 glossary 中定义；按 heading 查找。
 
-## Language
-
-### Predictability
+## Predictability
 
 Skill 让 agent 每次运行都以相同 _方式_ 行动的程度：相同 process，而不是相同 output（brainstorming skill 应该 _predictably_ diverge；tokens 会变，behaviour 不变）。这是其他每个 term 服务的 root virtue；cost 和 maintainability 是它的 symptoms，不是 rivals。
 
 _Avoid_: consistency, reliability, robustness, output-determinism
+
+## Invocation
+
+Skill 如何被触达，以及这种选择会让你支付哪两种 loads。
 
 ### Model-Invoked
 
@@ -60,7 +64,7 @@ _Avoid_: chunking, modularity
 
 _Avoid_: dispatcher, menu, registry, index, router procedure
 
-### Information Hierarchy
+## Information Hierarchy
 
 Skill content 按 agent 需要它的 immediate 程度排序；一个 ladder，由两种 cut 产生：in-file 或 pointer 后，step 或 reference。Rungs：
 
@@ -77,6 +81,16 @@ _Avoid_: structure, organization, layout
 把 agent 同时需要的材料放在同一处：一个 concept 的 definition、rules 和 caveats 放在一个 heading 下，而不是 scattered across file；这样读到一部分会带出相邻内容。它是 **Information Hierarchy** 在文件内部的 companion：hierarchy 排名 _how far down_，co-location 决定到了那里之后 _what sits beside it_。Reference body 没有固定正确格式；测试是 skill 是否读起来像给 agent 写的 documentation，而 grouped material 比 scattered material 更像。不同于 **Duplication**：duplication 是一个 meaning 重复在两处，scattering 是一个 meaning 被拆成碎片分散到多处。
 
 _Avoid_: grouping, clustering, cohesion
+
+### Sprawl
+
+_Failure mode._ Skill simply too long：`SKILL.md` 行数太多，独立于这些行是否 stale 或重复。即使一个 skill 全部 live、全部 unique，也可能 sprawl。它伤害 readability（agent 必须 wade through more before act，attention 被过量内容稀释）、maintainability（每多一行都要保持 **relevant**）、并浪费 tokens。Cure 是 **information hierarchy**：将 **reference** 推到 **context pointers** 后面，并按 **branch** 或 sequence split，让每条 path 只携带自己需要的东西。不同于 **sediment**（由 stale accumulation 导致的 length）和 **duplication**（由 repeated meaning 导致的 length）；sprawl 是 length 本身，不管原因是什么。
+
+_Avoid_: bloat, length, size, verbosity
+
+## Steering
+
+塑造 agent runtime behaviour、让它趋向 **Predictability** 的 levers。
 
 ### Branch
 
@@ -134,11 +148,27 @@ Leading word 两次服务 **predictability**。在 body 中，它 anchor **execu
 
 _Avoid_: keyword, term, motif
 
+### Premature Completion
+
+_Failure mode._ 在当前 step 还没有 genuinely done 时结束，因为 agent 的 attention 从 work 滑向 being done。它是 between-steps failure：需要 **steps** 才会发生；没有 steps 的 skill 如果 early quit，不叫 premature completion，而是 unmet demand 下的 thin **legwork**。这是两种力量的 tug-of-war：visible **post-completion steps**（forward pull）和 **completion criterion** 的 clarity（resistance；sharp、checkable bar 能 hold；vague bar 会让位）。Fuzziness 是必要条件：sharp bound 无论后续 steps 有多少都能抵抗拉力，所以从不 rush 的 step 不需要防御。两种 levers 可以 hold 一个会 rush 的 step，但按顺序使用：**先 sharpen the bound**，因为它 local 且 cheap。只有当 criterion irreducibly fuzzy 且你确实观察到 rush 时，才 **hide the later steps**；而隐藏只有跨真实 context boundary 时才有效（user-invoked hand-off 或 subagent dispatch；inline model-invoked call 仍把 later steps 留在 context 中，什么也没清空）。Premature completion 是 thin legwork 的一个 cause，但不同于 thin legwork：即使 step 完整运行，legwork 也可能 thin。
+
+_Avoid_: premature closure, the rush, rushing, shortcutting
+
+## Pruning
+
+保持 skill lean；每个 remedy 都对应一个它 cure 的 failure。
+
 ### Single Source of Truth
 
 每个 meaning 恰好位于一个 authoritative place 的理想状态，这样改变 skill behaviour 时只需改变一处。**Duplication** 是它的 violation。
 
 _Avoid_: home, canonical location
+
+### Duplication
+
+_Failure mode._ 同一个 meaning 拥有不止一个 **single source of truth**。它增加 maintenance（改一处，还必须改其他处）、花费 tokens，并 inflate prominence：重复一个 meaning 会让它在 ladder 上的权重超过真实 rank。它是 **leading word** 的 accidental inverse；leading word 通过重复 token 有意 raise attention，而不是重复 meaning。
+
+_Avoid_: repetition, redundancy
 
 ### Relevance
 
@@ -146,35 +176,15 @@ _Avoid_: home, canonical location
 
 _Avoid_: load-bearing, staleness, freshness
 
-## Failure Modes
-
-### Premature Completion
-
-在当前 step 还没有 genuinely done 时结束，因为 agent 的 attention 从 work 滑向 being done。它是 between-steps failure：需要 **steps** 才会发生；没有 steps 的 skill 如果 early quit，不叫 premature completion，而是 unmet demand 下的 thin **legwork**。这是两种力量的 tug-of-war：visible **post-completion steps**（forward pull）和 **completion criterion** 的 clarity（resistance；sharp、checkable bar 能 hold；vague bar 会让位）。Fuzziness 是必要条件：sharp bound 无论后续 steps 有多少都能抵抗拉力，所以从不 rush 的 step 不需要防御。两种 levers 可以 hold 一个会 rush 的 step，但按顺序使用：**先 sharpen the bound**，因为它 local 且 cheap。只有当 criterion irreducibly fuzzy 且你确实观察到 rush 时，才 **hide the later steps**；而隐藏只有跨真实 context boundary 时才有效（user-invoked hand-off 或 subagent dispatch；inline model-invoked call 仍把 later steps 留在 context 中，什么也没清空）。Premature completion 是 thin legwork 的一个 cause，但不同于 thin legwork：即使 step 完整运行，legwork 也可能 thin。
-
-_Avoid_: premature closure, the rush, rushing, shortcutting
-
-### Duplication
-
-同一个 meaning 拥有不止一个 **single source of truth**。它增加 maintenance（改一处，还必须改其他处）、花费 tokens，并 inflate prominence：重复一个 meaning 会让它在 ladder 上的权重超过真实 rank。它是 **leading word** 的 accidental inverse；leading word 通过重复 token 有意 raise attention，而不是重复 meaning。
-
-_Avoid_: repetition, redundancy
-
 ### Sediment
 
-Skill 中沉积的 old content layers：它们从不被清理，因为 adding feels safe、removing feels risky；于是 stale and irrelevant lines 累积，你必须 core down 才能找到仍然 live 的内容。没有 pruning discipline 的 skill 默认都会这样；这是 **relevance** 的慢性 erosion，不同于 **duplication** 的 repeated meaning。
+_Failure mode._ Skill 中沉积的 old content layers：它们从不被清理，因为 adding feels safe、removing feels risky；于是 stale and irrelevant lines 累积，你必须 core down 才能找到仍然 live 的内容。没有 pruning discipline 的 skill 默认都会这样；这是 **relevance** 的慢性 erosion，不同于 **duplication** 的 repeated meaning。
 
 _Avoid_: accretion, bloat, cruft, rot
 
-### Sprawl
-
-Skill simply too long：`SKILL.md` 行数太多，独立于这些行是否 stale 或重复。即使一个 skill 全部 live、全部 unique，也可能 sprawl。它伤害 readability（agent 必须 wade through more before act，attention 被过量内容稀释）、maintainability（每多一行都要保持 **relevant**）、并浪费 tokens。Cure 是 **information hierarchy**：将 **reference** 推到 **context pointers** 后面，并按 **branch** 或 sequence split，让每条 path 只携带自己需要的东西。不同于 **sediment**（由 stale accumulation 导致的 length）和 **duplication**（由 repeated meaning 导致的 length）；sprawl 是 length 本身，不管原因是什么。
-
-_Avoid_: bloat, length, size, verbosity
-
 ### No-Op
 
-因为 model 默认已经会做而不改变任何行为的 instruction：你付出 load 却告诉 agent 它本来就会做的事。Test：这行相对 default 是否改变 behaviour？一行可以完全 **relevant**，但仍是 no-op。让 **leading word** 免费的 same priors，也会让 no-op 变得 worthless。
+_Failure mode._ 因为 model 默认已经会做而不改变任何行为的 instruction：你付出 load 却告诉 agent 它本来就会做的事。Test：这行相对 default 是否改变 behaviour？一行可以完全 **relevant**，但仍是 no-op。让 **leading word** 免费的 same priors，也会让 no-op 变得 worthless。
 
 Leading word 是一种 *technique*；No-Op 是对某行的 *verdict*，二者可以交叉。太弱的 leading word 无法超过 default，就是 no-op（例如 model 已经 thorough-ish 时写 _be thorough_）；fix 是换一个能通过 verdict 的 stronger word（_relentless_），而不是 different technique。所以 No-Op test（是否改变 default behaviour？）也是评估 leading word 是否配得上重复的方式。这是 model-relative，不是 reader-relative：两个人争论一行是否 no-op，本质是在争论 default，应该通过运行 skill 而不是 debate 来解决。
 
