@@ -34,7 +34,7 @@ npx skills@latest add mattpocock/skills
 
 3. 在你的 agent 中运行 `/setup-matt-pocock-skills`。它会：
    - 询问你想使用哪个 issue tracker（GitHub、Linear 或 local files）
-   - 询问你在 triage tickets 时会应用哪些 labels（`/triage` 会使用 labels）
+   - 询问你在 triage issues 时会应用哪些 labels（`/triage` 会使用 labels）
    - 询问你想把我们创建的 docs 保存在哪里
 
 4. Bam - you're ready to go.
@@ -156,10 +156,10 @@ Software engineering fundamentals 比以往更重要。这些 skills 是我将�
 - **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.zh.md)** — 为 engineering skills 配置当前 repo（issue tracker、triage labels、domain doc layout）。每个 repo 使用其他 engineering skills 前运行一次。
 - **[to-issues](./skills/engineering/to-issues/SKILL.zh.md)** — 使用 vertical slices 将任何 plan、spec 或 PRD 拆成可独立领取的 issues。
 - **[to-prd](./skills/engineering/to-prd/SKILL.zh.md)** — 将当前 conversation 转成 PRD，并发布到 issue tracker。不 interview，只 synthesize 已讨论内容。
-- **[prototype](./skills/engineering/prototype/SKILL.zh.md)** — 构建 throwaway prototype 来厘清 design：可以是针对 state/business-logic questions 的 runnable terminal app，也可以是在同一路由中切换的多个 radically different UI variations。
 
 **Model-invoked**
 
+- **[prototype](./skills/engineering/prototype/SKILL.zh.md)** — 构建 throwaway prototype 来回答 design question：可以是针对 state/logic 的 runnable terminal app，也可以是若干可切换的 UI variations。
 - **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.zh.md)** — 面向 hard bugs 和 performance regressions 的 disciplined diagnosis loop：reproduce → minimise → hypothesise → instrument → fix → regression-test。
 - **[tdd](./skills/engineering/tdd/SKILL.zh.md)** — 使用 red-green-refactor loop 的 Test-driven development。一次一个 vertical slice 构建 feature 或修复 bug。
 - **[domain-modeling](./skills/engineering/domain-modeling/SKILL.zh.md)** — 主动构建和打磨项目的 domain model：对照 glossary challenge terms，用 edge-case scenarios stress-test，并 inline 更新 `CONTEXT.md` 和 ADRs。

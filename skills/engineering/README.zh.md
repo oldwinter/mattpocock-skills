@@ -13,12 +13,12 @@
 - **[setup-matt-pocock-skills](./setup-matt-pocock-skills/SKILL.zh.md)** — 为 engineering skills 配置当前 repo（issue tracker、triage labels、domain doc layout）。每个 repo 运行一次。
 - **[to-issues](./to-issues/SKILL.zh.md)** — 使用 vertical slices 将任意 plan、spec 或 PRD 拆成可独立领取的 issues。
 - **[to-prd](./to-prd/SKILL.zh.md)** — 将当前 conversation 转成 PRD，并发布到 issue tracker。
-- **[prototype](./prototype/SKILL.zh.md)** — 构建 throwaway prototype：针对 state/logic questions 的 runnable terminal app，或多个可切换 UI variations。
 
 ## Model-invoked
 
 Model 或 user 都能触达（使用 rich trigger phrasing，让 model 能主动 reach for them）。
 
+- **[prototype](./prototype/SKILL.zh.md)** — 构建 throwaway prototype 来回答 design question：针对 state/logic 的 runnable terminal app，或多个可切换 UI variations。
 - **[diagnosing-bugs](./diagnosing-bugs/SKILL.zh.md)** — 面向 hard bugs 和 performance regressions 的 disciplined diagnosis loop：reproduce → minimise → hypothesise → instrument → fix → regression-test。
 - **[tdd](./tdd/SKILL.zh.md)** — 使用 red-green-refactor loop 的 Test-driven development。一次一个 vertical slice 构建 feature 或修复 bug。
 - **[domain-modeling](./domain-modeling/SKILL.zh.md)** — 主动构建和打磨项目的 domain model：challenge terms、用 scenarios stress-test，并 inline 更新 `CONTEXT.md` 和 ADRs。

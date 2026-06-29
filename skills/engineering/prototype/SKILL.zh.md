@@ -1,6 +1,6 @@
 ---
 name: prototype
-description: 在 commit 前构建 throwaway prototype 来厘清 design。分成两个 branches：用于 state/business-logic questions 的 runnable terminal app，或同一路由上可切换的几个 radically different UI variations。Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says "prototype this", "let me play with it", "try a few designs".
+description: 构建 throwaway prototype 来回答 design question。当用户想 sanity-check state model 或 logic 是否合理，或探索 UI 应该长什么样时使用。
 ---
 
 # Prototype
