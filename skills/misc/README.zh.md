@@ -1,6 +1,6 @@
 # Misc
 
-我保留着但很少使用的 tools。
+我保留着但很少使用的 tools；不在 plugin 中推广。
 
 - **[git-guardrails-claude-code](./git-guardrails-claude-code/SKILL.zh.md)** — 设置 Claude Code hooks，在执行前阻止 dangerous git commands（push、reset --hard、clean 等）。
 - **[migrate-to-shoehorn](./migrate-to-shoehorn/SKILL.zh.md)** — 将 test files 从 `as` type assertions 迁移到 @total-typescript/shoehorn。

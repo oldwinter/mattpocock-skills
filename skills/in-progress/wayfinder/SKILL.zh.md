@@ -1,0 +1,101 @@
+---
+name: wayfinder
+description: 将超出单个 agent session 容量的大块工作，规划成 issue tracker 上共享的 investigation ticket map，并一次解决一个 ticket，直到通往目标的路径清晰。
+---
+
+一个松散想法出现了；它太大，单个 agent session 装不下，而且被雾包裹：从当前状态到可执行计划的路线还不可见。此 skill 会把它绘制成 repo issue tracker 上的一张**共享 map**，再一次处理一个 ticket。map 与领域无关：engineering work、课程内容，任何符合这种形状的工作都可以。
+
+## Refer by name
+
+每张 map 和每个 ticket 都是 issue，因此都有一个**名称**，也就是标题。在人类会读到的任何地方，例如叙述、map 的 Decisions-so-far，都用名称引用它，绝不要只写裸 id、编号或 slug。一堵 `#42, #43, #44` 读不懂；名称一眼可读。id 和 URL 并不会消失，名称会包裹链接，但它们位于名称内部，不能替代名称。
+
+## The Map
+
+map 是此 repo issue tracker 上一个带 `wayfinder:map` label 的单一 issue，也是 canonical artifact。它的 tickets 是该 map 的 child issues。
+
+map 是一个**索引**，不是存储库。它列出已经做出的 decisions，并指向保存细节的 tickets；一个 decision 只存在于一个地方，也就是它的 ticket。因此 map 绝不重述完整内容，只写 gist 并链接过去。
+
+**map、child tickets、blocking 和 frontier queries 的物理表达方式由 tracker 决定。** 查阅 `docs/agents/issue-tracker.md` 中的 “Wayfinding operations” section，了解此 repo 如何表达它们。如果该文档不存在，默认使用 local-markdown tracker。
+
+### The map body
+
+map 是低分辨率的整体视图，每个 session 加载一次。open tickets **不**列在其中；它们是 open child issues，通过 query 找到。
+
+```markdown
+## Notes
+
+<domain; skills every session should consult; standing preferences for this effort>
+
+## Decisions so far
+
+<!-- the index — one line per closed ticket: enough to judge relevance, then zoom the link for the detail the ticket holds -->
+
+- [<closed ticket title>](link) — <one-line gist of the answer>
+
+## Fog
+
+<!-- see "Fog of war" for what belongs here -->
+```
+
+### Tickets
+
+每个 ticket 都是 map 的 **child issue**；tracker 的 issue id 是它的 identity。ticket body 是一个问题，大小应适合一个 100K token agent session：
+
+```markdown
+## Question
+
+<the decision or investigation this ticket resolves>
+```
+
+每个 ticket 带一个 `wayfinder:<type>` label，取值为 `research`、`prototype`、`grilling`、`task` 之一（见 [Ticket Types](#ticket-types)）。
+
+session 在做任何工作前，先把 ticket assign 给驱动 map 的 dev，以此**认领**它，这样并发 sessions 会跳过它。assignee 就是 claim：open 且 unassigned 的 ticket 才是 unclaimed。
+
+Blocking 使用 tracker 的**原生** dependency relationship；这很重要，因为它能在 tracker UI 中直接可视化 frontier，让人类无需打开 map 就能看到哪些 ticket 可拿。只有缺少原生 blocking 的 tracker 才退回到 body convention。一个 ticket 在阻塞它的所有 tickets 都 closed 后就是 **unblocked**；**frontier** 是 open、unblocked、unclaimed 的 children，也就是已知范围的边缘。
+
+答案不属于 body；它在 resolution 时记录（见 [Work through the map](#work-through-the-map)）。解决 ticket 时创建的 assets 应从 issue 链接，而不是粘贴进去。
+
+## Ticket Types
+
+- **Research**：阅读文档、第三方 APIs 或知识库等本地资源。创建一份 markdown summary 作为 linked asset。当需要当前 working directory 外部的知识时使用。
+- **Prototype**：通过制作廉价、粗糙、具体的 artifact 提高讨论清晰度，例如 outline、rough take、stub，或通过 /prototype skill 生成 UI/logic code。将 prototype 作为 asset 链接。当关键问题是 “how should it look” 或 “how should it behave” 时使用。
+- **Grilling**：与 agent 对话。使用 /grilling 和 /domain-modeling skills。一次问一个问题。默认使用此类型。
+- **Task**：讨论继续前必须完成的字面手工工作；没有 decision、prototype 或 research 要做。例如移动数据、注册服务、provisioning access。agent 能自动化就自动化，否则给人类精确 checklist。完成工作后 resolved；答案记录做了什么，以及后续 tickets 依赖的 facts（credentials location、new URLs、row counts）。
+
+## Fog of war
+
+map **刻意**不完整：不要绘制你还看不见的东西。tickets 之外是 fog，也就是那些你能感觉将会出现、但还无法钉住的 decisions 和 investigations；它们依赖仍未解决的问题。解决一个 ticket 会清除它前方的 fog，把现在已经可描述的内容升级为新的 tickets；一次一个，直到通往目标的路径清晰且没有 tickets 剩余。
+
+map 的 **Fog** section 用来写下这种模糊视图：怀疑会出现的问题、稍后要回访的区域、暂时推迟的风险。视野允许多粗就写多粗；它也是协作者阅读 effort 走向时的路标。
+
+**Fog or ticket?** 判断标准是你现在能否精确陈述问题，而不是你现在能否回答它。
+
+- **Ticket when** 问题已经清晰，即使它被阻塞、暂时不能行动。
+- **Fog when** 你还无法如此清晰地表达它。不要提前把 fog 切成 ticket-sized pieces；它比 ticket 更粗，一个 fog patch 可能在 frontier 抵达后升级成多个 tickets，也可能一个都没有。
+
+Fog 只排除已经决定的内容（那属于 Decisions so far）和已经是 ticket 的内容。
+
+## Invocation
+
+两种模式。无论哪种，**每个 session 绝不要解决超过一个 ticket。**
+
+### Chart the map
+
+用户用一个松散想法调用。
+
+1. 运行 `/grilling` 和 `/domain-modeling` session，显露 open decisions。
+2. **Create the map**（label `wayfinder:map`）：填好 Notes，Decisions-so-far 为空，Fog 画出草图。
+3. **创建现在能明确描述的 tickets** 作为 map 的 child issues；然后在**第二轮**连接 blocking edges（issues 需要 ids 后才能互相引用）。wiring 会把它们分到 frontier 和 blocked；所有还无法明确描述的内容留在 Fog。
+4. 停止；绘制 map 是一个 session 的工作，不要同时解决 tickets。
+
+### Work through the map
+
+用户带着 map（URL 或编号）调用。ticket 是**可选的**；如果没有给 ticket，由你选择下一个 decision，而不是用户选择。
+
+1. 加载 **map**：低分辨率视图，不是每个 ticket body。
+2. 选择 ticket。如果用户点名了一个，就用它。否则按顺序拿第一个 frontier ticket。**Claim it**：在任何工作前 assign 给自己。
+3. 解决它；**按需 zoom**：仅在需要时获取相关或 closed ticket 的完整 body；调用 `## Notes` block 中点名的 skills。不确定时，使用 `/grilling` 和 `/domain-modeling`。
+4. 记录 resolution：将答案作为 **resolution comment** 发布，**close** issue，并向 map 的 Decisions-so-far 追加 context pointer。
+5. 添加新浮现的 tickets（先 create 后 wire）；把答案变得可描述的 fog 升级为 tickets，并从 Fog 中清除每个已升级 patch，使其只存在于新 ticket 中。如果该 decision 使 map 的其他部分失效，更新或删除那些 tickets。
+
+用户可能并行运行 unblocked tickets，因此预期其他 sessions 会同时编辑 tracker。

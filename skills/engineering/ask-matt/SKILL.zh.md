@@ -1,6 +1,6 @@
 ---
 name: ask-matt
-description: 询问哪个 skill 或 flow 适合你的情况。它是这个 repo 中 user-invoked skills 的 router。
+description: 询问哪个 skill 或 flow 适合你的情况。它是这个 repo 中 skills 的 router。
 disable-model-invocation: true
 ---
 
@@ -8,13 +8,13 @@ disable-model-invocation: true
 
 你不需要记住每个 skill，所以 ask。
 
-**Flow** 是一条穿过 skills 的路径。多数路径沿着一个 **main flow** 运行，另有两个 **on-ramps** 汇入它。其余都是 standalone。
+**Flow** 是一条穿过 skills 的路径。多数路径沿着一个 **main flow** 运行，另有两个 **on-ramps** 汇入它。其余要么是 standalone，要么是在下方运行的 vocabulary layer。
 
 ## The main flow: idea → ship
 
 大多数 work 会走这条 route。你有一个 idea，并希望它被 built。
 
-1. **`/grill-with-docs`** — 通过 interview 打磨 idea。当你 **有 codebase** 时从这里开始：它是 stateful 的，会把学到的东西保存在 `CONTEXT.md` 和 ADRs 中。（没有 codebase？使用 `/grill-me` — 见 Standalone。）
+1. **`/grill-with-docs`** — 通过 interview 打磨 idea。当你 **有 codebase** 时从这里开始：它是 stateful 的，会把学到的东西保存在 `CONTEXT.md` 和 ADRs 中。（没有 codebase？使用 `/grill-me` — 见 Standalone。两者运行同一个 `/grilling` primitive；`grill-with-docs` 是会留下 paper trail 的那个。）
 2. **Branch — 能否在 conversation 中解决每个问题？** 如果某个问题需要 runnable answer（state、business logic、必须看到的 UI），就绕行到 prototype，并用 **`/handoff`** 双向桥接（见 Crossing sessions）：
    - **`/handoff`** out，然后基于那个 file 开启 fresh session，
    - **`/prototype`** 用 throwaway code 回答问题，
@@ -22,6 +22,8 @@ disable-model-invocation: true
 3. **Branch — 这是 multi-session build 吗？**
    - **Yes** → **`/to-prd`**（把 thread 转成 PRD）→ **`/to-issues`**（把 PRD 拆成 independently-grabbable issues）。因为 issues 彼此 independent，**每个 issue 之间都清理 context**：每个 issue 开启 fresh session，并把 PRD 和要处理的 single issue 传给 **`/implement`**。
    - **No** → 在同一个 context window 中直接运行 **`/implement`**。
+
+   无论哪种方式，**`/implement`** 都会通过内部驱动 **`/tdd`** 构建每个 Issue，一次一个 red-green slice；随后运行 **`/code-review`**，也就是对 diff 进行 two-axis review（Standards + Spec），最后再 commit。当你只是想 test-first 构建一个具体 behaviour、且不需要完整 spec 时，直接使用 **`/tdd`**；当你想基于 fixed point review branch 或 PR 时，直接使用 **`/code-review`**。
 
 ### Context hygiene
 
@@ -37,11 +39,20 @@ disable-model-invocation: true
 
   Triage 只用于 **不是你创建的** issues：bug reports、incoming feature requests、任何 raw arrival。`/to-issues` 产出的 issues 已经 agent-ready，所以 **不要 triage 它们**。
 
+- **Something's broken** → **`/diagnosing-bugs`**。用于困难问题：第一眼看不出的 bug、intermittent flake、在两个 known-good states 之间出现的 regression。它会拒绝在拥有 **tight feedback loop** 前理论化：必须先有一条已因 *这个* bug 变红的 command，然后带 regression test 修复。当真正发现是没有好 seam 可以锁住 bug 时，它的 post-mortem 会交给 **`/improve-codebase-architecture`**。
+
 ## Codebase health
 
 不是 feature work，而是 upkeep。
 
-- **`/improve-codebase-architecture`** — 有空时运行，保持 codebase 对 agents 友好。它会 surface deepening opportunities；选中其中一个 _generates an idea_，可带到 main flow 的 `/grill-with-docs`。
+- **`/improve-codebase-architecture`** — 有空时运行，保持 codebase 对 agents 友好。它会 surface **deepening opportunities**；选中其中一个 _generates an idea_，可带到 main flow 的 `/grill-with-docs`。它是寻找 candidates 的 survey；下方的 **`/codebase-design`** 是设计已选 candidate 的 bench。
+
+## Vocabulary underneath
+
+两个 model-invoked references 在其他 skills *下方*运行；它们各自是某套 vocabulary 的 single source of truth。当问题出在 **words** 而不是 process 时，可以直接触达它们；也可以让上方 skills 自动拉入它们。
+
+- **`/domain-modeling`** — 打磨项目的 *domain* language：challenge fuzzy term、解决 overloaded word（例如 “account” 同时做三件事）、把 hard-to-reverse decision 记录成 ADR。它是 `/grill-with-docs` 用来保持 `CONTEXT.md` 是干净 glossary 的 active discipline。
+- **`/codebase-design`** — deep-module vocabulary（module、interface、depth、seam、adapter、leverage、locality），用于设计 module 的 *shape*：大量 behaviour 位于小 interface 后、处在 clean seam 上。`/tdd` 和 `/improve-codebase-architecture` 都使用这套语言。
 
 ## Crossing sessions
 
@@ -53,6 +64,8 @@ disable-model-invocation: true
 完全不在 main flow 上。
 
 - **`/grill-me`** — 和 `/grill-with-docs` 一样的 relentless interview，但用于 **没有 codebase** 的场景。Stateless：不会保存本地内容，不会创建 `CONTEXT.md`。用它打磨任何不属于 repo 的 plan 或 design。
+- **`/prototype`** — 一个小型 throwaway program，用来回答一个 design question：state model 是否合理，或 UI 应该长什么样。从第一天起就是 throwaway；保留 answer，删除 code。它是 main flow 第 2 步的 detour，但任何难以在纸面 settle 的 design question 都可以直接触达它。
+- **`/research`** — 将阅读工作委派给 **background agent**：它基于 **primary sources** 调查问题，然后在 repo 中留下带引用的 Markdown file。它阅读时你继续推进。产出的文件可以带入 main flow 的 `/grill-with-docs`；research feeds the thinking, it doesn't replace it。
 - **`/teach`** — 使用当前 directory 作为 stateful workspace，跨多个 sessions 学习一个 concept。
 - **`/writing-great-skills`** — 写好和编辑 skills 的 reference。
 

@@ -29,6 +29,17 @@ GitHub 的 issues 和 PRs 共享同一个 number space，所以裸 `#42` 可能�
 
 创建 GitHub issue。
 
-## When a skill says "fetch the relevant ticket"
+## When a skill says "fetch the relevant Issue"
 
 运行 `gh issue view <number> --comments`。
+
+## Wayfinding operations
+
+由 `/wayfinder` 使用。**map** 是一个单独 issue，**child** issues 表示 map 中的 Issues。
+
+- **Map**：带 `wayfinder:map` label 的单一 issue，body 中保存 Notes / Decisions-so-far / Fog。使用 `gh issue create --label wayfinder:map`。
+- **Child Issue**：作为 GitHub sub-issue 链接到 map（通过 sub-issues endpoint 调用 `gh api`）。若未启用 sub-issues，则把 child 加到 map body 的 task list，并在 child body 顶部写 `Part of #<map>`。Labels：`wayfinder:<type>`（`research`/`prototype`/`grilling`/`task`）。被 claim 后，将 Issue assign 给驱动 map 的 dev。
+- **Blocking**：GitHub 的 **native issue dependencies**，是 canonical 且 UI-visible 的表达。用 `gh api --method POST repos/<owner>/<repo>/issues/<child>/dependencies/blocked_by -F issue_id=<blocker-db-id>` 添加 edge，其中 `<blocker-db-id>` 是 blocker 的 numeric **database id**（`gh api repos/<owner>/<repo>/issues/<n> --jq .id`，不是 `#number` 或 `node_id`）。GitHub 会报告 `issue_dependencies_summary.blocked_by`（仅 open blockers，这是 live gate）。如果 dependencies 不可用，则 fallback 到 child body 顶部的 `Blocked by: #<n>, #<n>` line。所有 blockers closed 后，Issue 即 unblocked。
+- **Frontier query**：列出 map 的 open children（`gh issue list --state open`，scope 到 map 的 sub-issues / task list），去掉有 open blocker 的项（`issue_dependencies_summary.blocked_by > 0`，或 `Blocked by` line 中有 open issue）和已有 assignee 的项；map order 中第一个获胜。
+- **Claim**：`gh issue edit <n> --add-assignee @me`，这是 session 的 first write。
+- **Resolve**：`gh issue comment <n> --body "<answer>"`，然后 `gh issue close <n>`，最后向 map 的 Decisions-so-far 追加 context pointer（gist + link）。
