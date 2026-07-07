@@ -7,6 +7,6 @@ description: Grill the user relentlessly about a plan or design. Use when the us
 
 一次只问一个问题，并在继续前等待该问题的 feedback。一次问多个问题会让人 bewildered。
 
-如果某个问题可以通过探索 codebase 得到答案，就去探索 codebase，而不是问我。
+如果某个 *fact* 可以通过探索 codebase 找到，就去查它，而不是问我。但 *decisions* 属于我：一次把一个 decision 交给我，并等待我的答案。
 
 在我确认我们已经达成 shared understanding 前，不要执行 plan。

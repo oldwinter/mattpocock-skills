@@ -154,6 +154,12 @@ _Failure mode._ 在当前 step 还没有 genuinely done 时结束，因为 agent
 
 _Avoid_: premature closure, the rush, rushing, shortcutting
 
+### Negation
+
+_Failure mode._ 用 prohibition 来 steering，也就是告诉 agent *不要*做什么；这会把被禁止的 behavior 拖进 context，让它变得**更**可用，而不是更不可用。_Don't think of an elephant_ 之后，elephant 就全是它；_never write verbose comments_ 之后，verbosity 反而成为 agent 刚读到的 pattern。Negation 是弱 modifier，会被强激活的 concept 覆盖，所以 ban 会半读成“去做这件事”的 instruction。它的 **leading word** 就是那个 _elephant_：prohibition 放进 frame 的东西。Cure：prompt the **positive**，描述 target behaviour（例如 “write one-line comments”），让被 ban 的东西根本不被说出。只有当某个 behavior 无法正向表述、必须作为 hard guardrail 时，prohibition 才值得保留；即使如此，也要同时配上 positive target，让 attention 落在要做什么上。
+
+_Avoid_: ironic rebound, don't-prompting, the pink elephant
+
 ## Pruning
 
 保持 skill lean；每个 remedy 都对应一个它 cure 的 failure。

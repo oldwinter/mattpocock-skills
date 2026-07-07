@@ -19,17 +19,9 @@ Issue tracker 和 triage label vocabulary 应该已经提供给你；如果没�
 
 如果还没有探索 codebase，就探索它以理解当前 code 状态。Issue titles 和 descriptions 应使用项目的 domain glossary vocabulary，并尊重你触碰区域的 ADRs。
 
-### 3. Draft vertical slices
+### 3. Draft the issues
 
-将 plan 拆成 **tracer bullet** issues。每个 issue 都是一个 thin vertical slice，端到端穿过 ALL integration layers，而不是某一层的 horizontal slice。
-
-Slices 可以是 `HITL` 或 `AFK`。HITL slices 需要 human interaction，例如 architectural decision 或 design review。AFK slices 可以在没有 human interaction 的情况下实现并 merge。尽可能偏向 AFK，而不是 HITL。
-
-<vertical-slice-rules>
-- 每个 slice 都交付一条 narrow but COMPLETE path，穿过每一层（schema、API、UI、tests）
-- 一个 completed slice 可以独立 demo 或 verify
-- 偏好多而薄的 slices，而不是少而厚的 slices
-</vertical-slice-rules>
+将 plan 拆成 **tracer bullet** issues，并遵循 **Vertical slice rules**。**Wide refactor** 是这条规则的例外：改用 **expand-contract** 来切分（见 **Wide refactors**）。
 
 ### 4. Quiz the user
 
@@ -51,9 +43,29 @@ Slices 可以是 `HITL` 或 `AFK`。HITL slices 需要 human interaction，例�
 
 ### 5. Publish the issues to the issue tracker
 
-对每个 approved slice，在 issue tracker 中发布一个新 issue。使用下面的 issue body template。这些 issues 被视为 ready for AFK agents，所以除非另有说明，发布时应用正确 triage label。
+对每个 approved slice，使用 **Issue body template** 在 issue tracker 中发布一个新 issue。这些 issues 被视为 ready for AFK agents，所以除非另有说明，发布时应用正确 triage label。
 
 按 dependency order 发布 issues（blockers first），这样你可以在 “Blocked by” field 中引用真实 issue identifiers。
+
+如果 issue tracker 支持，把每个 slice 作为 native **sub-issue** 链到 parent，并把每个 blocker 作为 native **blocking edge** 连接起来（具体 mechanics 在 issue-tracker doc 中）；否则使用 body 中的 `## Parent` 和 `## Blocked by` sections 作为 fallback。
+
+不要 close 或 modify 任何 parent issue。
+
+## Reference
+
+### Vertical slice rules
+
+每个 issue 都是一个 thin vertical slice，端到端穿过 ALL integration layers，而不是某一层的 horizontal slice。
+
+- 每个 slice 都交付一条 narrow but COMPLETE path，穿过每一层（schema、API、UI、tests）
+- 一个 completed slice 可以独立 demo 或 verify
+- 任何 prefactoring 都应该先完成
+
+### Wide refactors
+
+**Wide refactor** 是一次机械性变更，例如重命名 column 或重新给 shared symbol 定型；它的 **blast radius** 会扩散到整个 codebase，一个编辑会同时打断成千上万个 call sites，没有任何 vertical slice 能单独 green。不要强行把它塞进 tracer bullet；把它排成 **expand-contract**。先 expand：在旧形式旁加入新形式，保证不破坏现状。再按 blast radius 分批迁移 call sites（按 package、directory 等），每批一个 issue，blocked by expand；因为旧形式仍存在，CI 可以在 batch 之间保持 green。最后 contract：在没有 caller 后删除旧形式，这个 issue blocked by 所有 migrate batch。如果连这些 batch 都无法单独保持 green，仍保持这个 sequence，但让它们共享一个 integration branch，并全部阻塞最终 integrate-and-verify issue；只有那里承诺 green。
+
+### Issue body template
 
 <issue-template>
 ## Parent
@@ -64,7 +76,7 @@ Slices 可以是 `HITL` 或 `AFK`。HITL slices 需要 human interaction，例�
 
 这个 vertical slice 的简洁描述。描述 end-to-end behavior，而不是逐层 implementation。
 
-避免 specific file paths 或 code snippets；它们很快会过时。Exception：如果 prototype 产出的 snippet 能比 prose 更精确地编码一个 decision（state machine、reducer、schema、type shape），可以 inline 到这里，并简短注明它来自 prototype。只保留 decision-rich parts；不是 working demo，只是重要部分。
+避免 specific file paths 或 code snippets；它们很快会过时。Exception：如果 `/prototype` skill 产出的 code 能比 prose 更精确地编码一个 decision（state machine、reducer、schema、type shape），请添加一个 context pointer 指向 prototype code 所在位置，而不是把它 inline 进来。
 
 ## Acceptance criteria
 
@@ -79,5 +91,3 @@ Slices 可以是 `HITL` 或 `AFK`。HITL slices 需要 human interaction，例�
 如果没有 blockers，则写 “None - can start immediately”。
 
 </issue-template>
-
-不要 close 或 modify 任何 parent issue。

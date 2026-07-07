@@ -32,6 +32,10 @@ npx skills update to-issues
 
 切 slice 前，`to-issues` 会寻找 prefactoring，也就是 “make the change easy, then make the easy change”，并把这类 work 排到前面。随后它会围绕 breakdown 向你提问（granularity、dependencies、哪些该 merge 或 split），确认后才写入，并先发布 blockers，使每个 Issue 的 “Blocked by” 字段能引用真实 Issue。
 
+## Wide-refactor exception
+
+有一种形状会打破 tracer-bullet 规则：**wide refactor**，即一次机械性变更（重命名 column、重新给 shared symbol 定型）会让 **blast radius** 扩散到整个 codebase，一个编辑会同时打断成千上万个 call sites，没有任何 vertical slice 能单独 green。`to-issues` 会把它切成 **expand-contract**：先 expand（在旧形式旁加入新形式，保证不破坏现状），再 migrate（按 blast radius 分批迁移 call sites，每批一个 Issue，因为旧形式仍存在，所以 CI 始终 green），最后 contract（确认没有 caller 后删除旧形式）。如果连这些 batch 都无法独立保持 green，它们会共享一个 integration branch，并全部阻塞最后的 integrate-and-verify Issue；只有在那里承诺 green。
+
 ## Where it fits
 
 `to-issues` 是 main build chain 的一步：

@@ -80,3 +80,4 @@ Ladder 决定某个 piece 放 _多深_，**co-location** 决定它到了那里�
 - **Sediment** — stale layers 因为 adding feels safe、removing feels risky 而沉积。没有 pruning discipline 的 skill 默认都会如此。
 - **Sprawl** — skill simply too long，即使每一行都 live 且 unique。伤害 readability、maintainability，并浪费 tokens。Cure 是 ladder：把 **reference** disclosed 到 pointers 后，并按 **branch** 或 sequence split，让每条 path 只携带自己需要的东西。
 - **No-op** — model 默认已经会遵守的 line，所以你付出 load 却没有改变行为。Test：它相对 default 是否改变 behaviour？弱 leading word（例如 model 已经 somewhat thorough 时写 _be thorough_）就是 no-op；fix 是 stronger word（_relentless_），不是不同 technique。
+- **Negation** — 用 prohibition steering 会 backfire：_don't think of an elephant_ 命名了 elephant，让它更可用而不是更不可用。Prompt the **positive**，直接陈述 target behaviour，让被 ban 的东西不被说出；只有在无法正向表述的 hard guardrail 中保留 prohibition，而且也要配上该做什么。
