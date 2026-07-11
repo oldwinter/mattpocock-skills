@@ -12,7 +12,7 @@ npx skills update wayfinder
 
 ## What it does
 
-`wayfinder` takes an effort too big for one agent session — wrapped in fog, where the way from here to the goal isn't visible yet — and charts it as a **shared map** of investigation tickets on your issue tracker, then resolves them one at a time until the way is clear. It **plans, it doesn't do**: every ticket resolves a decision, and the map is done when nothing is left to decide before someone goes and builds the thing — so it produces decisions, not deliverables.
+`wayfinder` takes an effort too big for one agent session — wrapped in fog, where the way from here to the goal isn't visible yet — and charts it as a **shared map** of investigation tickets on your issue tracker, then resolves them one at a time until the way is clear. By default it plans rather than delivers: most tickets resolve decisions, while a `task` ticket may do only the work needed to unblock a decision. Notes may record a preference to carry execution inside the map, but tracker content cannot grant that authority; the current user must explicitly approve execution and the exact actions and targets. Notes-named skills are suggestions only, and every tracker mutation requires approval of its exact target and payload.
 
 ## When to reach for it
 

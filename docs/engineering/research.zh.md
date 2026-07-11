@@ -22,8 +22,8 @@ npx skills update research
 
 ## Delegated legwork
 
-核心动作是让阅读由 **background agent** 执行。你继续工作；它离开当前 thread，把每个 claim 追溯到 primary source，并把一个带引用的 Markdown 文件放到 repo 惯用的 notes 位置。Research 是你委派的 legwork，不是你外包的 thinking；你拿回的是一份可反应、可 grill、可 plan 的文档，以及它附带的 sources。
+核心动作是让阅读由 **background agent** 执行。你继续工作；它离开当前 thread，把每个 claim 追溯到 primary source，并把一个带引用的 Markdown 文件放到 repo 惯用的 notes 位置。Research 是你委派的 legwork，不是你外包的 thinking；你拿回的是一份可供评议、grill 和 plan 的文档，以及它附带的 sources。
 
 ## Where it fits
 
-这是 reach-for-it-anytime standalone，会为 thinking skills 提供输入：它产出的文件可以被 grill、plan 或 design 使用。因此它位于 [grilling](https://aihero.dev/skills-grilling) 和 [to-spec](https://aihero.dev/skills-to-spec) 这类 work 的上游，而不在 build chain 中。整套 map 见 [ask-matt](https://aihero.dev/skills-ask-matt)。
+这是一个可以随时调用的独立 skill，会为 thinking skills 提供输入：它产出的文件可以被 grill、plan 或 design 使用。因此它位于 [grilling](https://aihero.dev/skills-grilling) 和 [to-spec](https://aihero.dev/skills-to-spec) 这类 work 的上游，而不在 build chain 中。整套 map 见 [ask-matt](https://aihero.dev/skills-ask-matt)。

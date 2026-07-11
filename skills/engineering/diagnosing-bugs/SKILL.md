@@ -1,9 +1,9 @@
 ---
-name: diagnose
+name: diagnosing-bugs
 description: 面向 hard bugs 和 performance regressions 的 disciplined diagnosis loop。Reproduce → minimise → hypothesise → instrument → fix → regression-test。Use when user says "diagnose this" / "debug this", reports a bug, says something is broken/throwing/failing, or describes a performance regression.
 ---
 
-# Diagnose
+# Diagnosing Bugs
 
 用于 hard bugs 的纪律化流程。只有在明确有理由时才跳过 phases。
 

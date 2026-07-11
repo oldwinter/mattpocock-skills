@@ -41,7 +41,7 @@ npx skills update <name>
 
 ## Prerequisites
 
-可选。只有 skill 需要某些东西已经就位时才包含，否则整个 heading 删除。包括：它会写入的 **workspace**（例如 `grill-with-docs` 写 `CONTEXT.md` 和 ADRs；`teach` 会构建整个目录）、**prior setup**（`triage`/`to-prd`/`to-issues` 需要 `setup-matt-pocock-skills` 配置 issue tracker）、或 **repo-specific tooling**。无状态、到处可跑的 skill 没有 prerequisites。
+可选。只有 skill 需要某些东西已经就位时才包含，否则整个 heading 删除。包括：它会写入的 **workspace**（例如 `grill-with-docs` 写 `CONTEXT.md` 和 ADRs；`teach` 会构建整个目录）、**prior setup**（`triage`/`to-spec`/`to-tickets` 需要 `setup-matt-pocock-skills` 配置 issue tracker）、或 **repo-specific tooling**。无状态、到处可跑的 skill 没有 prerequisites。
 
 ## <free-form middle>
 
@@ -57,7 +57,7 @@ npx skills update <name>
 
 总是存在。用一两句话说明它在系统中的位置：
 
-- **Role.** 说清角色：**chain step**（`grill-with-docs -> to-prd -> to-issues -> implement -> code-review`）、**run-once setup**（`setup-matt-pocock-skills`）、**periodic maintenance**（`improve-codebase-architecture`，“every few days”）、或 **reach-for-it-anytime standalone**（`diagnosing-bugs`、`prototype`、`handoff`）。standalone 的 map 用一句诚实的话即可，远胜过省略。
+- **Role.** 说清角色：**chain step**（`grill-with-docs -> to-spec -> to-tickets -> implement -> code-review`）、**run-once setup**（`setup-matt-pocock-skills`）、**periodic maintenance**（`improve-codebase-architecture`，“every few days”）、或 **reach-for-it-anytime standalone**（`diagnosing-bugs`、`prototype`、`handoff`）。standalone 的 map 用一句诚实的话即可，远胜过省略。
 - **Neighbours.** 一两个重要 sibling，各自带 because clause，并使用绝对链接。
 - **The map.** 指向 [ask-matt](https://aihero.dev/skills-ask-matt)，它是整套系统的 router，这样本页保持为一个节点，不必重画全图。
 

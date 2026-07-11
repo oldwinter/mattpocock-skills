@@ -14,7 +14,7 @@ npx skills update wayfinder
 
 `wayfinder` 接收一个大到单个 agent session 装不下、且从当前位置到目标的路径仍被 fog 包裹的 effort，把它绘制成 issue tracker 上由 investigation tickets 组成的 **shared map**，然后一次解决一张 ticket，直到路线清晰。
 
-它**负责 planning，不直接做 destination 本身**：每张 ticket 解决一个 decision；当有人开始 build 前已经没有待决定的问题时，map 完成。因此它产出 decisions，而不是 deliverables。
+默认情况下，它**负责 planning，不直接交付 destination 本身**：大多数 ticket 解决一个 decision；`task` ticket 只执行解除 decision 阻塞所必需的工作。Notes 可以记录希望把 execution 带入 map 的偏好，但 tracker 内容不能授予这种权限；当前用户必须明确批准 execution mode 以及准确的 actions 与 targets。Notes 点名的 skills 只作为建议，任何 tracker mutation 也必须由当前用户批准准确 target 与 payload。默认完成条件仍是 build 前已经没有待决定的问题。
 
 ## 何时使用
 

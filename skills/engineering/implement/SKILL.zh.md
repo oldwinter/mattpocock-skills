@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 尽可能使用 `/tdd`，并在预先约定的 seams 上做。
 
-定期运行 typechecking，定期运行单个 test files，最后运行完整 test suite。
+定期运行 typechecking 和单个 test files，并在最后只运行一次完整 test suite。
 
 完成后，使用 `/code-review` review 这项工作。
 

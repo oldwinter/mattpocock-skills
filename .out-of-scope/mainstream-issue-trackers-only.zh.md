@@ -4,7 +4,7 @@
 
 ## Why this is out of scope
 
-每个 issue-tracker backend 都会把一种 CLI shape hard-code 到 skills 中（commands、flags、output parsing）。每个新 backend 都是 permanent maintenance surface：它必须随着该 tool 的 CLI evolve 持续可用，也必须持续针对 `/to-prd`、`/to-issues`、`/triage` 和相关 skills 被测试。只有当相当比例的用户真的使用某个 tracker 时，这个成本才值得支付。
+每个 issue-tracker backend 都会把一种 CLI shape hard-code 到 skills 中（commands、flags、output parsing）。每个新 backend 都是 permanent maintenance surface：它必须随着该 tool 的 CLI evolve 持续可用，也必须持续针对 `/to-spec`、`/to-tickets`、`/triage` 和相关 skills 被测试。只有当相当比例的用户真的使用某个 tracker 时，这个成本才值得支付。
 
 “Mainstream” 是 judgment call，不是 numeric bar：
 

@@ -39,7 +39,7 @@ Edges 始终属于 ticket；medium 只决定是否会并行执行。`to-tickets`
 
 水平切片只交付某一层，例如全部 schema 或全部 API；在所有层完成前没有任何行为可用。垂直 tracer bullet 则一次贯穿每一层，因此完成后立即可以 demo。
 
-拆分前，`to-tickets` 会寻找 prefactoring opportunities，也就是 “make the change easy, then make the easy change”，并把这些工作排在前面。发布前，它会与你确认 granularity、blocking edges 以及需要 merge/split 的 tickets；发布时 blockers 优先，使每个 “Blocked by” 能引用真实 ticket。
+拆分前，`to-tickets` 会寻找 prefactoring opportunities，也就是 “make the change easy, then make the easy change”，并把这些工作排在前面。发布前，它会与你确认 granularity、blocking edges 以及需要 merge/split 的 tickets，并展示准确的 tracker target、完整 issue bodies、labels、relationships 和任何 prototype excerpt；payload 有变化时必须重新确认。发布时 blockers 优先，使每个 “Blocked by” 能引用真实 ticket。
 
 ## Wide-refactor 例外
 

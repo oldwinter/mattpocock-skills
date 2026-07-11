@@ -4,7 +4,7 @@ Engineering skills 依赖 per-repo config（issue tracker、triage label vocabul
 
 我们把它们分为 **hard-dependency** 和 **soft-dependency** skills：
 
-- **Hard dependency**（`to-issues`、`to-prd`、`triage`）— 包含明确的一行提示：_"… should have been provided to you — run `/setup-matt-pocock-skills` if not."_ 没有 mapping 时，output 是 wrong，而不只是 fuzzy。
+- **Hard dependency**（`to-tickets`、`to-spec`、`triage`）— 包含明确的一行提示：_"… should have been provided to you — run `/setup-matt-pocock-skills` if not."_ 没有 mapping 时，output 是 wrong，而不只是 fuzzy。
 - **Soft dependency**（`diagnose`、`tdd`、`improve-codebase-architecture`）— 只用 vague prose 提到 “the project's domain glossary” 和 “ADRs in the area you're touching”。如果 docs 不存在，skill 仍可工作；output 只是没那么 sharp。
 
 这个划分让 soft-dependency skills 保持 token-light，并避免把 setup pointer cargo-cult 到不 load-bearing 的地方。

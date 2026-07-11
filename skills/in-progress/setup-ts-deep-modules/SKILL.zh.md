@@ -66,7 +66,7 @@ Layering，也就是哪些 packages 可以依赖哪些 packages，是另一项 c
 
 ### 5. Scaffold the example package
 
-创建并 commit `<packages-root>/example/` 作为 copy-me template：
+创建 `<packages-root>/example/` 作为 copy-me template。不要自动 commit；只有用户明确要求提交时，才展示准确的 staged paths，并在获得明确批准后创建 commit：
 
 - `index.ts`：entry point。Export 一个委托给 internal file 的 function，让 package 明显是 deep，而不是 pass-through。
 - `lib/impl.ts`：位于 **subfolder** 的 internal file，由 `index.ts` import，外部不可访问。
@@ -90,7 +90,7 @@ Layering，也就是哪些 packages 可以依赖哪些 packages，是另一项 c
 
 在 packages folder 内写 `<packages-root>/README.md`，与受约束 packages 放在一起。内容包括：`src/packages/<name>/` layout、root entry points、`lib/` implementation、`tests/` tests、只能通过 package root entry points import，以及如何运行 `lint:boundaries`。必须明确**不鼓励 barrel files**，应暴露多个 small entry points，而不是通过单一 index re-export 整棵 subtree。保持简洁：copy-me snippet 加四条 rules，每条一段。
 
-然后从 repo 的 agent-instructions file 添加一个 **context pointer**：优先 `CLAUDE.md`，否则 `AGENTS.md`；两者都没有时创建 `AGENTS.md`。一行即可，例如：`Packages are deep modules; read src/packages/README.md before adding or importing one.` 这样 agent 才会在触发 boundary rule 前发现约定。
+然后从 repo 的 agent-instructions file 添加一个 **context pointer**：优先 `CLAUDE.md`，否则 `AGENTS.md`；两者都没有时创建 `AGENTS.md`。一行即可，例如：`Packages are deep modules — see [src/packages/README.md](./src/packages/README.md) before adding or importing one.` 这样 agent 才会在触发 boundary rule 前发现约定。
 
 **Done when：** `<packages-root>/README.md` 存在并反对 barrels，且 repo 的 `CLAUDE.md` / `AGENTS.md` 链接到它。
 

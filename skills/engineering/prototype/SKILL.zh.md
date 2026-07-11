@@ -23,4 +23,4 @@ Prototype 是**用来回答问题的 throwaway code**。问题决定形状。
 3. **No persistence by default.** State 保存在 memory。Persistence 是 prototype 要 checking 的东西，而不是 prototype 应依赖的东西。如果问题明确涉及 database，就使用 scratch DB 或带清晰 “PROTOTYPE — wipe me” 名称的 local file。
 4. **Skip the polish.** 没有 tests，没有超出 runnable 所需的 error handling，没有 abstractions。重点是快速 learn。
 5. **Surface the state.** 每次 action 后（logic）或每次 variant switch 时（UI），print 或 render 完整相关 state，让用户看到发生了什么变化。
-6. **Capture it when done.** 把 validated decision fold 进 real code，然后把 prototype 本身作为 **primary source** 保存：提交到 main 之外的 throwaway branch，并在 implementation issue 中留下指向该 branch 的 context pointer。还要在 issue 或 commit 中记录 answer，也就是 verdict 以及它解决的 question。Main branch 只保留 validated decision。
+6. **Capture it when done.** 把 validated decision fold 进 real code。Prototype 本身可以作为 **primary source** 保存到 main 之外的 throwaway branch，并在 implementation issue 中留下 context pointer，但这些都不是自动动作。创建 branch、commit、push、修改 issue 前，分别展示准确的 action 与 target，并取得用户明确批准；未获批准时，把 prototype 留在 working tree，报告路径和验证结论即可。还要在获准的 issue 或 commit 中记录 answer，也就是 verdict 以及它解决的 question。Main branch 只保留 validated decision。
