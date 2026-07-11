@@ -1,30 +1,30 @@
 # Issue tracker: Local Markdown
 
-Issues and specs (you may know a spec as a PRD) for this repo live as markdown files in `.scratch/`.
+此 repo 的 Issues 和 specs（你也可能把 spec 称为 PRD）作为 markdown files 存放在 `.scratch/` 中。
 
 ## Conventions
 
-- One feature per directory: `.scratch/<feature-slug>/`
-- The spec is `.scratch/<feature-slug>/spec.md`
-- Implementation issues are one file per ticket at `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01` — never a single combined tickets file
-- Triage state is recorded as a `Status:` line near the top of each issue file (see `triage-labels.md` for the role strings)
-- Comments and conversation history append to the bottom of the file under a `## Comments` heading
+- 每个 feature 一个 directory：`.scratch/<feature-slug>/`
+- Spec 是 `.scratch/<feature-slug>/spec.md`
+- Implementation issues 每个 ticket 使用一个独立文件：`.scratch/<feature-slug>/issues/<NN>-<slug>.md`，从 `01` 开始编号；绝不要合并成单个 tickets file
+- Triage state 记录为每个 issue file 顶部附近的 `Status:` line（role strings 见 `triage-labels.md`）
+- Comments 和 conversation history append 到 file 底部的 `## Comments` heading 下
 
 ## When a skill says "publish to the issue tracker"
 
-Create a new file under `.scratch/<feature-slug>/` (creating the directory if needed).
+在 `.scratch/<feature-slug>/` 下创建新 file（按需创建 directory）。
 
-## When a skill says "fetch the relevant ticket"
+## When a skill says "fetch the relevant Issue"
 
-Read the file at the referenced path. The user will normally pass the path or the issue number directly.
+读取 referenced path 处的 file。用户通常会直接传入 path 或 issue number。
 
 ## Wayfinding operations
 
-Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
+由 `/wayfinder` 使用。**map** 是一个 file，每个 **child** file 表示一个 Issue。
 
-- **Map**: `.scratch/<effort>/map.md` — the Notes / Decisions-so-far / Fog body.
-- **Child ticket**: `.scratch/<effort>/issues/NN-<slug>.md`, numbered from `01`, with the question in the body. A `Type:` line records the ticket type (`research`/`prototype`/`grilling`/`task`); a `Status:` line records `claimed`/`resolved`.
-- **Blocking**: a `Blocked by: NN, NN` line near the top. A ticket is unblocked when every file it lists is `resolved`.
-- **Frontier**: scan `.scratch/<effort>/issues/` for files that are open, unblocked, and unclaimed; first by number wins.
-- **Claim**: set `Status: claimed` and save before any work.
-- **Resolve**: append the answer under an `## Answer` heading, set `Status: resolved`, then append a context pointer (gist + link) to the map's Decisions-so-far in `map.md`.
+- **Map**：`.scratch/<effort>/map.md`，body 中保存 Notes / Decisions-so-far / Fog。
+- **Child Issue**：`.scratch/<effort>/issues/NN-<slug>.md`，从 `01` 开始编号，body 中保存 question。`Type:` line 记录 Issue type（`research`/`prototype`/`grilling`/`task`）；`Status:` line 记录 `claimed`/`resolved`。
+- **Blocking**：文件顶部附近的 `Blocked by: NN, NN` line。它列出的每个文件都 `resolved` 后，Issue 即 unblocked。
+- **Frontier**：扫描 `.scratch/<effort>/issues/`，寻找 open、unblocked、unclaimed 的 files；number 最小者获胜。
+- **Claim**：任何工作前，先将 `Status:` 设置为 `claimed` 并保存。
+- **Resolve**：把 answer append 到 `## Answer` heading 下，把 `Status:` 设置为 `resolved`，然后向 `map.md` 中的 Decisions-so-far 追加 context pointer（gist + link）。

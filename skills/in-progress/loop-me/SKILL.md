@@ -5,28 +5,28 @@ disable-model-invocation: true
 argument-hint: "A workflow to design, or nothing to go find one"
 ---
 
-Run a stateful `/grilling` session whose only output is **workflow** specs. Use the grilling discipline — relentless, one question at a time, a recommended answer attached to each — aimed at the vocabulary and goal below. Create, edit, and delete specs as the grilling resolves things.
+运行一个 stateful `/grilling` session，唯一输出是 **workflow** specs。使用 grilling discipline：relentless、一次一个问题、每个问题都附 recommended answer；问题围绕下方 vocabulary 和 goal。随着 grilling 逐步 resolve，create、edit、delete specs。
 
 ## The loop lens
 
-A **loop** is a recurring pattern in the user's life: their career, their week, their morning, a single repeated activity. Picturing a life as loops within loops reveals how predictable its activities really are — which is what makes them worth **delegating**. Use the lens to find loops worth specifying, and propose ones the user hasn't noticed.
+**Loop** 是用户生活中的 recurring pattern：career、week、morning，或一个 repeated activity。把人生看成 loops within loops，会显露这些 activities 有多 predictable；正因为 predictable，它们才值得 **delegating**。用这个 lens 找到值得 specify 的 loops，并提出用户还没注意到的 loops。
 
-A **workflow** is the spec of one loop, made real. You run a workflow on a loop — the loop is its running instantiation. Workflows live in `workflows/*.md` and are the source of truth.
+**Workflow** 是一个 loop 的 spec，是把 loop 变成真实可运行的东西。你在 loop 上运行 workflow；loop 是 workflow 的 running instantiation。Workflows 位于 `workflows/*.md`，是 source of truth。
 
 ## Vocabulary
 
-A shared language, reached for only when a workflow calls for it — never a checklist. **Mandate nothing structural**: a workflow needs no AI, no checkpoint, and no schedule unless the grilling shows it does.
+Shared language 只在 workflow 需要时使用，不要把它变成 checklist。**不要强制任何 structure**：除非 grilling 显示需要，否则 workflow 不需要 AI、不需要 checkpoint，也不需要 schedule。
 
-- **Trigger** — what fires each run: an **event** (a new email, a new issue) or a **schedule** (every morning). Event-triggering is usually the more efficient.
-- **Checkpoint** — a human-in-the-loop point where the user is asked to verify or decide. Some workflows have none and run autonomously; some use no AI at all.
-- **Push right** — defer the checkpoint as far as it will go. Do maximal work before involving the human, so they are asked once, late, with everything prepared.
-- **Brief** — what a checkpoint presents: a tight, decision-ready summary — what was produced, why, and a link down to the asset itself — never the raw output. The user reads a brief, not a draft. Speed of review is imperative.
+- **Trigger** — 每次 run 如何触发：一个 **event**（new email、new issue）或一个 **schedule**（every morning）。Event-triggering 通常更 efficient。
+- **Checkpoint** — human-in-the-loop 点，在这里询问用户 verify 或 decide。有些 workflows 没有 checkpoint，可以 autonomously run；有些完全不用 AI。
+- **Push right** — 尽可能推迟 checkpoint。在 involve human 前完成最大量工作，让他们 late、once、with everything prepared 地被询问。
+- **Brief** — checkpoint 展示的内容：tight、decision-ready summary，说明 produced 了什么、为什么，并 link 到 asset itself；绝不是 raw output。用户读 brief，不读 draft。Review speed is imperative。
 
 ## Definition of done
 
-A workflow spec is done when an implementer agent could build it without asking a single question. Grill until then; nothing is done while a question remains.
+当 implementer agent 可以不问任何问题就 build workflow spec 时，spec 才算 done。在此之前继续 grill；只要还有问题，就没有 done。
 
 ## The workspace
 
-- `workflows/*.md` — one spec per workflow.
-- `NOTES.md` — raw notes on the user's world: the tools they use, the channels they process, and their own terminology for both. When it is empty or thin, interview them about their world before specifying anything. Sharpen fuzzy terms into canonical ones as they surface, and record them here.
+- `workflows/*.md` — 每个 workflow 一个 spec。
+- `NOTES.md` — 关于用户世界的 raw notes：他们使用的 tools、处理的 channels，以及他们自己的 terminology。为空或很 thin 时，先 interview 他们的 world，再 specify 任何东西。Fuzzy terms 出现时，将其 sharpen 成 canonical ones，并记录在这里。

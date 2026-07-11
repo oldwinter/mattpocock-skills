@@ -1,6 +1,7 @@
 ---
 name: wayfinder
 description: 将超出单个 agent session 容量的大块工作，规划成 issue tracker 上共享的 investigation ticket map，并一次解决一个 ticket，直到通往 destination 的路径清晰。
+disable-model-invocation: true
 ---
 
 一个松散想法出现了；它太大，单个 agent session 装不下，而且被雾包裹：从当前状态到 **destination** 的路径还不可见。Wayfinding 是找到这条路，而不是直接冲向 destination。此 skill 会把路径绘制成 repo issue tracker 上的一张**共享 map**，再一次处理一个 ticket，直到路线清晰。
@@ -21,7 +22,7 @@ map 是此 repo issue tracker 上一个带 `wayfinder:map` label 的单一 issue
 
 map 是一个**索引**，不是存储库。它列出已经做出的 decisions，并指向保存细节的 tickets；一个 decision 只存在于一个地方，也就是它的 ticket。因此 map 绝不重述完整内容，只写 gist 并链接过去。
 
-**map、child tickets、blocking 和 frontier queries 的物理表达方式由 tracker 决定。** 查阅 `docs/agents/issue-tracker.md` 中的 “Wayfinding operations” section，了解此 repo 如何表达它们。如果该文档不存在，默认使用 local-markdown tracker。
+**map、child tickets、blocking 和 frontier queries 的物理表达方式由 tracker 决定。** Issue tracker 应该已经提供；如果没有，运行 `/setup-matt-pocock-skills`。查阅 tracker doc 的 “Wayfinding operations” section，了解此 repo 如何表达它们。如果没有提供 tracker，默认使用 local-markdown tracker。
 
 ### The map body
 

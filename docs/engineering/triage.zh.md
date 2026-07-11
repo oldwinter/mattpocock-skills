@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add mattpocock/skills --skill=triage
+npx skills add oldwinter/mattpocock-skills --skill=triage
 ```
 
 ```bash
 npx skills update triage
 ```
 
-[Source](https://github.com/mattpocock/skills/tree/main/skills/engineering/triage)
+[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/triage)
 
 ## What it does
 
@@ -20,7 +20,7 @@ npx skills update triage
 
 你通过输入 `/triage` 并用自然语言描述目标来调用它，agent 不会自行触达它。例如 “Show me anything that needs my attention”、 “let's look at #42”、 “move #42 to ready-for-agent”。
 
-当 Issue tracker 中有 raw、unevaluated reports，需要被 sorted、verified，并转成 agent 或 human 可接手的 work 时使用它。若要把 settled conversation 转成全新 spec，使用 [to-prd](https://aihero.dev/skills-to-prd)；若要把 existing PRD 拆成 Issues，使用 [to-issues](https://aihero.dev/skills-to-issues)。`triage` 是反方向：处理已经落入 tracker 的内容。
+当 Issue tracker 中有 raw、unevaluated reports，需要被 sorted、verified，并转成 agent 或 human 可接手的 work 时使用它。若要把 settled conversation 转成全新 spec，使用 [to-spec](https://aihero.dev/skills-to-spec)；若要把 existing spec 拆成 Issues，使用 [to-tickets](https://aihero.dev/skills-to-tickets)。`triage` 是反方向：处理已经落入 tracker 的内容。
 
 ## Prerequisites
 
@@ -43,4 +43,4 @@ npx skills update triage
 
 ## Where it fits
 
-`triage` 是 Issue tracker 的 **periodic maintenance** pass：当 reports 积压时运行它，保持 queue 已排序，`ready-for-agent` column 可信。它位于 tracker 前端、build chain 上游：它写下的 briefs 是 [tdd](https://aihero.dev/skills-tdd) 后续实现的输入。当 request 需要 sharpen 时，它依赖 [grilling](https://aihero.dev/skills-grilling) 和 [domain-modeling](https://aihero.dev/skills-domain-modeling)，一次一个问题地 grill 成形。它的近邻是 [to-prd](https://aihero.dev/skills-to-prd)，后者从 fresh conversation 填充 tracker，而 `triage` 处理已经在里面的内容。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。
+`triage` 是 Issue tracker 的 **periodic maintenance** pass：当 reports 积压时运行它，保持 queue 已排序，`ready-for-agent` column 可信。它位于 tracker 前端、build chain 上游：它写下的 briefs 是 [tdd](https://aihero.dev/skills-tdd) 后续实现的输入。当 request 需要 sharpen 时，它依赖 [grilling](https://aihero.dev/skills-grilling) 和 [domain-modeling](https://aihero.dev/skills-domain-modeling)，一次一个问题地 grill 成形。它的近邻是 [to-spec](https://aihero.dev/skills-to-spec)，后者从 fresh conversation 填充 tracker，而 `triage` 处理已经在里面的内容。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。

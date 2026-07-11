@@ -11,7 +11,7 @@ disable-model-invocation: true
 
 在 summary 中包含 “suggested skills” section，建议该 agent 应调用哪些 skills。
 
-不要重复已经记录在其他 artifacts（PRDs、plans、ADRs、issues、commits、diffs）中的内容。改为通过 path 或 URL 引用它们。
+不要重复已经记录在其他 artifacts（specs、plans、ADRs、issues、commits、diffs）中的内容。改为通过 path 或 URL 引用它们。
 
 删去敏感信息，例如 API keys、passwords 或 personally identifiable information；该 summary 会成为 agent 的 prompt。
 

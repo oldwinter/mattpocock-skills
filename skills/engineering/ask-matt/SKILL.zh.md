@@ -20,16 +20,16 @@ disable-model-invocation: true
    - **`/prototype`** 用 throwaway code 回答问题，
    - **`/handoff`** back 你学到的东西，并在原 idea thread 中 reference 它。
 3. **Branch — 这是 multi-session build 吗？**
-   - **Yes** → **`/to-prd`**（把 thread 转成 PRD）→ **`/to-issues`**（把 PRD 拆成 independently-grabbable issues）。因为 issues 彼此 independent，**每个 issue 之间都清理 context**：每个 issue 开启 fresh session，并把 PRD 和要处理的 single issue 传给 **`/implement`**。
+   - **Yes** → **`/to-spec`**（把 thread 转成 spec），然后用 **`/to-tickets`** 将它拆成 tracer-bullet tickets，每个 ticket 都明确自己的 **blocking edges**。使用 local tracker 时，每个 ticket 是 `.scratch/<feature>/issues/` 下的一个文件，按 blocker-first 顺序手动处理；使用真实 tracker 时，edges 会变成原生 blocking links，因此 blockers 已完成的 ticket 都可以被领取。每个 ticket 都单独启动 **`/implement`**，并且 **在 tickets 之间清理 context**。
    - **No** → 在同一个 context window 中直接运行 **`/implement`**。
 
    无论哪种方式，**`/implement`** 都会通过内部驱动 **`/tdd`** 构建每个 Issue，一次一个 red-green slice；随后运行 **`/code-review`**，也就是对 diff 进行 two-axis review（Standards + Spec），最后再 commit。当你只是想 test-first 构建一个具体 behaviour、且不需要完整 spec 时，直接使用 **`/tdd`**；当你想基于 fixed point review branch 或 PR 时，直接使用 **`/code-review`**。
 
 ### Context hygiene
 
-让 steps 1–3 保持在 **一个不间断的 context window** 中；在 `/to-issues` 之前不要 compact 或 clear，这样 grilling、PRD 和 issues 都能基于同一套 thinking。随后每个 `/implement` 都 fresh start，只从 issue 出发。
+让 steps 1–3 保持在 **一个不间断的 context window** 中；在 `/to-tickets` 之前不要 compact 或 clear，这样 grilling、spec 和 tickets 都能基于同一套 thinking。随后每个 `/implement` 都 fresh start，只从 ticket 出发。
 
-限制是 **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**：在其中 model 仍然 sharp reasoning 的 window（state-of-the-art models 大约 120k tokens）。如果 session 在 `/to-issues` 前接近这个区间，不要在 degraded 状态硬撑；用 `/handoff` 并在 fresh thread 中继续。
+限制是 **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**：在其中 model 仍然 sharp reasoning 的 window（state-of-the-art models 大约 120k tokens）。如果 session 在 `/to-tickets` 前接近这个区间，不要在 degraded 状态硬撑；用 `/handoff` 并在 fresh thread 中继续。
 
 ## On-ramps
 
@@ -37,9 +37,11 @@ disable-model-invocation: true
 
 - **Bugs and requests piling up** → **`/triage`**。它会让 issues 走过 triage roles，并产出 agent-ready issues，之后由 **`/implement`** 接手。
 
-  Triage 只用于 **不是你创建的** issues：bug reports、incoming feature requests、任何 raw arrival。`/to-issues` 产出的 issues 已经 agent-ready，所以 **不要 triage 它们**。
+  Triage 只用于 **不是你创建的** issues：bug reports、incoming feature requests、任何 raw arrival。`/to-tickets` 产出的 tickets 已经 agent-ready，所以 **不要 triage 它们**。
 
 - **Something's broken** → **`/diagnosing-bugs`**。用于困难问题：第一眼看不出的 bug、intermittent flake、在两个 known-good states 之间出现的 regression。它会拒绝在拥有 **tight feedback loop** 前理论化：必须先有一条已因 *这个* bug 变红的 command，然后带 regression test 修复。当真正发现是没有好 seam 可以锁住 bug 时，它的 post-mortem 会交给 **`/improve-codebase-architecture`**。
+
+- **一个巨大而模糊的 effort，例如 greenfield project 或超大 feature build，大到单个 session 装不下** → **`/wayfinder`**。当从当前位置到 destination 的路径还不可见时，它会在 issue tracker 上绘制一张由 investigation tickets 组成的 **shared map**，一次解决一个 ticket；产出的是 **decisions，而不是 deliverables**，直到雾被推开、路线变清晰。之后回到 main flow 的 **`/to-spec`**；如果 effort 最终足够小，也可以直接进入 **`/implement`**。`/grill-with-docs` 用来打磨一个 session 能容纳的 idea，wayfinder 用于容纳不了的 idea。
 
 ## Codebase health
 
@@ -64,7 +66,7 @@ disable-model-invocation: true
 完全不在 main flow 上。
 
 - **`/grill-me`** — 和 `/grill-with-docs` 一样的 relentless interview，但用于 **没有 codebase** 的场景。Stateless：不会保存本地内容，不会创建 `CONTEXT.md`。用它打磨任何不属于 repo 的 plan 或 design。
-- **`/prototype`** — 一个小型 throwaway program，用来回答一个 design question：state model 是否合理，或 UI 应该长什么样。从第一天起就是 throwaway；保留 answer，删除 code。它是 main flow 第 2 步的 detour，但任何难以在纸面 settle 的 design question 都可以直接触达它。
+- **`/prototype`** — 一个小型 throwaway program，用来回答一个 design question：state model 是否合理，或 UI 应该长什么样。从第一天起就是 throwaway；把 validated decision 吸收到真实 code，再把 prototype 作为 primary source 提交到 main 之外的 throwaway branch。它是 main flow 第 2 步的 detour，但任何难以在纸面 settle 的 design question 都可以直接触达它。
 - **`/research`** — 将阅读工作委派给 **background agent**：它基于 **primary sources** 调查问题，然后在 repo 中留下带引用的 Markdown file。它阅读时你继续推进。产出的文件可以带入 main flow 的 `/grill-with-docs`；research feeds the thinking, it doesn't replace it。
 - **`/teach`** — 使用当前 directory 作为 stateful workspace，跨多个 sessions 学习一个 concept。
 - **`/writing-great-skills`** — 写好和编辑 skills 的 reference。

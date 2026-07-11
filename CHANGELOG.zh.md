@@ -1,5 +1,14 @@
 # mattpocock-skills
 
+## 未发布（同步上游 `391a270`）
+
+- 将 `to-prd` 重命名为 `to-spec`，并把 spec 作为当前 conversation 的综合产物。
+- 用 `to-tickets` 取代 `to-issues`：每张 ticket 都是 tracer-bullet vertical slice，并明确 blocking edges；local tracker 改为每张 ticket 一个文件。
+- 将 `wayfinder` 晋升为可安装的 user-invoked engineering skill，用 shared investigation map 规划单个 session 装不下的 effort。
+- 简化 `setup-matt-pocock-skills`：优先给 recommended answer，未安装 `triage` 时跳过 labels，非 monorepo 默认 single-context。
+- Prototype 完成后把 validated decision 吸收到 main，并把完整 prototype 作为 primary source 保存在 throwaway branch。
+- 新增 draft `setup-ts-deep-modules`，用于 TypeScript package 的 deep-module 结构设置。
+
 ## 1.0.1
 
 ### Patch Changes

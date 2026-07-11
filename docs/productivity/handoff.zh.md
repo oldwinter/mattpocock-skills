@@ -1,36 +1,32 @@
-Quickstart:
+快速开始：
 
 ```bash
-npx skills add mattpocock/skills --skill=handoff
+npx skills add oldwinter/mattpocock-skills --skill=handoff
 ```
 
 ```bash
 npx skills update handoff
 ```
 
-[Source](https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff)
+[源码](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/productivity/handoff)
 
-## What it does
+## 功能
 
-`handoff` 会把当前 conversation compact 成一份 **handoff document**，让 fresh agent 能读它并从你停下的地方继续。
+`handoff` 把当前 conversation 压缩成一份 handoff document，让 fresh agent 可以从中断处继续。
 
-它 **不会**重述已经存在于别处的内容。任何已捕获在 PRD、plan、ADR、Issue、commit 或 diff 中的内容，都只用 path 或 URL 引用，不复制。Document 只携带 live thread：你正在做什么、为什么做、下一步是什么。它保存到 OS temp directory，而不是 workspace，因此不会变成另一个需要维护的 artifact。
+它不会重复其他 artifacts 已保存的内容。Spec、plan、ADR、issue、commit 或 diff 只通过 path/URL 引用，不复制正文。Document 只携带 live thread：正在做什么、为什么、下一步是什么；它保存在 OS temporary directory，而不是 workspace。
 
-## When to reach for it
+## 何时使用
 
-你通过输入 `/handoff` 调用它，agent 不会自行触达它。传入下一 session 的目的说明，document 会据此定制。
+这是 user-invoked skill。当 conversation 变长、context 接近风险区，或需要从主 thread 分支到 prototype/research session 后再返回时使用。可传入 argument 描述下一 session 的 focus。
 
-当 conversation 足够长、context 有风险时使用它：接近 context limit、一天结束要收尾，或有意把 work 交给另一个 agent，并且你想保留 thread，而不是拖着整段 transcript 走。
+## Document 内容
 
-## What the document carries
+- **Live thread**：当前进行中的工作与原因，排除其他 artifacts 已记录的 settled detail。
+- **Suggested skills**：下一 agent 应调用的 skills。
+- **References, not copies**：指向 specs、plans、ADRs、issues、commits 和 diffs 的链接或路径。
+- **Redacted secrets**：写入前移除 API keys、passwords 和 PII。
 
-- **The live thread**：当前 in flight 的事情和原因，使用 conversation 自己的 terms，去掉已经写在别处的细节。
-- **Suggested skills**：下一 agent 应触达哪些 skills 的 pointer。
-- **References, not copies**：指向 PRDs、plans、ADRs、Issues 和 diffs 的 links 与 paths，它们持有 settled detail。
-- **Redacted secrets**：API keys、passwords 和 PII 会在写入前移除。
+## 所处流程
 
-要记住的概念是 **compaction**：handoff 是 conversation 被压缩到可恢复核心，fresh agent 继承的是 momentum，而不是 noise。
-
-## Where it fits
-
-`handoff` 是 reach-for-it-anytime standalone，位于两个 sessions 的 seam 上，而不是 build chain 内部。它自然搭配那些会产出 artifacts 的 skills，因为 handoff 会指向它们的输出：[to-prd](https://aihero.dev/skills-to-prd) 是典型例子，finished PRD 正是 handoff 应引用而不是重复的 settled detail。无法确定当下该用哪个 skill 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。
+`handoff` 位于两个 sessions 的 seam，不属于固定 build chain。它特别适合引用 [to-spec](https://aihero.dev/skills-to-spec) 产出的 settled spec，而不是把 spec 内容重新复制一遍。

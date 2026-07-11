@@ -36,7 +36,7 @@
 
 选择最适合正在被问的问题的 shape，*不是*最容易 wire 到 TUI 的 shape。保持 pure：无 I/O、无 terminal code、无用于 control flow 的 `console.log`。TUI imports it and calls into it；不要反向流动。
 
-这会让 prototype 在自身生命周期之后仍然有用。当 question 被回答后，validated reducer / machine / function set 可以 lift 到 real module；TUI shell 被删除。
+这会让 prototype 在自身生命周期之后仍然有用：当 question 被回答后，validated reducer / machine / function set 可以独立 lift 到 real module。
 
 ### 4. Build the smallest TUI that exposes the state
 
@@ -66,9 +66,9 @@ Behaviour：
 
 给用户 run command。他们会自己 drive；有意思的时刻通常是他们说 “wait, that shouldn't be possible” 或 “huh, I assumed X would be different”。这些是 _idea_ 里的 bugs，也正是 prototype 的意义。如果他们想加 new actions，就添加。Prototypes evolve。
 
-### 7. Capture the answer
+### 7. Capture the answer and the prototype
 
-当 prototype 完成职责，question 的 answer 是唯一值得保留的东西。如果用户在线，询问它教会了他们什么。如果不在线，在 prototype 旁边留下 `NOTES.md`，让 answer 能在 prototype 被删除前填入（或由你在看过 session 后填入）。
+Prototype 回答 question 后，先记录 answer，再按 [SKILL](SKILL.md) 中的方式保存 prototype。Logic branch 的映射是：validated reducer / machine / function set 被 lift 到 real module，成为吸收进 production 的 decision；TUI shell 则随完整 prototype 一起进入保存 primary source 的 throwaway branch。
 
 ## Anti-patterns
 

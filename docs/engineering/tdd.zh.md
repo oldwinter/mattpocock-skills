@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add mattpocock/skills --skill=tdd
+npx skills add oldwinter/mattpocock-skills --skill=tdd
 ```
 
 ```bash
 npx skills update tdd
 ```
 
-[Source](https://github.com/mattpocock/skills/tree/main/skills/engineering/tdd)
+[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/tdd)
 
 ## What it does
 
@@ -20,7 +20,7 @@ npx skills update tdd
 
 输入 `/tdd`，或当任务匹配时 agent 自动触达：test-first 构建 feature、修 bug，或你说 “red-green-refactor”。
 
-当有具体 behaviour 要 build，且你希望 tests 能经受 refactor 时使用它。如果 behaviour 尚未 pinned down，先 settle spec，使用 [to-prd](https://aihero.dev/skills-to-prd)。当工作真正关注的是 interface shape 而不是 tests，使用 [codebase-design](https://aihero.dev/skills-codebase-design)；`tdd` 在 planning 中会调用它获取 deep-module vocabulary。
+当有具体 behaviour 要 build，且你希望 tests 能经受 refactor 时使用它。如果 behaviour 尚未 pinned down，先 settle spec，使用 [to-spec](https://aihero.dev/skills-to-spec)。当工作真正关注的是 interface shape 而不是 tests，使用 [codebase-design](https://aihero.dev/skills-codebase-design)；`tdd` 在 planning 中会调用它获取 deep-module vocabulary。
 
 ## Red-green, one slice at a time
 
@@ -41,7 +41,7 @@ Refactoring 只在 suite green 后发生；red 时绝不 refactor。
 `tdd` 是 main build chain 用来写 code 的 red-green loop：
 
 ```txt
-grill-with-docs -> to-prd -> to-issues -> implement -> code-review
+grill-with-docs -> to-spec -> to-tickets -> implement -> code-review
 ```
 
 [implement](https://aihero.dev/skills-implement) 是 chain 的 build step，它内部驱动 `tdd` test-first 构建每个 Issue，再交给 [code-review](https://aihero.dev/skills-code-review)，所以 `tdd` 是该 step 的 engine，而不是独立 chain step。你也可以在有具体 behaviour 但没有完整 spec 时直接触达它。另一个邻居是 [codebase-design](https://aihero.dev/skills-codebase-design)，`tdd` 依赖它找到值得测试的 deep-module seams。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。

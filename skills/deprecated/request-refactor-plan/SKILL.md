@@ -1,68 +1,68 @@
 ---
 name: request-refactor-plan
-description: Create a detailed refactor plan with tiny commits via user interview, then file it as a GitHub issue. Use when user wants to plan a refactor, create a refactoring RFC, or break a refactor into safe incremental steps.
+description: 通过 user interview 创建包含 tiny commits 的 detailed refactor plan，然后将其 filed as GitHub issue。Use when user wants to plan a refactor, create a refactoring RFC, or break a refactor into safe incremental steps.
 ---
 
-This skill will be invoked when the user wants to create a refactor request. You should go through the steps below. You may skip steps if you don't consider them necessary.
+当用户想创建 refactor request 时 invoke 此 skill。按以下 steps 进行。若你认为某些 steps 不必要，可以 skip。
 
-1. Ask the user for a long, detailed description of the problem they want to solve and any potential ideas for solutions.
+1. 要求用户详细描述他们想解决的问题，以及任何 potential solution ideas。
 
-2. Explore the repo to verify their assertions and understand the current state of the codebase.
+2. Explore repo，verify 用户 assertions，并理解 codebase 当前状态。
 
-3. Ask whether they have considered other options, and present other options to them.
+3. 询问他们是否考虑过其他 options，并向他们 present other options。
 
-4. Interview the user about the implementation. Be extremely detailed and thorough.
+4. Interview 用户关于 implementation 的细节。要 extremely detailed and thorough。
 
-5. Hammer out the exact scope of the implementation. Work out what you plan to change and what you plan not to change.
+5. Hammer out exact scope of implementation。明确计划改变什么、不改变什么。
 
-6. Look in the codebase to check for test coverage of this area of the codebase. If there is insufficient test coverage, ask the user what their plans for testing are.
+6. 查看 codebase，检查这片 codebase 是否有 test coverage。如果 insufficient test coverage，询问用户 testing plans。
 
-7. Break the implementation into a plan of tiny commits. Remember Martin Fowler's advice to "make each refactoring step as small as possible, so that you can always see the program working."
+7. 将 implementation 拆成 tiny commits 的 plan。记住 Martin Fowler 的建议：“make each refactoring step as small as possible, so that you can always see the program working.”
 
-8. Create a GitHub issue with the refactor plan. Use the following template for the issue description:
+8. 使用 refactor plan 创建 GitHub issue。Issue description 使用下面 template：
 
 <refactor-plan-template>
 
 ## Problem Statement
 
-The problem that the developer is facing, from the developer's perspective.
+Developer 面临的问题，从 developer perspective 描述。
 
 ## Solution
 
-The solution to the problem, from the developer's perspective.
+问题的 solution，从 developer perspective 描述。
 
 ## Commits
 
-A LONG, detailed implementation plan. Write the plan in plain English, breaking down the implementation into the tiniest commits possible. Each commit should leave the codebase in a working state.
+一个 LONG、detailed implementation plan。用 plain English 写 plan，将 implementation 拆成尽可能 tiny 的 commits。每个 commit 都应让 codebase 保持 working state。
 
 ## Decision Document
 
-A list of implementation decisions that were made. This can include:
+列出已经做出的 implementation decisions。可以包括：
 
-- The modules that will be built/modified
-- The interfaces of those modules that will be modified
-- Technical clarifications from the developer
+- 将被 built/modified 的 modules
+- 将被 modified 的 module interfaces
+- 来自 developer 的 technical clarifications
 - Architectural decisions
 - Schema changes
 - API contracts
 - Specific interactions
 
-Do NOT include specific file paths or code snippets. They may end up being outdated very quickly.
+不要包含 specific file paths 或 code snippets。它们可能很快 outdated。
 
 ## Testing Decisions
 
-A list of testing decisions that were made. Include:
+列出已经做出的 testing decisions。包括：
 
-- A description of what makes a good test (only test external behavior, not implementation details)
-- Which modules will be tested
-- Prior art for the tests (i.e. similar types of tests in the codebase)
+- 好 test 的描述（只测试 external behavior，不测试 implementation details）
+- 将被测试的 modules
+- Tests 的 prior art（即 codebase 中 similar types of tests）
 
 ## Out of Scope
 
-A description of the things that are out of scope for this refactor.
+描述此 refactor 范围外的内容。
 
 ## Further Notes (optional)
 
-Any further notes about the refactor.
+关于 refactor 的任何 further notes。
 
 </refactor-plan-template>

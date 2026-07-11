@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add mattpocock/skills --skill=research
+npx skills add oldwinter/mattpocock-skills --skill=research
 ```
 
 ```bash
 npx skills update research
 ```
 
-[Source](https://github.com/mattpocock/skills/tree/main/skills/engineering/research)
+[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/research)
 
 ## What it does
 
@@ -26,4 +26,4 @@ npx skills update research
 
 ## Where it fits
 
-这是 reach-for-it-anytime standalone，会为 thinking skills 提供输入：它产出的文件可以被 grill、plan 或 design 使用。因此它位于 [grilling](https://aihero.dev/skills-grilling) 和 [to-prd](https://aihero.dev/skills-to-prd) 这类 work 的上游，而不在 build chain 中。整套 map 见 [ask-matt](https://aihero.dev/skills-ask-matt)。
+这是 reach-for-it-anytime standalone，会为 thinking skills 提供输入：它产出的文件可以被 grill、plan 或 design 使用。因此它位于 [grilling](https://aihero.dev/skills-grilling) 和 [to-spec](https://aihero.dev/skills-to-spec) 这类 work 的上游，而不在 build chain 中。整套 map 见 [ask-matt](https://aihero.dev/skills-ask-matt)。

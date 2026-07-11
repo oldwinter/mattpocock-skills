@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add mattpocock/skills --skill=codebase-design
+npx skills add oldwinter/mattpocock-skills --skill=codebase-design
 ```
 
 ```bash
 npx skills update codebase-design
 ```
 
-[Source](https://github.com/mattpocock/skills/tree/main/skills/engineering/codebase-design)
+[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/codebase-design)
 
 ## What it does
 
@@ -34,7 +34,7 @@ Callers 和 tests 穿过同一个 seam，所以放置良好的 interface 会给 
 
 ## Pulled out on purpose
 
-`codebase-design` 是 deep-module vocabulary 的 **single source of truth**，作为独立 model-invoked skill 拆出，因此任何 skill 都能触达它。其他 skills 指向它而不是重述这些词：[tdd](https://aihero.dev/skills-tdd) 借它在写 test 前放置 seam，[improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) 在重塑现有代码时依赖它，[to-prd](https://aihero.dev/skills-to-prd) 在写 spec 前勾勒 seams 和 deepening opportunities 时也使用它。
+`codebase-design` 是 deep-module vocabulary 的 **single source of truth**，作为独立 model-invoked skill 拆出，因此任何 skill 都能触达它。其他 skills 指向它而不是重述这些词：[tdd](https://aihero.dev/skills-tdd) 借它在写 test 前放置 seam，[improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) 在重塑现有代码时依赖它，[to-spec](https://aihero.dev/skills-to-spec) 在写 spec 前勾勒 seams 和 deepening opportunities 时也使用它。
 
 保持 standalone 的意义在于，你也可以单独触达它，将其作为思考 module design 的 **reference**，而不触发任何更大的流程。只在一个地方固定词语，每次 design conversation 都继承它们。
 

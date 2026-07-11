@@ -1,12 +1,12 @@
 # Issue tracker: Local Markdown
 
-此 repo 的 Issues 和 PRDs 作为 markdown files 存放在 `.scratch/` 中。
+此 repo 的 Issues 和 specs（你也可能把 spec 称为 PRD）作为 markdown files 存放在 `.scratch/` 中。
 
 ## Conventions
 
 - 每个 feature 一个 directory：`.scratch/<feature-slug>/`
-- PRD 是 `.scratch/<feature-slug>/PRD.md`
-- Implementation issues 是 `.scratch/<feature-slug>/issues/<NN>-<slug>.md`，从 `01` 开始编号
+- Spec 是 `.scratch/<feature-slug>/spec.md`
+- Implementation issues 每个 ticket 使用一个独立文件：`.scratch/<feature-slug>/issues/<NN>-<slug>.md`，从 `01` 开始编号；绝不要合并成单个 tickets file
 - Triage state 记录为每个 issue file 顶部附近的 `Status:` line（role strings 见 `triage-labels.md`）
 - Comments 和 conversation history append 到 file 底部的 `## Comments` heading 下
 

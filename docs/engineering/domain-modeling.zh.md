@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add mattpocock/skills --skill=domain-modeling
+npx skills add oldwinter/mattpocock-skills --skill=domain-modeling
 ```
 
 ```bash
 npx skills update domain-modeling
 ```
 
-[Source](https://github.com/mattpocock/skills/tree/main/skills/engineering/domain-modeling)
+[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/domain-modeling)
 
 ## What it does
 
@@ -43,4 +43,4 @@ npx skills update domain-modeling
 
 ## Where it fits
 
-`domain-modeling` 是 **reach-for-it-anytime standalone**，它常常位于其他 skills 下方运行，而不是固定链条中的某一步。它最接近的邻居是 [codebase-design](https://aihero.dev/skills-codebase-design)，因为 shared language 才能精确命名 deep module 及其 seam；下游，settled glossary 正是 [to-prd](https://aihero.dev/skills-to-prd) 合成为使用项目自身词汇的 spec 的输入。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。
+`domain-modeling` 是 **reach-for-it-anytime standalone**，它常常位于其他 skills 下方运行，而不是固定链条中的某一步。它最接近的邻居是 [codebase-design](https://aihero.dev/skills-codebase-design)，因为 shared language 才能精确命名 deep module 及其 seam；下游，settled glossary 正是 [to-spec](https://aihero.dev/skills-to-spec) 合成为使用项目自身词汇的 spec 的输入。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。

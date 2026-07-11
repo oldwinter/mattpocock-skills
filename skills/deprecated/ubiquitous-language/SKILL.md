@@ -1,27 +1,27 @@
 ---
 name: ubiquitous-language
-description: Extract a DDD-style ubiquitous language glossary from the current conversation, flagging ambiguities and proposing canonical terms. Saves to UBIQUITOUS_LANGUAGE.md. Use when user wants to define domain terms, build a glossary, harden terminology, create a ubiquitous language, or mentions "domain model" or "DDD".
+description: 从当前 conversation 提取 DDD-style ubiquitous language glossary，flag ambiguities，并提出 canonical terms。Saves to UBIQUITOUS_LANGUAGE.md. Use when user wants to define domain terms, build a glossary, harden terminology, create a ubiquitous language, or mentions "domain model" or "DDD".
 disable-model-invocation: true
 ---
 
 # Ubiquitous Language
 
-Extract and formalize domain terminology from the current conversation into a consistent glossary, saved to a local file.
+从当前 conversation 中 extract 并 formalize domain terminology，生成 consistent glossary，保存到 local file。
 
 ## Process
 
-1. **Scan the conversation** for domain-relevant nouns, verbs, and concepts
-2. **Identify problems**:
-   - Same word used for different concepts (ambiguity)
-   - Different words used for the same concept (synonyms)
-   - Vague or overloaded terms
-3. **Propose a canonical glossary** with opinionated term choices
-4. **Write to `UBIQUITOUS_LANGUAGE.md`** in the working directory using the format below
-5. **Output a summary** inline in the conversation
+1. **Scan the conversation**，寻找 domain-relevant nouns、verbs 和 concepts
+2. **Identify problems**：
+   - 同一个 word 用于不同 concepts（ambiguity）
+   - 不同 words 用于同一 concept（synonyms）
+   - Vague 或 overloaded terms
+3. **Propose a canonical glossary**，做 opinionated term choices
+4. **Write to `UBIQUITOUS_LANGUAGE.md`**，位于 working directory，使用下面 format
+5. 在 conversation 中 inline **Output a summary**
 
 ## Output Format
 
-Write a `UBIQUITOUS_LANGUAGE.md` file with this structure:
+写一个 `UBIQUITOUS_LANGUAGE.md` file，使用此 structure：
 
 ```md
 # Ubiquitous Language
@@ -59,14 +59,14 @@ Write a `UBIQUITOUS_LANGUAGE.md` file with this structure:
 
 ## Rules
 
-- **Be opinionated.** When multiple words exist for the same concept, pick the best one and list the others as aliases to avoid.
-- **Flag conflicts explicitly.** If a term is used ambiguously in the conversation, call it out in the "Flagged ambiguities" section with a clear recommendation.
-- **Only include terms relevant for domain experts.** Skip the names of modules or classes unless they have meaning in the domain language.
-- **Keep definitions tight.** One sentence max. Define what it IS, not what it does.
-- **Show relationships.** Use bold term names and express cardinality where obvious.
-- **Only include domain terms.** Skip generic programming concepts (array, function, endpoint) unless they have domain-specific meaning.
-- **Group terms into multiple tables** when natural clusters emerge (e.g. by subdomain, lifecycle, or actor). Each group gets its own heading and table. If all terms belong to a single cohesive domain, one table is fine — don't force groupings.
-- **Write an example dialogue.** A short conversation (3-5 exchanges) between a dev and a domain expert that demonstrates how the terms interact naturally. The dialogue should clarify boundaries between related concepts and show terms being used precisely.
+- **Be opinionated.** 当多个 words 表示同一 concept，选择最好的那个，并把其余列为 aliases to avoid。
+- **Flag conflicts explicitly.** 如果某个 term 在 conversation 中 ambiguous 使用，在 “Flagged ambiguities” section 中 call it out，并给出 clear recommendation。
+- **Only include terms relevant for domain experts.** 除非 modules 或 classes 的 names 在 domain language 中有意义，否则 skip。
+- **Keep definitions tight.** 最多一句。定义它 IS 什么，而不是它 does 什么。
+- **Show relationships.** 使用 bold term names，并在 obvious 时 express cardinality。
+- **Only include domain terms.** Skip generic programming concepts（array、function、endpoint），除非它们有 domain-specific meaning。
+- **自然出现 clusters 时，将 terms 分入多个 tables**（例如按 subdomain、lifecycle 或 actor）。每个 group 有自己的 heading 和 table。如果所有 terms 都属于一个 cohesive domain，一个 table 就可以；不要强行 group。
+- **Write an example dialogue.** 写一个 dev 与 domain expert 之间的 short conversation（3-5 exchanges），展示 terms 如何自然 interact。Dialogue 应 clarify related concepts 之间的 boundaries，并展示 precise term usage。
 
 <example>
 
@@ -84,10 +84,10 @@ Write a `UBIQUITOUS_LANGUAGE.md` file with this structure:
 
 ## Re-running
 
-When invoked again in the same conversation:
+在同一个 conversation 中再次 invoked 时：
 
-1. Read the existing `UBIQUITOUS_LANGUAGE.md`
-2. Incorporate any new terms from subsequent discussion
-3. Update definitions if understanding has evolved
+1. 读取 existing `UBIQUITOUS_LANGUAGE.md`
+2. Incorporate subsequent discussion 中的 any new terms
+3. 如果 understanding evolved，update definitions
 4. Re-flag any new ambiguities
-5. Rewrite the example dialogue to incorporate new terms
+5. Rewrite example dialogue，以 incorporate new terms

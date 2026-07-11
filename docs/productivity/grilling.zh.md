@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add mattpocock/skills --skill=grilling
+npx skills add oldwinter/mattpocock-skills --skill=grilling
 ```
 
 ```bash
 npx skills update grilling
 ```
 
-[Source](https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling)
+[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/productivity/grilling)
 
 ## What it does
 
@@ -34,4 +34,4 @@ Mental model 是 **design tree**：每个 plan 都分叉为 decisions，而 deci
 
 ## Where it fits
 
-`grilling` 是 main build chain 下方的 interview **primitive**：[grill-with-docs](https://aihero.dev/skills-grill-with-docs) 运行它来 sharpen context，然后 [to-prd](https://aihero.dev/skills-to-prd) 写 spec。无法确定哪个入口合适时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。
+`grilling` 是 main build chain 下方的 interview **primitive**：[grill-with-docs](https://aihero.dev/skills-grill-with-docs) 运行它来 sharpen context，然后 [to-spec](https://aihero.dev/skills-to-spec) 写 spec。无法确定哪个入口合适时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。

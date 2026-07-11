@@ -6,61 +6,61 @@ disable-model-invocation: true
 
 # Improve Codebase Architecture
 
-Surface architectural friction and propose **deepening opportunities** — refactors that turn shallow modules into deep ones. The aim is testability and AI-navigability.
+Surface architectural friction，并提出 **deepening opportunities**：把 shallow modules 变成 deep ones 的 refactors。目标是 testability 和 AI-navigability。
 
-This command is _informed_ by the project's domain model and built on a shared design vocabulary:
+这个 command 由项目的 domain model _informed_，并建立在 shared design vocabulary 之上：
 
-- Run the `/codebase-design` skill for the architecture vocabulary (**module**, **interface**, **depth**, **seam**, **adapter**, **leverage**, **locality**) and its principles (the deletion test, "the interface is the test surface", "one adapter = hypothetical seam, two = real"). Use these terms exactly in every suggestion — don't drift into "component," "service," "API," or "boundary."
-- The domain language in `CONTEXT.md` gives names to good seams; ADRs in `docs/adr/` record decisions this command should not re-litigate.
+- 运行 `/codebase-design` skill 获取 architecture vocabulary（**module**、**interface**、**depth**、**seam**、**adapter**、**leverage**、**locality**）及其 principles（deletion test、"the interface is the test surface"、"one adapter = hypothetical seam, two = real"）。每条 suggestion 都精确使用这些 terms，不要漂移到 “component”、“service”、“API” 或 “boundary”。
+- `CONTEXT.md` 中的 domain language 为 good seams 命名；`docs/adr/` 中的 ADRs 记录此 command 不应重新争论的 decisions。
 
 ## Process
 
 ### 1. Explore
 
-Read the project's domain glossary (`CONTEXT.md`) and any ADRs in the area you're touching first.
+先读取项目的 domain glossary（`CONTEXT.md`），以及你触碰区域的任何 ADRs。
 
-Then use the Agent tool with `subagent_type=Explore` to walk the codebase. Don't follow rigid heuristics — explore organically and note where you experience friction:
+然后使用 Agent tool，`subagent_type=Explore`，walk the codebase。不要遵循 rigid heuristics；organic explore，并记录你在哪里 experience friction：
 
-- Where does understanding one concept require bouncing between many small modules?
-- Where are modules **shallow** — interface nearly as complex as the implementation?
-- Where have pure functions been extracted just for testability, but the real bugs hide in how they're called (no **locality**)?
-- Where do tightly-coupled modules leak across their seams?
-- Which parts of the codebase are untested, or hard to test through their current interface?
+- 理解一个 concept 是否需要在许多 small modules 之间 bounce？
+- 哪些 modules **shallow**：interface nearly as complex as the implementation？
+- 哪些 pure functions 只是为了 testability 被 extracted，但 real bugs 藏在它们如何被调用里（没有 **locality**）？
+- 哪里 tightly-coupled modules leak across their seams？
+- Codebase 的哪些部分 untested，或很难通过当前 interface test？
 
-Apply the **deletion test** to anything you suspect is shallow: would deleting it concentrate complexity, or just move it? A "yes, concentrates" is the signal you want.
+对任何你怀疑 shallow 的东西应用 **deletion test**：删除它会 concentrate complexity，还是只是 move it？“yes, concentrates” 就是你想要的 signal。
 
 ### 2. Present candidates as an HTML report
 
-Write a self-contained HTML file to the OS temp directory so nothing lands in the repo. Resolve the temp dir from `$TMPDIR`, falling back to `/tmp` (or `%TEMP%` on Windows), and write to `<tmpdir>/architecture-review-<timestamp>.html` so each run gets a fresh file. Open it for the user — `xdg-open <path>` on Linux, `open <path>` on macOS, `start <path>` on Windows — and tell them the absolute path.
+将 self-contained HTML file 写到 OS temp directory，避免任何东西落入 repo。从 `$TMPDIR` resolve temp dir，fallback 到 `/tmp`（Windows 上为 `%TEMP%`），写到 `<tmpdir>/architecture-review-<timestamp>.html`，让每次运行都有 fresh file。为用户 open 它：Linux 用 `xdg-open <path>`，macOS 用 `open <path>`，Windows 用 `start <path>`，并告诉他们 absolute path。
 
-The report uses **Tailwind via CDN** for layout and styling, and **Mermaid via CDN** for diagrams where a graph/flow/sequence reliably communicates the structure. Mix Mermaid with hand-crafted CSS/SVG visuals — use Mermaid when relationships are graph-shaped (call graphs, dependencies, sequences), and hand-built divs/SVG when you want something more editorial (mass diagrams, cross-sections, collapse animations). Each candidate gets a **before/after visualisation**. Be visual.
+Report 使用 **Tailwind via CDN** 做 layout/styling，使用 **Mermaid via CDN** 做适合 graph/flow/sequence 的 diagrams。将 Mermaid 与 hand-crafted CSS/SVG visuals 混合使用：relationships 是 graph-shaped（call graphs、dependencies、sequences）时使用 Mermaid；需要 editorial visuals（mass diagrams、cross-sections、collapse animations）时使用 hand-built divs/SVG。每个 candidate 都有 **before/after visualisation**。Be visual。
 
-For each candidate, render a card with:
+每个 candidate 渲染为 card，包含：
 
-- **Files** — which files/modules are involved
-- **Problem** — why the current architecture is causing friction
-- **Solution** — plain English description of what would change
-- **Benefits** — explained in terms of locality and leverage, and how tests would improve
-- **Before / After diagram** — side-by-side, custom-drawn, illustrating the shallowness and the deepening
-- **Recommendation strength** — one of `Strong`, `Worth exploring`, `Speculative`, rendered as a badge
+- **Files** — 涉及哪些 files/modules
+- **Problem** — 当前 architecture 为什么造成 friction
+- **Solution** — plain English 描述会改变什么
+- **Benefits** — 用 locality 和 leverage 解释，以及 tests 会如何改善
+- **Before / After diagram** — side-by-side、custom-drawn，展示 shallowness 和 deepening
+- **Recommendation strength** — `Strong`、`Worth exploring`、`Speculative` 之一，渲染为 badge
 
-End the report with a **Top recommendation** section: which candidate you'd tackle first and why.
+Report 以 **Top recommendation** section 结尾：你会先 tackle 哪个 candidate，以及 why。
 
-**Use CONTEXT.md vocabulary for the domain, and the `/codebase-design` vocabulary for the architecture.** If `CONTEXT.md` defines "Order," talk about "the Order intake module" — not "the FooBarHandler," and not "the Order service."
+**Domain 使用 CONTEXT.md vocabulary，architecture 使用 `/codebase-design` vocabulary。** 如果 `CONTEXT.md` 定义了 “Order”，就说 “the Order intake module”，而不是 “the FooBarHandler”，也不是 “the Order service”。
 
-**ADR conflicts**: if a candidate contradicts an existing ADR, only surface it when the friction is real enough to warrant revisiting the ADR. Mark it clearly in the card (e.g. a warning callout: _"contradicts ADR-0007 — but worth reopening because…"_). Don't list every theoretical refactor an ADR forbids.
+**ADR conflicts**：如果 candidate 与 existing ADR 冲突，只有当 friction 足够 real、值得 revisiting ADR 时才 surface。清楚标在 card 中（例如 warning callout：_"contradicts ADR-0007 — but worth reopening because…"_）。不要列出 ADR 禁止的每个 theoretical refactor。
 
-See [HTML-REPORT.md](HTML-REPORT.md) for the full HTML scaffold, diagram patterns, and styling guidance.
+完整 HTML scaffold、diagram patterns 和 styling guidance 见 [HTML-REPORT.zh.md](HTML-REPORT.md)。
 
-Do NOT propose interfaces yet. After the file is written, ask the user: "Which of these would you like to explore?"
+先不要 propose interfaces。File 写完后，问用户：“Which of these would you like to explore?”
 
 ### 3. Grilling loop
 
-Once the user picks a candidate, run the `/grilling` skill to walk the design tree with them — constraints, dependencies, the shape of the deepened module, what sits behind the seam, what tests survive.
+用户选择一个 candidate 后，运行 `/grilling` skill，与他们一起 walk design tree：constraints、dependencies、deepened module 的 shape、seam 后面放什么、哪些 tests survive。
 
-Side effects happen inline as decisions crystallize — run the `/domain-modeling` skill to keep the domain model current as you go:
+随着 decisions crystallize，side effects inline 发生；运行 `/domain-modeling` skill，持续保持 domain model 最新：
 
-- **Naming a deepened module after a concept not in `CONTEXT.md`?** Add the term to `CONTEXT.md`. Create the file lazily if it doesn't exist.
-- **Sharpening a fuzzy term during the conversation?** Update `CONTEXT.md` right there.
-- **User rejects the candidate with a load-bearing reason?** Offer an ADR, framed as: _"Want me to record this as an ADR so future architecture reviews don't re-suggest it?"_ Only offer when the reason would actually be needed by a future explorer to avoid re-suggesting the same thing — skip ephemeral reasons ("not worth it right now") and self-evident ones.
-- **Want to explore alternative interfaces for the deepened module?** Run the `/codebase-design` skill and use its design-it-twice parallel sub-agent pattern.
+- **Deepened module 的命名来自 `CONTEXT.md` 中不存在的 concept？** 将该 term 添加到 `CONTEXT.md`。如果 file 不存在，lazily 创建。
+- **Conversation 中 sharpen 了 fuzzy term？** 立刻更新 `CONTEXT.md`。
+- **用户用 load-bearing reason reject candidate？** Offer 一个 ADR，措辞为：_"Want me to record this as an ADR so future architecture reviews don't re-suggest it?"_ 只有当这个 reason 确实是 future explorer 为避免重提同一件事所需要的，才 offer。跳过 ephemeral reasons（“not worth it right now”）和 self-evident reasons。
+- **想探索 deepened module 的 alternative interfaces？** 运行 `/codebase-design` skill，并使用它的 design-it-twice parallel sub-agent pattern。

@@ -12,6 +12,17 @@
 
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
+> [!IMPORTANT]
+> **安装中文版（社区维护 fork）**
+>
+> 本仓库是 `mattpocock/skills` 的中文本地化 fork，不是上游官方发行。当前已同步到上游 `391a270`。请从中文 fork 安装：
+>
+> ```bash
+> npx skills@latest add oldwinter/mattpocock-skills
+> ```
+>
+> 安装器实际加载各目录中的 `SKILL.md`；这些 runtime 入口已中文化。中文维护说明见 [`docs/translation-profile.zh-CN.md`](./docs/translation-profile.zh-CN.md)，中文项目介绍见 [`README.zh.md`](./README.zh.md)。
+
 My agent skills that I use every day to do real engineering - not vibe coding.
 
 Developing real applications is hard. Approaches like GSD, BMAD, and Spec-Kit try to help by owning the process. But while doing so, they take away your control and make bugs in the process hard to resolve.

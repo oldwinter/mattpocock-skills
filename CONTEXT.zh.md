@@ -5,11 +5,11 @@
 ## Language
 
 **Issue tracker**:
-托管某个 repo 的 issues 的工具，例如 GitHub Issues、Linear、本地 `.scratch/` markdown convention 或类似系统。`to-issues`、`to-prd`、`triage`、`qa` 等 skills 会从中读取并写入。
+托管某个 repo 的 issues 的工具，例如 GitHub Issues、Linear、本地 `.scratch/` markdown convention 或类似系统。`to-tickets`、`to-spec`、`triage`、`qa` 等 skills 会从中读取并写入。
 _Avoid_: backlog manager, backlog backend, issue host
 
 **Issue**:
-**Issue tracker** 内一个被追踪的工作单元，可以是 bug、task、PRD，或由 `to-issues` 生成的 slice。
+**Issue tracker** 内一个被追踪的工作单元，可以是 bug、task、spec，或由 `to-tickets` 生成的 slice。
 _Avoid_: ticket（仅在引用外部系统自身称其为 ticket 时使用）
 
 **Triage role**:

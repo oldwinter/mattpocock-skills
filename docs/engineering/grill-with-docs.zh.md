@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add mattpocock/skills --skill=grill-with-docs
+npx skills add oldwinter/mattpocock-skills --skill=grill-with-docs
 ```
 
 ```bash
 npx skills update grill-with-docs
 ```
 
-[Source](https://github.com/mattpocock/skills/tree/main/skills/engineering/grill-with-docs)
+[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/grill-with-docs)
 
 ## What it does
 
@@ -44,7 +44,7 @@ Engine 是一个 **grill**：relentless、one-question-at-a-time 地沿 design t
 `grill-with-docs` 是 main build chain 的 opening step：
 
 ```txt
-grill-with-docs -> to-prd -> to-issues -> implement -> code-review
+grill-with-docs -> to-spec -> to-tickets -> implement -> code-review
 ```
 
-它位于 spec 写下之前，产出 shared understanding 和 settled vocabulary，随后 [to-prd](https://aihero.dev/skills-to-prd) 无需再次 interview 即可合成为 PRD。它的近邻是 [grilling](https://aihero.dev/skills-grilling)，也就是不写 docs 的同一 interview，以及 [domain-modeling](https://aihero.dev/skills-domain-modeling)，也就是它驱动的 glossary-and-ADR discipline。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。
+它位于 spec 写下之前，产出 shared understanding 和 settled vocabulary，随后 [to-spec](https://aihero.dev/skills-to-spec) 无需再次 interview 即可合成为 spec。它的近邻是 [grilling](https://aihero.dev/skills-grilling)，也就是不写 docs 的同一 interview，以及 [domain-modeling](https://aihero.dev/skills-domain-modeling)，也就是它驱动的 glossary-and-ADR discipline。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。

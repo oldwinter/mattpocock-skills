@@ -1,21 +1,21 @@
 ---
 name: migrate-to-shoehorn
-description: Migrate test files from `as` type assertions to @total-typescript/shoehorn. Use when user mentions shoehorn, wants to replace `as` in tests, or needs partial test data.
+description: 将 test files 从 `as` type assertions 迁移到 @total-typescript/shoehorn。Use when user mentions shoehorn, wants to replace `as` in tests, or needs partial test data.
 ---
 
 # Migrate to Shoehorn
 
 ## Why shoehorn?
 
-`shoehorn` lets you pass partial data in tests while keeping TypeScript happy. It replaces `as` assertions with type-safe alternatives.
+`shoehorn` 让你在 tests 中传入 partial data，同时让 TypeScript 保持满意。它用 type-safe alternatives 替换 `as` assertions。
 
-**Test code only.** Never use shoehorn in production code.
+**Test code only.** 永远不要在 production code 中使用 shoehorn。
 
-Problems with `as` in tests:
+Tests 中 `as` 的问题：
 
-- Trained not to use it
-- Must manually specify target type
-- Double-as (`as unknown as Type`) for intentionally wrong data
+- 被训练成不使用它
+- 必须手动指定 target type
+- 对 intentionally wrong data 需要 double-as（`as unknown as Type`）
 
 ## Install
 
@@ -27,7 +27,7 @@ npm i @total-typescript/shoehorn
 
 ### Large objects with few needed properties
 
-Before:
+Before：
 
 ```ts
 type Request = {
@@ -48,7 +48,7 @@ it("gets user by id", () => {
 });
 ```
 
-After:
+After：
 
 ```ts
 import { fromPartial } from "@total-typescript/shoehorn";
@@ -64,13 +64,13 @@ it("gets user by id", () => {
 
 ### `as Type` → `fromPartial()`
 
-Before:
+Before：
 
 ```ts
 getUser({ body: { id: "123" } } as Request);
 ```
 
-After:
+After：
 
 ```ts
 import { fromPartial } from "@total-typescript/shoehorn";
@@ -80,13 +80,13 @@ getUser(fromPartial({ body: { id: "123" } }));
 
 ### `as unknown as Type` → `fromAny()`
 
-Before:
+Before：
 
 ```ts
 getUser({ body: { id: 123 } } as unknown as Request); // wrong type on purpose
 ```
 
-After:
+After：
 
 ```ts
 import { fromAny } from "@total-typescript/shoehorn";
@@ -104,12 +104,12 @@ getUser(fromAny({ body: { id: 123 } }));
 
 ## Workflow
 
-1. **Gather requirements** - ask user:
-   - What test files have `as` assertions causing problems?
-   - Are they dealing with large objects where only some properties matter?
-   - Do they need to pass intentionally wrong data for error testing?
+1. **Gather requirements** - 询问用户：
+   - 哪些 test files 有造成问题的 `as` assertions？
+   - 它们是否在处理 large objects，而只有部分 properties 重要？
+   - 是否需要为 error testing 传入 intentionally wrong data？
 
-2. **Install and migrate**:
+2. **Install and migrate**：
    - [ ] Install: `npm i @total-typescript/shoehorn`
    - [ ] Find test files with `as` assertions: `grep -r " as [A-Z]" --include="*.test.ts" --include="*.spec.ts"`
    - [ ] Replace `as Type` with `fromPartial()`

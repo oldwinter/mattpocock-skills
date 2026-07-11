@@ -2,7 +2,7 @@
 
 在 single route 上生成**几个 radically different UI variations**，并从 floating bottom bar 切换。用户在 browser 中翻看 variants，选择一个（或从每个里偷一点），然后把其余全部 throw away。
 
-如果问题关于 logic/state，而不是东西长什么样，那就是 wrong branch。使用 [LOGIC.zh.md](LOGIC.zh.md)。
+如果问题关于 logic/state，而不是东西长什么样，那就是 wrong branch。使用 [LOGIC.md](LOGIC.md)。
 
 ## When this is the right shape
 
@@ -97,12 +97,12 @@ Surface URL（以及 `?variant=` keys）。用户会在有空时翻看。最有�
 
 ### 6. Capture the answer and clean up
 
-一旦某个 variant 胜出，写下哪个赢了以及 why（commit message、ADR、issue，或用户没回应时 prototype 旁边的 `NOTES.md`）。然后：
+一旦某个 variant 胜出，先记录 answer，也就是哪个 variant 赢了以及 why；再按 [SKILL](SKILL.md) 中的方式保存 prototype。把 winner fold 进 real code，并把其余内容移到 throwaway branch，而不是 main：
 
-- **Sub-shape A** — 删除 losing variants 和 switcher；将 winner fold 进 existing page。
-- **Sub-shape B** — 将 winning variant promote 到 real route，删除 throwaway route 和 switcher。
+- **Sub-shape A** — 将 winner fold 进 existing page；从 main 删除 losing variants 和 switcher。
+- **Sub-shape B** — 将 winning variant promote 到 real route；从 main 删除 throwaway route 和 switcher。
 
-不要留下 variant components 或 switcher。它们很快腐烂，并 confuse 下一个 reader。
+完整 variants 集合是 primary source，所以应进入 throwaway branch，而不是被丢弃。Variant components 和 switcher 如果留在 main 会很快腐烂，并 confuse 下一个 reader。
 
 ## Anti-patterns
 

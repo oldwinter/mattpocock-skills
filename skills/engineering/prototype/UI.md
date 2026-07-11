@@ -1,61 +1,61 @@
 # UI Prototype
 
-Generate **several radically different UI variations** on a single route, switchable from a floating bottom bar. The user flips between variants in the browser, picks one (or steals bits from each), then throws the rest away.
+在 single route 上生成**几个 radically different UI variations**，并从 floating bottom bar 切换。用户在 browser 中翻看 variants，选择一个（或从每个里偷一点），然后把其余全部 throw away。
 
-If the question is about logic/state rather than what something looks like — wrong branch. Use [LOGIC.md](LOGIC.md).
+如果问题关于 logic/state，而不是东西长什么样，那就是 wrong branch。使用 [LOGIC.md](LOGIC.md)。
 
 ## When this is the right shape
 
-- "What should this page look like?"
-- "I want to see a few options for this dashboard before committing."
-- "Try a different layout for the settings screen."
-- Any time the user would otherwise spend a day picking between three vague mockups in their head.
+- “What should this page look like?”
+- “I want to see a few options for this dashboard before committing.”
+- “Try a different layout for the settings screen.”
+- 任何用户原本要花一天在脑中比较三个 vague mockups 的场景。
 
 ## Two sub-shapes — strongly prefer sub-shape A
 
-A UI prototype is much easier to judge when it's **butting up against the rest of the app** — real header, real sidebar, real data, real density. A throwaway route on its own is a vacuum: every variant looks fine in isolation. Default to sub-shape A whenever there's a plausible existing page to host the variants. Only reach for sub-shape B if the prototype genuinely has no nearby home.
+当 UI prototype **butting up against the rest of the app** 时更容易判断：real header、real sidebar、real data、real density。一个单独的 throwaway route 是 vacuum：每个 variant 在 isolation 中看起来都不错。只要存在 plausible existing page 可容纳 variants，就默认 sub-shape A。只有 prototype 真的没有 nearby home 时，才使用 sub-shape B。
 
 ### Sub-shape A — adjustment to an existing page (preferred)
 
-The route already exists. Variants are rendered **on the same route**, gated by a `?variant=` URL search param. The existing data fetching, params, and auth all stay — only the rendering swaps. This is the default; pick it unless there's a specific reason not to.
+Route 已存在。Variants 在**同一路由**渲染，并由 `?variant=` URL search param gated。Existing data fetching、params 和 auth 都保留；只有 rendering swap。这是 default；除非有具体理由，否则选它。
 
-If the prototype is for something that doesn't yet have a page but *would naturally live inside one* (a new section of the dashboard, a new card on the settings screen, a new step in an existing flow) — that's still sub-shape A. Mount the variants inside the host page.
+如果 prototype 的东西尚未有 page，但它 would naturally live inside one（dashboard 的 new section、settings screen 的 new card、existing flow 的 new step），仍属于 sub-shape A。把 variants mount 到 host page 内。
 
 ### Sub-shape B — a new page (last resort)
 
-Only use this when the thing being prototyped genuinely has no existing page to live inside — e.g. an entirely new top-level surface, or a flow that can't be embedded anywhere sensible.
+只有当被 prototyping 的东西真的没有 existing page 可容纳时才使用：例如全新的 top-level surface，或无法 sensible embed 的 flow。
 
-Create a **throwaway route** following whatever routing convention the project already uses — don't invent a new top-level structure. Name it so it's obviously a prototype (e.g. include the word `prototype` in the path or filename). Same `?variant=` pattern.
+按照项目现有 routing convention 创建一个 **throwaway route**；不要发明新的 top-level structure。命名要明显是 prototype（例如 path 或 filename 中包含 `prototype`）。同样使用 `?variant=` pattern。
 
-Before committing to sub-shape B, sanity-check: is there really no existing page this could be embedded in? An empty route hides design problems that a populated one would expose.
+在 commit to sub-shape B 前 sanity-check：真的没有 existing page 可以 embed 吗？Empty route 会隐藏 populated one 才会暴露的 design problems。
 
-In both sub-shapes the floating bottom bar is identical.
+两种 sub-shapes 都使用同一个 floating bottom bar。
 
 ## Process
 
 ### 1. State the question and pick N
 
-Default to **3 variants**. More than 5 stops being radically different and starts being noise — cap there.
+Default 为 **3 variants**。超过 5 个就不再 radically different，而开始变成 noise；上限为 5。
 
-Write down the plan in one line, in the prototype's location or a top-of-file comment:
+在 prototype location 或 top-of-file comment 中用一行写下 plan：
 
-> "Three variants of the settings page, switchable via `?variant=`, on the existing `/settings` route."
+> “Three variants of the settings page, switchable via `?variant=`, on the existing `/settings` route.”
 
-This works whether the user is here to push back or not.
+无论用户是否在场 push back，这都有效。
 
 ### 2. Generate radically different variants
 
-Draft each variant. Hold each one to:
+Draft 每个 variant。每个 variant 都要符合：
 
-- The page's purpose and the data it has access to.
-- The project's component library / styling system (TailwindCSS, shadcn, MUI, plain CSS, whatever).
-- A clear exported component name, e.g. `VariantA`, `VariantB`, `VariantC`.
+- Page 的 purpose 和它可访问的数据。
+- 项目的 component library / styling system（TailwindCSS、shadcn、MUI、plain CSS 等）。
+- 清晰的 exported component name，例如 `VariantA`、`VariantB`、`VariantC`。
 
-Variants must be **structurally different** — different layout, different information hierarchy, different primary affordance, not just different colours. Three slightly-tweaked card grids isn't a UI prototype, it's wallpaper. If two drafts come out too similar, redo one with explicit "do not use a card grid" guidance.
+Variants 必须**结构上不同**：不同 layout、不同 information hierarchy、不同 primary affordance，而不只是不同 colours。三个略微调整的 card grids 不是 UI prototype，只是 wallpaper。如果两个 drafts 太相似，重做其中一个，并明确要求 “do not use a card grid”。
 
 ### 3. Wire them together
 
-Create a single switcher component on the route:
+在 route 上创建单个 switcher component：
 
 ```tsx
 // pseudo-code — adapt to the project's framework
@@ -70,43 +70,43 @@ return (
 );
 ```
 
-For sub-shape A (existing page): keep all the existing data fetching above the switcher; only the rendered subtree changes per variant.
+对 sub-shape A（existing page）：将所有 existing data fetching 保留在 switcher 上方；只有 rendered subtree 随 variant 改变。
 
-For sub-shape B (new page): the throwaway route under `/prototype/<name>` mounts the same switcher.
+对 sub-shape B（new page）：`/prototype/<name>` 下的 throwaway route mount 同一个 switcher。
 
 ### 4. Build the floating switcher
 
-A small fixed-position bar at the bottom-centre of the screen with three pieces:
+一个小的 fixed-position bar，放在 screen bottom-centre，包含三部分：
 
-- **Left arrow** — cycles to the previous variant (wraps around).
-- **Variant label** — shows the current variant key and, if the variant exports a name, that name too. e.g. `B — Sidebar layout`.
-- **Right arrow** — cycles forward (wraps around).
+- **Left arrow** — 循环到 previous variant（wraps around）。
+- **Variant label** — 显示当前 variant key，如果 variant export name，也显示 name。例如 `B — Sidebar layout`。
+- **Right arrow** — 循环向前（wraps around）。
 
-Behaviour:
+Behaviour：
 
-- Clicking an arrow updates the URL search param (use the framework's router — `router.replace` on Next, `navigate` on React Router, etc) so the variant is shareable and reload-stable.
-- Keyboard: `←` and `→` arrow keys also cycle. Don't intercept arrow keys when an `<input>`, `<textarea>`, or `[contenteditable]` is focused.
-- Visually distinct from the page (e.g. high-contrast pill, subtle shadow) so it's obviously not part of the design being evaluated.
-- Hidden in production builds — gate on `process.env.NODE_ENV !== 'production'` or an equivalent check, so a stray prototype merge can't ship the bar to users.
+- 点击 arrow 更新 URL search param（使用 framework router：Next 用 `router.replace`，React Router 用 `navigate` 等），让 variant shareable 且 reload-stable。
+- Keyboard：`←` 和 `→` arrow keys 也 cycle。当 `<input>`、`<textarea>` 或 `[contenteditable]` focused 时，不要 intercept arrow keys。
+- 视觉上与 page 区分明显（例如 high-contrast pill、subtle shadow），让它显然不是被评估 design 的一部分。
+- 在 production builds 中 hidden：用 `process.env.NODE_ENV !== 'production'` 或 equivalent gate，避免 stray prototype merge 把 bar ship 给 users。
 
-Put the switcher in a single shared component so both sub-shapes can reuse it. Locate it wherever shared UI lives in the project.
+把 switcher 放在单个 shared component 中，让两种 sub-shapes 都能 reuse。放在项目 shared UI 所在位置。
 
 ### 5. Hand it over
 
-Surface the URL (and the `?variant=` keys). The user will flip through whenever they get to it. The interesting feedback is usually **"I want the header from B with the sidebar from C"** — that's the actual design they want.
+Surface URL（以及 `?variant=` keys）。用户会在有空时翻看。最有意思的 feedback 通常是 **“I want the header from B with the sidebar from C”**；那才是他们真正想要的 design。
 
 ### 6. Capture the answer and clean up
 
-Once a variant has won, capture the answer — which variant and why — then capture the prototype the way the [SKILL](SKILL.md) describes. Fold the winner into the real code and move the rest onto the throwaway branch, not into main:
+一旦某个 variant 胜出，先记录 answer，也就是哪个 variant 赢了以及 why；再按 [SKILL](SKILL.md) 中的方式保存 prototype。把 winner fold 进 real code，并把其余内容移到 throwaway branch，而不是 main：
 
-- **Sub-shape A** — fold the winner into the existing page; drop the losing variants and the switcher from main.
-- **Sub-shape B** — promote the winning variant to a real route; drop the throwaway route and the switcher from main.
+- **Sub-shape A** — 将 winner fold 进 existing page；从 main 删除 losing variants 和 switcher。
+- **Sub-shape B** — 将 winning variant promote 到 real route；从 main 删除 throwaway route 和 switcher。
 
-The full set of variants is the primary source, so it lands on the throwaway branch, not the bin — variant components and the switcher left in the main branch rot fast and confuse the next reader.
+完整 variants 集合是 primary source，所以应进入 throwaway branch，而不是被丢弃。Variant components 和 switcher 如果留在 main 会很快腐烂，并 confuse 下一个 reader。
 
 ## Anti-patterns
 
-- **Variants that differ only in colour or copy.** That's a tweak, not a prototype. Real variants disagree about structure.
-- **Sharing too much code between variants.** A shared `<Header>` is fine; a shared `<Layout>` defeats the point. Each variant should be free to throw out the layout.
-- **Wiring variants to real mutations.** Read-only prototypes are fine. If a variant needs to mutate, point it at a stub — the question is "what should this look like", not "does the backend work".
-- **Promoting the prototype directly to production.** The variant code was written under prototype constraints (no tests, minimal error handling). Rewrite it properly when you fold it in.
+- **Variants that differ only in colour or copy.** 这只是 tweak，不是 prototype。真正 variants 会在 structure 上 disagree。
+- **Sharing too much code between variants.** 共享 `<Header>` 可以；共享 `<Layout>` 会 defeat the point。每个 variant 都应该自由 throw out layout。
+- **Wiring variants to real mutations.** Read-only prototypes 没问题。如果 variant 需要 mutate，指向 stub；问题是 “what should this look like”，不是 “does the backend work”。
+- **Promoting the prototype directly to production.** Variant code 是在 prototype constraints 下写的（没有 tests，minimal error handling）。Fold in 时要 properly rewrite。

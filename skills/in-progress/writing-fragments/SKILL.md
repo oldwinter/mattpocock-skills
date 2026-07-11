@@ -6,15 +6,15 @@ disable-model-invocation: true
 
 <what-to-do>
 
-This is pure **explore**: widen the space of what could be written without committing to structure — committing is _exploit_, a separate skill's job. Run a grilling session that produces fragments, interviewing the user relentlessly about whatever they want to write about. Imposing phases, outlines, or article structure is out of scope here.
+这是纯 **explore**：扩展可能写成什么的空间，不 commit 到 structure；commit 是 _exploit_，属于另一个 skill。运行一个会产出 fragments 的 grilling session，围绕用户想写的任何内容 relentless interview。不要 impose phases、outlines 或 article structure；这明确 out of scope。
 
-As fragments emerge from either side of the conversation, append them to a single markdown file.
+当 fragments 从 conversation 任意一边浮现，将它们 append 到单个 markdown file。
 
-If the user did not pass a path, ask once where to save the document, then remember it for the rest of the session.
+如果用户没有传 path，询问一次 document 保存位置，然后在本 session 剩余时间记住它。
 
-Capture fragments from the very first thing the user says, including the initial prompt.
+从用户说的第一句话开始 capture fragments，包括 initial prompt。
 
-On first write, put a single H1 at the top with a working title (it can change later) and nothing else — no metadata, no TOC, no date.
+第一次 write 时，顶部只放一个带 working title 的 H1（之后可改），除此之外不要放 metadata、TOC、date。
 
 </what-to-do>
 
@@ -22,22 +22,22 @@ On first write, put a single H1 at the top with a working title (it can change l
 
 ## What is a fragment
 
-A fragment is any piece of text that might survive into the final article. It must be _readable by the author_ — the author can tell what it means — but it does not need to define its terms or be comprehensible to a cold reader. The bar is "is this a piece of good writing?", not "is this a self-contained argument?"
+Fragment 是任何可能 survive 到 final article 的 text。它必须 _readable by the author_：作者能看懂它的意思；但不必 define terms，也不必让 cold reader 理解。标准是 “is this a piece of good writing?”，不是 “is this a self-contained argument?”
 
-Fragments are deliberately heterogeneous. Examples of what could be a fragment:
+Fragments 故意 heterogeneous。可以成为 fragment 的例子：
 
-- A sharp sentence you'd want to deploy somewhere but don't yet know where.
-- A claim with a one-line justification.
-- A vignette: a thing that happened, a code snippet, a scenario, an analogy.
-- A half-thought: "something about how X feels like Y, work this out later."
-- A quote, a piece of dialogue, an overheard line.
-- A list of related observations that hang together by feel.
-- A complaint, a confession, a punchline.
-- A **leading word** — a compact metaphor or coinage the whole piece can hang on (one term that names the idea, the way _tracer bullets_ or _fog of war_ names a whole pattern).
+- 一句 sharp sentence，你想在某处使用，但还不知道放哪里。
+- 一个带 one-line justification 的 claim。
+- 一个 vignette：发生过的事、code snippet、scenario、analogy。
+- 一个 half-thought：“something about how X feels like Y, work this out later.”
+- 一个 quote、一段 dialogue、一句 overheard line。
+- 一组凭感觉 hang together 的 related observations。
+- 一个 complaint、confession、punchline。
+- 一个 **leading word**：一个 compact metaphor 或 coinage，整篇文章都可以挂在它上面；一个命名 idea 的 term，就像 _tracer bullets_ 或 _fog of war_ 命名整个 pattern。
 
-Of these, the leading word is the most valuable fragment to land. It is load-bearing: name the right one in explore and it shapes the structure, the transitions, and the title later — paying dividends through the entire exploit phase. When the conversation circles a recurring idea, push to coin a word for it.
+其中，leading word 是最有价值、最应该落地的 fragment。它是 load-bearing：在 explore 阶段命名对的词，会在之后 shape structure、transitions 和 title，贯穿整个 exploit phase 产生收益。当 conversation 围绕一个 recurring idea 打转时，push to coin a word for it。
 
-The novelist's diary is the model: years of unstructured noticings that later get mined for raw material. Fragments are noticings.
+Novelist's diary 是 model：多年 unstructured noticings 之后被 mined 成 raw material。Fragments 是 noticings。
 
 ## File format
 
@@ -66,14 +66,14 @@ A reaction to it.
 - And want to be near each other
 ```
 
-Fragments are separated by a horizontal rule (`\n---\n`). No headings inside the body. No tags. No order beyond the order they were added.
+Fragments 用 horizontal rule（`\n---\n`）分隔。Body 内没有 headings。没有 tags。除了被添加顺序外没有 order。
 
 ## Writing rhythm
 
-Append silently. Don't ask permission for each fragment. Mention what you added in passing ("adding that"), but don't interrupt the conversation with save dialogs.
+Silently append。不要为每个 fragment ask permission。顺带提一句你加了什么（“adding that”），但不要用 save dialogs 打断 conversation。
 
-Before every write: re-read the file from disk. The user may have edited, reordered, or deleted fragments between turns — preserve their changes. Never overwrite the file; only append (or, if the user asks, edit a specific fragment in place).
+每次 write 前：从 disk 重新读取 file。用户可能在 turns 之间 edit、reorder 或 delete fragments；preserve their changes。永远不要 overwrite file；只 append（或在用户要求时，edit specific fragment in place）。
 
-The user can say "cut the last one", "rewrite that one sharper", "merge those two" at any time. Treat those as first-class instructions.
+用户随时可以说 “cut the last one”、“rewrite that one sharper”、“merge those two”。把这些视为 first-class instructions。
 
 </supporting-info>

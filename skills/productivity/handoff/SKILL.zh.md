@@ -8,7 +8,7 @@ argument-hint: "下一次 session 会用来做什么？"
 
 在文档里包含一个 “suggested skills” section，建议 agent 应该 invoke 哪些 skills。
 
-不要重复已经被其他 artifacts 捕获的内容（PRDs、plans、ADRs、issues、commits、diffs）。改用 path 或 URL 引用它们。
+不要重复已经被其他 artifacts 捕获的内容（specs、plans、ADRs、issues、commits、diffs）。改用 path 或 URL 引用它们。
 
 删去任何 sensitive information，例如 API keys、passwords 或 personally identifiable information。
 

@@ -1,14 +1,14 @@
 Quickstart:
 
 ```bash
-npx skills add mattpocock/skills --skill=grill-me
+npx skills add oldwinter/mattpocock-skills --skill=grill-me
 ```
 
 ```bash
 npx skills update grill-me
 ```
 
-[Source](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me)
+[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/productivity/grill-me)
 
 ## What it does
 
@@ -30,4 +30,4 @@ Session 会把 plan 当作 decision tree 来走，逐个解决 decisions 之间�
 
 ## Where it fits
 
-`grill-me` 是 reach-for-it-anytime standalone，是任何 plan 需要 hardening 时的 pre-build stress test。它是 [grilling](https://aihero.dev/skills-grilling) primitive 的 stateless、user-invoked front door；最接近的邻居是 [grill-with-docs](https://aihero.dev/skills-grill-with-docs)，也就是同样 interview 但额外把 decisions 记录成 ADRs 和 glossary 的 stateful sibling。如果结果是你想写下来的 spec，就交给 [to-prd](https://aihero.dev/skills-to-prd)，后者会把 settled understanding 合成为 PRD，而不会再次 interview。无法确定哪个 flow 合适时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。
+`grill-me` 是 reach-for-it-anytime standalone，是任何 plan 需要 hardening 时的 pre-build stress test。它是 [grilling](https://aihero.dev/skills-grilling) primitive 的 stateless、user-invoked front door；最接近的邻居是 [grill-with-docs](https://aihero.dev/skills-grill-with-docs)，也就是同样 interview 但额外把 decisions 记录成 ADRs 和 glossary 的 stateful sibling。如果结果是你想写下来的 spec，就交给 [to-spec](https://aihero.dev/skills-to-spec)，后者会把 settled understanding 合成为 spec，而不会再次 interview。无法确定哪个 flow 合适时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。

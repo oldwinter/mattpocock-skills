@@ -1,12 +1,12 @@
 ---
 name: code-review
-description: Review 自 fixed point（commit、branch、tag 或 merge-base）以来的 changes，沿两条 axes：Standards（code 是否遵守此 repo documented coding standards？）和 Spec（code 是否匹配 originating issue/PRD 要求？）。并行运行两个 sub-agents 并 side by side 报告。用于用户想 review branch、PR、work-in-progress changes，或要求 “review since X” 的场景。
+description: Review 自 fixed point（commit、branch、tag 或 merge-base）以来的 changes，沿两条 axes：Standards（code 是否遵守此 repo documented coding standards？）和 Spec（code 是否匹配 originating issue/spec 要求？）。并行运行两个 sub-agents 并 side by side 报告。用于用户想 review branch、PR、work-in-progress changes，或要求 “review since X” 的场景。
 ---
 
 对用户提供的 fixed point 与 `HEAD` 之间 diff 做 two-axis review：
 
 - **Standards** — code 是否符合此 repo 的 documented coding standards？
-- **Spec** — code 是否 faithfully implement originating issue / PRD / spec？
+- **Spec** — code 是否 faithfully implement originating issue / spec？
 
 两条 axes 作为 **parallel sub-agents** 运行，避免彼此污染 context，然后此 skill aggregate findings。
 
@@ -28,7 +28,7 @@ Capture diff command once：`git diff <fixed-point>...HEAD`（three-dot，因此
 
 1. Commit messages 中的 issue references（`#123`、`Closes #45`、GitLab `!67` 等）— 通过 `docs/agents/issue-tracker.md` 中 workflow fetch。
 2. 用户作为 argument 传入的 path。
-3. `docs/`、`specs/` 或 `.scratch/` 下，与 branch name 或 feature 匹配的 PRD/spec file。
+3. `docs/`、`specs/` 或 `.scratch/` 下，与 branch name 或 feature 匹配的 spec file。
 4. 如果什么都找不到，询问用户 spec 在哪里。如果他们说没有，**Spec** sub-agent 会 skip 并报告 “no spec available”。
 
 ### 3. Identify the standards sources
