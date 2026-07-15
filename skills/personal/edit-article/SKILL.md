@@ -1,6 +1,7 @@
 ---
 name: edit-article
 description: 通过重组 sections、提升 clarity、收紧 prose 来 edit 和 improve articles。Use when user wants to edit, revise, or improve an article draft.
+disable-model-invocation: true
 ---
 
 1. 首先，根据 headings 将 article 分成 sections。思考在这些 sections 中你想表达的 main points。

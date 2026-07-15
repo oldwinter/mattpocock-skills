@@ -41,7 +41,9 @@ disable-model-invocation: true
 
 - **Something's broken** → **`/diagnosing-bugs`**。用于困难问题：第一眼看不出的 bug、intermittent flake、在两个 known-good states 之间出现的 regression。它会拒绝在拥有 **tight feedback loop** 前理论化：必须先有一条已因 *这个* bug 变红的 command，然后带 regression test 修复。当真正发现是没有好 seam 可以锁住 bug 时，它的 post-mortem 会交给 **`/improve-codebase-architecture`**。
 
-- **一个巨大而模糊的 effort，例如 greenfield project 或超大 feature build，大到单个 session 装不下** → **`/wayfinder`**。当从当前位置到 destination 的路径还不可见时，它会在 issue tracker 上绘制一张由 investigation tickets 组成的 **shared map**，一次解决一个 ticket；产出的是 **decisions，而不是 deliverables**，直到雾被推开、路线变清晰。之后回到 main flow 的 **`/to-spec`**；如果 effort 最终足够小，也可以直接进入 **`/implement`**。`/grill-with-docs` 用来打磨一个 session 能容纳的 idea，wayfinder 用于容纳不了的 idea。
+- **一个巨大而模糊的 effort，例如 greenfield project 或超大 feature build，大到单个 session 装不下** → **`/wayfinder`**，这是这里认知负荷最高的 flow。当从当前位置到 destination 的路径还不可见时，它会在 issue tracker 上绘制一张由 **decision tickets** 组成的 **shared map**，一次解决一个 ticket；产出的是 **decisions，而不是 deliverables**，直到雾被推开、路线变清晰。`/grill-with-docs` 用来打磨一个 session 能容纳的 idea；wayfinder 用于容纳不了的 idea，而且更慢、更密集，所以只把它留给真正需要的情况，绝不要用于 well-scoped feature。
+
+  Map 清晰后，**它会 hand off，而不是 build**：回到 main flow 的 **`/to-spec`**，把 map 中互相链接的 decisions 压缩成 buildable plan，然后照常进入 `/to-tickets` 和 `/implement`。让 map 直接进入 `/implement` 会跳过这次压缩并丢掉 linked detail；只有当 effort 最终确实很小时，才直接进入 `/implement`。
 
 ## Codebase health
 

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Claude Handoff"
+  short_description: "将工作 hand off 给 background agent"
+policy:
+  allow_implicit_invocation: false

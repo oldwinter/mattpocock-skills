@@ -22,7 +22,7 @@ npx skills update grill-me
 
 在 build 前使用它：plan 大体正确，但你能感觉里面藏着未解决 decisions，需要把软点找出来并摊开。如果你希望同样的 interrogation 还留下 ADRs 和 glossary 的 paper trail，使用 [grill-with-docs](https://aihero.dev/skills-grill-with-docs)。
 
-## The design tree
+## The decision tree
 
 Session 会把 plan 当作 decision tree 来走，逐个解决 decisions 之间的 dependencies：先 settle parent decision，再处理挂在下面的 choices。目标不是快速达成一致，而是把每个 implicit call 变 explicit，让重要内容不再被默默假设。走完后，你得到的是每个 branch 都被访问过的 plan。
 

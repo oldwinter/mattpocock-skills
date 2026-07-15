@@ -10,7 +10,10 @@ _Avoid_: backlog manager, backlog backend, issue host
 
 **Issue**:
 **Issue tracker** 内一个被追踪的工作单元，可以是 bug、task、spec，或由 `to-tickets` 生成的 slice。
-_Avoid_: ticket（仅在引用外部系统自身称其为 ticket 时使用）
+_Avoid_: ticket（仅在引用外部系统自身称其为 ticket，或表示下方的 **Decision ticket** 时使用）
+
+**Decision ticket**:
+`wayfinder` 的工作单元：它是 `wayfinder:map` 的 child **Issue**，保存一个 resolution 为 decision 的 *question*，而不是待执行的 build slice。**decision** qualifier 让它有别于 implementation ticket；`wayfinder` 会先引入完整术语，之后再简称 “ticket”。
 
 **Triage role**:
 Triage 期间应用到某个 **Issue** 上的 canonical state-machine label（例如 `needs-triage`、`ready-for-afk`）。每个 role 都会通过 `docs/agents/triage-labels.md` 映射到 **Issue tracker** 里的真实 label string。
@@ -19,6 +22,7 @@ Triage 期间应用到某个 **Issue** 上的 canonical state-machine label（�
 
 - 一个 **Issue tracker** 持有多个 **Issues**
 - 一个 **Issue** 同一时间携带一个 **Triage role**
+- 一个 **Decision ticket** 是 **Issue**（`wayfinder:map` 的 child）
 
 ## Flagged ambiguities
 

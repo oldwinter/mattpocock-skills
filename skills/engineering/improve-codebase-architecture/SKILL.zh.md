@@ -17,6 +17,11 @@ Surface architectural friction，并提出 **deepening opportunities**：把 sha
 
 ### 1. Explore
 
+**扫描前先确定 scope — YAGNI。** Deepen module 的收益，是让未来对它的 change 更容易，因此要对 codebase 中最近发生变化的部分赋予更高权重。先决定去哪里看，再开始扫描：
+
+- 如果用户已经点名方向，例如 module、subsystem 或 pain point，就沿该方向开始，并跳过下方推断。
+- 否则，回看足够长的一段 commit history（`git log --oneline`），找出 codebase 的 hot spots，也就是反复出现的 files 和 areas，并优先关注这些 paths。如果 changes 很分散、没有清晰 hot spot，再扩大范围。
+
 先读取项目的 domain glossary（`CONTEXT.md`），以及你触碰区域的任何 ADRs。
 
 然后使用 Agent tool，`subagent_type=Explore`，walk the codebase。不要遵循 rigid heuristics；organic explore，并记录你在哪里 experience friction：
@@ -56,7 +61,7 @@ Report 以 **Top recommendation** section 结尾：你会先 tackle 哪个 candi
 
 ### 3. Grilling loop
 
-用户选择一个 candidate 后，运行 `/grilling` skill，与他们一起 walk design tree：constraints、dependencies、deepened module 的 shape、seam 后面放什么、哪些 tests survive。
+用户选择一个 candidate 后，运行 `/grilling` skill，与他们一起 walk decision tree：constraints、dependencies、deepened module 的 shape、seam 后面放什么、哪些 tests survive。
 
 随着 decisions crystallize，side effects inline 发生；运行 `/domain-modeling` skill，持续保持 domain model 最新：
 

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Wizard"
+  short_description: "生成交互式 setup wizard"
+policy:
+  allow_implicit_invocation: false

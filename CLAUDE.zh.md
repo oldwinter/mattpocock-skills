@@ -7,7 +7,9 @@ Skills 按 bucket folders 组织在 `skills/` 下：
 - `in-progress/` — 尚未 ready to ship 的 drafts
 - `deprecated/` — 不再使用
 
-`engineering/` 或 `productivity/`（**promoted** buckets）中的每个 skill，都必须在 top-level `README.md` 中有 reference，并在 `.claude-plugin/plugin.json` 中有 entry。`misc/`、`personal/`、`in-progress/` 和 `deprecated/` 中的 skills 不得出现在两者中。
+`engineering/` 或 `productivity/`（**promoted** buckets）中的每个 skill，都必须在 top-level `README.md` 中有 reference，并在 `.claude-plugin/plugin.json` 的 `skills` array 中有 entry（Claude Code plugin 只发布 promoted set）。`misc/`、`personal/`、`in-progress/` 和 `deprecated/` 中的 skills 不得出现在两者中。
+
+此 repo 也是自己的 single-plugin Claude Code marketplace：`.claude-plugin/marketplace.json` 列出唯一的 `mattpocock-skills` plugin。升级 release version 时，让 `.claude-plugin/plugin.json` 的 `version` 与 `package.json` 保持同步；Claude 会用 plugin `version` 判断 installed users 何时看到 update。修改任一 manifest 后运行 `claude plugin validate . --strict`。为什么目前发布 Claude plugin、暂缓 Codex plugin，见 [.agents/adr/0002-ship-as-a-claude-code-plugin.zh.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.zh.md)。
 
 Top-level `README.md` 中的每个 skill entry，都必须将 skill name link 到它的 `SKILL.md`。
 
@@ -15,7 +17,7 @@ Top-level `README.md` 中的每个 skill entry，都必须将 skill name link �
 
 `engineering/` 和 `productivity/` 中的 skills 还拥有面向人的 docs page：`docs/<bucket>/<skill-name>.md`（docs tree 镜像 `skills/` 下这两个 bucket）。发布 URL 始终是 `https://aihero.dev/skills-<skill-name>`，与 bucket 无关；docs path 只是 repo organization。添加、重命名或改变 `engineering/` 或 `productivity/` 中 skill 的行为时，按 [.agents/writing-docs.zh.md](./.agents/writing-docs.zh.md) 创建或重新同步 docs page。Non-promoted buckets（`misc/`、`personal/`、`in-progress/`、`deprecated/`）中的 skills **没有** docs page。
 
-每个 `SKILL.md` 要么是 user-invoked（`disable-model-invocation: true`，只有 human 可触达），要么是 model-invoked（model 或 user 均可触达）。见 [.agents/invocation.zh.md](./.agents/invocation.zh.md)。
+每个 `SKILL.md` 要么是 user-invoked（`disable-model-invocation: true`，并在 `agents/openai.yaml` 中设置 `policy.allow_implicit_invocation: false`，只有 human 可触达），要么是 model-invoked（model 或 user 均可触达）。见 [.agents/invocation.zh.md](./.agents/invocation.zh.md)。
 
 [`ask-matt`](./skills/engineering/ask-matt/SKILL.zh.md) 是映射所有 user-reachable skills 及其关系的 router。与 docs page 重新同步相同的 trigger 也适用于它：每当你 add、rename、remove，或改变 user-reachable skill 在 flows 中的位置时，都要重读 `ask-matt` 的 `SKILL.md` 并更新它，确保 map 准确。新 skill 从未被提到，或旧 skill 仍被路由过去，都会让 router 说谎。
 

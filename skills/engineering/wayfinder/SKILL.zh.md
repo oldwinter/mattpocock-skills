@@ -1,10 +1,10 @@
 ---
 name: wayfinder
-description: 将超出单个 agent session 容量的大块工作，规划成 issue tracker 上共享的 investigation ticket map，并一次解决一个 ticket，直到通往 destination 的路径清晰。
+description: 将超出单个 agent session 容量的大块工作，规划成 issue tracker 上共享的 decision ticket map，并一次解决一个 ticket，直到通往 destination 的路径清晰。
 disable-model-invocation: true
 ---
 
-一个松散想法出现了；它太大，单个 agent session 装不下，而且被雾包裹：从当前状态到 **destination** 的路径还不可见。Wayfinding 是找到这条路，而不是直接冲向 destination。此 skill 会把路径绘制成 repo issue tracker 上的一张**共享 map**，再一次处理一个 ticket，直到路线清晰。
+一个松散想法出现了；它太大，单个 agent session 装不下，而且被雾包裹：从当前状态到 **destination** 的路径还不可见。Wayfinding 是找到这条路，而不是直接冲向 destination。此 skill 会把路径绘制成 repo issue tracker 上的一张**共享 map**，再逐一处理其中的 **decision tickets**——它们的问题以 decision 为 resolution，而不是待执行的 build slices——直到路线清晰。
 
 不同 effort 的 destination 不同，命名它就是 charting 的第一步；它会塑造每个 ticket。它可能是可 handoff 并 iterate 的 spec、planning 前需要锁定的 decision，也可能是就地完成的 change，例如 data-structure migration。map 与领域无关：engineering work、课程内容，任何符合这种形状的工作都可以。
 
@@ -74,7 +74,7 @@ Blocking 使用 tracker 的**原生** dependency relationship；这很重要，�
 
 每个 ticket 要么是 **HITL**（human in the loop，和能代表自己发言的人类一起完成），要么是 **AFK**（由 agent 独立驱动）。HITL ticket 只能通过这种 live exchange resolve；agent 绝不替人类回答人类那一侧的问题（一个自己回答自己问题的 grilling agent 已经破坏了这一点）。
 
-- **Research**（AFK）：阅读文档、第三方 APIs 或知识库等本地资源。创建一份 markdown summary 作为 linked asset。当需要当前 working directory 外部的知识时使用。
+- **Research**（AFK）：阅读文档、第三方 APIs 或知识库等本地资源，找出某个 decision 正在等待的 fact。由 `/research` **subagent** resolve。当需要当前 working directory 外部的知识时使用。
 - **Prototype**（HITL）：通过制作廉价、粗糙、具体的 artifact 提高讨论清晰度，例如 outline、rough take、stub，或通过 /prototype skill 生成 UI/logic code。将 prototype 作为 asset 链接。当关键问题是 “how should it look” 或 “how should it behave” 时使用。
 - **Grilling**（HITL）：通过 /grilling 和 /domain-modeling skills 对话，一次问一个问题。默认使用此类型。
 - **Task**（HITL 或 AFK）：在做出 *decision* 前必须完成的手工工作；没有 decision、prototype 或 research 要做，但讨论被它阻塞。例如为了评估 API 而注册服务、provisioning access、移动数据以观察 shape。这是唯一一种 *does* 而不是 decides 的类型；它之所以成立，是因为它 unblock 一个 decision，而不是因为它 delivery destination。agent 能独立驱动就 AFK；否则给人类精确 checklist（HITL）。完成工作后 resolved；答案记录做了什么，以及后续 tickets 依赖的 facts（credentials location、new URLs、row counts）。
@@ -102,7 +102,7 @@ Out-of-scope work 永远不会 graduate，因为 frontier 止步于 destination�
 
 ## Invocation
 
-两种模式。无论哪种，**每个 session 绝不要解决超过一个 ticket。**
+两种模式。无论哪种，**每个 session 绝不要解决超过一个 ticket**，research tickets 除外。
 
 ### Chart the map
 
@@ -112,7 +112,8 @@ Out-of-scope work 永远不会 graduate，因为 frontier 止步于 destination�
 2. **Map the frontier.** 再 grill 一次，这次 **breadth-first**：横向铺开整个空间，而不是沿某一条 thread 深挖，显露 open decisions 和现在能采取的第一批 steps。**如果这没有显露任何 fog**，说明通往 destination 的路已经清晰，整个 journey 小到一个 session 可容纳；不需要 map。停止并询问用户希望怎么继续。
 3. **Create the map**（label `wayfinder:map`）：填好 Destination 和 Notes，Decisions-so-far 为空，把 fog 画进 **Not yet specified**。
 4. **创建现在能明确描述的 tickets** 作为 map 的 child issues；然后在**第二轮**连接 blocking edges（issues 需要 ids 后才能互相引用）。wiring 会把它们分到 frontier 和 blocked；所有还无法明确描述的内容留在 fog，也就是 **Not yet specified** section。
-5. 停止；绘制 map 是一个 session 的工作，不要同时解决 tickets。
+5. **启动 research subagents。** 为刚创建的每张 `research` ticket 启动一个 `/research` subagent 并行 resolve；在取得当前用户对准确 branch action 与 target 的批准后，把 findings 保存到 throwaway `research/<name>` branch，并从 ticket 留下 context pointer。
+6. 停止；绘制 map 是一个 session 的工作，不要由当前 session 亲自解决 tickets。
 
 ### Work through the map
 

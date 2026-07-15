@@ -20,7 +20,7 @@ npx skills update grill-with-docs
 
 你通过输入 `/grill-with-docs` 调用它，agent 不会自行触达它。
 
-在 change 最开始时使用它：plan 还模糊，domain language 尚未稳定，你希望在任何代码出现前 pressure-test 两者。如果你只需要 interview，不需要 artifacts，使用 [grilling](https://aihero.dev/skills-grilling)；如果 plan 已清楚，只需要钉住或记录 terminology，使用 [domain-modeling](https://aihero.dev/skills-domain-modeling)。
+在 change 最开始时使用它：plan 还模糊，domain language 尚未稳定，你希望在任何代码出现前 pressure-test 两者。如果你只需要 interview，不需要 artifacts，使用 [grilling](https://aihero.dev/skills-grilling)；如果 plan 已清楚，只需要钉住或记录 terminology，使用 [domain-modeling](https://aihero.dev/skills-domain-modeling)。如果 change 大到单个 session 装不下，而且路线仍有 fog，例如 greenfield project 或超大 feature build，则从更上游的 [wayfinder](https://aihero.dev/skills-wayfinder) 开始：它先把 effort 绘制成 decision map，路线清晰后再交回 main flow。
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ npx skills update grill-with-docs
 
 ## The grill
 
-Engine 是一个 **grill**：relentless、one-question-at-a-time 地沿 design tree 向下走，先解决 decisions 之间的 dependencies，再继续下一步，并且每个问题都提供 recommended answer。代码库能回答的问题会通过阅读代码回答，而不是问你。
+Engine 是一个 **grill**：relentless、one-question-at-a-time 地沿 decision tree 向下走，先解决 decisions 之间的 dependencies，再继续下一步，并且每个问题都提供 recommended answer。代码库能回答的问题会通过阅读代码回答，而不是问你。
 
 此 variant 成为独立 skill 的原因在于答案落到哪里。grill 运行时，fuzzy language 会被 sharpen 成 canonical terms，并 inline 写入 glossary，而不是最后 batch。Glossary 始终是 glossary：纯 vocabulary，没有 implementation details，没有 spec。ADRs 只在 decision hard to reverse、surprising without context、且来自 real trade-off 时才提出。多数 sessions 只产生更清晰的 glossary 和很少甚至没有 ADRs，这正是预期形状。
 

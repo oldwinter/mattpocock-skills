@@ -4,7 +4,7 @@
 
 ## User-invoked
 
-只有在你输入它们时才能触达（`disable-model-invocation: true`）。
+只有在你输入它们时才能触达（Claude Code：`disable-model-invocation: true`；Codex：`agents/openai.yaml` 中的 `policy.allow_implicit_invocation: false`）。
 
 - **[grill-me](./grill-me/SKILL.md)** — 围绕 plan 或 design 进行持续追问，直到 decision tree 的每个分支都被解决。
 - **[handoff](./handoff/SKILL.md)** — 将当前 conversation 压缩成 handoff document，方便另一个 agent 接续工作。
@@ -15,4 +15,4 @@
 
 Model 或 user 都能触达（使用 rich trigger phrasing，让 model 能主动 reach for them）。
 
-- **[grilling](./grilling/SKILL.md)** — 围绕 plan 或 design 持续 interview 用户，直到 decision tree 的每个分支都被解决。
+- **[grilling](./grilling/SKILL.md)** — 围绕 plan、decision 或 idea 持续 interview 用户，直到 decision tree 的每个分支都被解决。

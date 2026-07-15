@@ -1,0 +1,5 @@
+interface:
+  display_name: "Teach"
+  short_description: "在 guided workspace 中学习 concept"
+policy:
+  allow_implicit_invocation: false

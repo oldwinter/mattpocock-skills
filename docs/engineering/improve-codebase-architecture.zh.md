@@ -16,6 +16,8 @@ npx skills update improve-codebase-architecture
 
 它 **不是**给你一张平铺的 refactors 列表。每个 candidate 必须通过 **deletion test**：移除这个 module 会把 complexity *concentrate* 到更小接口后，还是只是把 complexity 移到别处？只有 “concentrates” cases 才配有 card。这个过滤器防止 report 变成 generic cleanup advice。
 
+除非你点名 specific area，否则它还会把 scope 收拢到 development 真正发生的位置：读取 recent commits，优先关注你仍在修改的代码。Deepen module 的回报来自让未来 changes 更容易，因此最近频繁变化的 repo 部分会获得更高权重。
+
 ## When to reach for it
 
 你通过输入 `/improve-codebase-architecture` 调用它，agent 不会自行触达它。
@@ -36,4 +38,4 @@ npx skills update improve-codebase-architecture
 
 ## Where it fits
 
-`improve-codebase-architecture` 是 **periodic maintenance**：每隔几天运行，而不是 chain 中一步。它的邻居是 [codebase-design](https://aihero.dev/skills-codebase-design)，也就是所有 candidates 使用的 depth-and-seam vocabulary 的所有者；[grilling](https://aihero.dev/skills-grilling)，用于在你选定 candidate 后走 design tree；以及 [domain-modeling](https://aihero.dev/skills-domain-modeling)，用于在 redesign settle 时保持 `CONTEXT.md` 和 ADRs 当前。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。
+`improve-codebase-architecture` 是 **periodic maintenance**：每隔几天运行，而不是 chain 中一步。它的邻居是 [codebase-design](https://aihero.dev/skills-codebase-design)，也就是所有 candidates 使用的 depth-and-seam vocabulary 的所有者；[grilling](https://aihero.dev/skills-grilling)，用于在你选定 candidate 后走 decision tree；以及 [domain-modeling](https://aihero.dev/skills-domain-modeling)，用于在 redesign settle 时保持 `CONTEXT.md` 和 ADRs 当前。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。

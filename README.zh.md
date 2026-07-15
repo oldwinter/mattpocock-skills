@@ -13,7 +13,7 @@
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
 > [!IMPORTANT]
-> 这是 `mattpocock/skills` 的社区维护中文 fork，当前同步到上游 `391a270`。中文版安装命令必须指向本 fork；安装器会直接加载已中文化的 `SKILL.md`。
+> 这是 `mattpocock/skills` 的社区维护中文 fork，当前同步到上游 `66898f6`。中文版安装命令必须指向本 fork；安装器会直接加载已中文化的 `SKILL.md`。
 
 这些是我每天用于 real engineering 的 agent skills，不是 vibe coding。
 
@@ -41,6 +41,33 @@ npx skills@latest add oldwinter/mattpocock-skills
    - 默认使用 single-context domain docs；检测到 monorepo 时才询问 multi-context layout
 
 4. Bam - you're ready to go.
+
+## 作为 Claude Code plugin 安装
+
+希望 plug-and-play，而不想手工维护安装内容？这些 skills 也会作为原生 [Claude Code plugin](https://code.claude.com/docs/en/plugins) 发布。Plugin 不会把可编辑文件复制进 repo，而是把整套 promoted skills 安装成随新版本更新的 managed bundle：你订阅它，而不是维护自己的副本。
+
+在 Claude Code 中运行：
+
+```
+/plugin marketplace add oldwinter/mattpocock-skills
+/plugin install mattpocock-skills@mattpocock
+```
+
+也可以在 shell 中运行：
+
+```bash
+claude plugin marketplace add oldwinter/mattpocock-skills
+claude plugin install mattpocock-skills@mattpocock
+```
+
+然后和上面的 quickstart 一样，在每个 repo 中运行一次 `/setup-matt-pocock-skills`。
+
+两种安装方式代表两种取向：
+
+- **[skills.sh](https://skills.sh/oldwinter/mattpocock-skills)** 会把 skills 复制进项目，方便你修改并做成自己的版本。
+- **Plugin** 提供只读、始终跟随版本更新的 bundle；适合只想直接使用这套 skills 并持续获得更新的场景。
+
+> 使用 Codex 或其他 agent？[skills.sh installer](https://skills.sh/oldwinter/mattpocock-skills) 已经可以把这些 skills 安装到 Codex 和其他遵循 Agent Skills 标准的 harness。原生 Codex plugin 仍在 roadmap 上；原因见 [`.agents/adr/0002-ship-as-a-claude-code-plugin.zh.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.zh.md)。
 
 ## Why These Skills Exist
 
@@ -160,7 +187,7 @@ Software engineering fundamentals 比以往更重要。这些 skills 是我将�
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)** — 将当前 conversation 整理成 spec 并发布到 issue tracker；不再 interview，只 synthesize 已讨论内容。
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)** — 把 plan、spec 或 conversation 拆成 tracer-bullet tickets，并明确 blocking edges。
 - **[implement](./skills/engineering/implement/SKILL.md)** — 按 spec 或 tickets 实现工作，使用 `/tdd` 驱动并在 commit 前运行 `/code-review`。
-- **[wayfinder](./skills/engineering/wayfinder/SKILL.md)** — 把单个 session 装不下的大型 effort 绘制成共享 investigation map，一次解决一个 ticket，直到通往 destination 的路径清晰。
+- **[wayfinder](./skills/engineering/wayfinder/SKILL.md)** — 把单个 session 装不下的大型 effort 绘制成共享 decision ticket map，一次解决一个 ticket，直到通往 destination 的路径清晰。
 
 **Model-invoked**
 
@@ -171,6 +198,7 @@ Software engineering fundamentals 比以往更重要。这些 skills 是我将�
 - **[domain-modeling](./skills/engineering/domain-modeling/SKILL.md)** — 主动构建和打磨项目的 domain model：对照 glossary challenge terms，用 edge-case scenarios stress-test，并 inline 更新 `CONTEXT.md` 和 ADRs。
 - **[codebase-design](./skills/engineering/codebase-design/SKILL.md)** — 设计 deep modules 的 shared discipline 和 vocabulary：用 small interface 包住大量 behaviour，放在 clean seam 上，并通过 interface test。
 - **[code-review](./skills/engineering/code-review/SKILL.md)** — 针对 fixed point 之后的 diff 做 two-axis review：**Standards**（是否遵守 repo coding standards 加 Fowler smell baseline）和 **Spec**（是否忠实实现 originating Issue/spec），并用 parallel sub-agents 分开运行。
+- **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)** — 逐 hunk 处理进行中的 git merge 或 rebase conflict，依据两侧 primary source 的 intent 解决，然后完成操作；绝不 `--abort`。
 
 ### Productivity
 
@@ -185,4 +213,4 @@ Software engineering fundamentals 比以往更重要。这些 skills 是我将�
 
 **Model-invoked**
 
-- **[grilling](./skills/productivity/grilling/SKILL.md)** — 围绕 plan 或 design 持续 interview 用户，直到 decision tree 的每个 branch 都被 resolved。它是 `grill-me` 和 `grill-with-docs` 背后的 reusable loop。
+- **[grilling](./skills/productivity/grilling/SKILL.md)** — 围绕 plan、decision 或 idea 持续 interview 用户，直到 decision tree 的每个 branch 都被 resolved。它是 `grill-me` 和 `grill-with-docs` 背后的 reusable loop。

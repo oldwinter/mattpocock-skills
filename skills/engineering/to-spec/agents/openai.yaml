@@ -1,0 +1,5 @@
+interface:
+  display_name: "To Spec"
+  short_description: "将 conversation 整理成 spec"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Grill with Docs"
+  short_description: "深入审视 design 并同步写文档"
+policy:
+  allow_implicit_invocation: false

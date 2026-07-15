@@ -1,0 +1,23 @@
+{
+  "name": "mattpocock",
+  "owner": {
+    "name": "Matt Pocock",
+    "url": "https://www.aihero.dev"
+  },
+  "description": "Matt Pocock 的 real engineering skills，以可安装的 Claude Code plugin 形式提供。",
+  "plugins": [
+    {
+      "name": "mattpocock-skills",
+      "source": "./",
+      "description": "Matt Pocock 的 real engineering agent skills，包括 grilling、spec/ticket flows、TDD、code review、domain modelling 等。",
+      "category": "engineering",
+      "keywords": [
+        "engineering",
+        "skills",
+        "tdd",
+        "code-review",
+        "grilling"
+      ]
+    }
+  ]
+}

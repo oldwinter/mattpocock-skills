@@ -1,0 +1,5 @@
+interface:
+  display_name: "Grill Me"
+  short_description: "通过 interview 打磨 plan"
+policy:
+  allow_implicit_invocation: false

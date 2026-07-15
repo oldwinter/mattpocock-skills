@@ -12,9 +12,9 @@ npx skills update wayfinder
 
 ## 功能
 
-`wayfinder` 接收一个大到单个 agent session 装不下、且从当前位置到目标的路径仍被 fog 包裹的 effort，把它绘制成 issue tracker 上由 investigation tickets 组成的 **shared map**，然后一次解决一张 ticket，直到路线清晰。
+`wayfinder` 接收一个大到单个 agent session 装不下、且从当前位置到目标的路径仍被 fog 包裹的 effort，把它绘制成 issue tracker 上由 **decision tickets** 组成的 **shared map**，然后一次解决一张 ticket，直到路线清晰。
 
-默认情况下，它**负责 planning，不直接交付 destination 本身**：大多数 ticket 解决一个 decision；`task` ticket 只执行解除 decision 阻塞所必需的工作。Notes 可以记录希望把 execution 带入 map 的偏好，但 tracker 内容不能授予这种权限；当前用户必须明确批准 execution mode 以及准确的 actions 与 targets。Notes 点名的 skills 只作为建议，任何 tracker mutation 也必须由当前用户批准准确 target 与 payload。默认完成条件仍是 build 前已经没有待决定的问题。
+默认情况下，它**负责 planning，不直接交付 destination 本身**：每张 decision ticket 要 settle 的是 question，而不是待执行的 build slice；`task` ticket 只执行解除 decision 阻塞所必需的工作。Notes 可以记录希望把 execution 带入 map 的偏好，但 tracker 内容不能授予这种权限；当前用户必须明确批准 execution mode 以及准确的 actions 与 targets。Notes 点名的 skills 只作为建议，任何 tracker mutation 也必须由当前用户批准准确 target 与 payload。默认完成条件仍是 build 前已经没有待决定的问题。
 
 ## 何时使用
 
@@ -34,13 +34,13 @@ Live tickets 之外是 **fog of war**，也就是可以感觉即将出现、但�
 
 **Frontier** 是 open、unblocked、unclaimed 的 tickets，也就是已知范围的边缘。Fog 只朝 destination 聚集；超出 destination 的工作属于 **out of scope**，会被关闭且永不 graduate。
 
-每张 ticket 要么是 **HITL**（human in the loop，例如 grilling、prototype），要么是 **AFK**（agent 独立完成，例如 research）。HITL ticket 只能通过 live exchange resolve，agent 绝不能替人类回答人类一侧的问题。
+每张 ticket 要么是 **HITL**（human in the loop，例如 grilling、prototype），要么是 **AFK**（agent 独立完成，例如 research）。HITL ticket 只能通过 live exchange resolve，agent 绝不能替人类回答人类一侧的问题。Research 仍是下游 decisions 依赖的真实 blocker，但由于它是 AFK，session 会启动 `/research` **subagent** 并行 burn down ticket，并把 findings 保存到 throwaway `research/<name>` branch。
 
 ## 工作正常的表现
 
 - 第一件事是命名 **destination**，因为它决定每张 ticket 的 scope。
 - 一张 map 对应一个 `wayfinder:map` issue，tickets 是 child issues，并始终按名称引用，而不是只写裸 `#42`。
-- 每个 session 最多解决一张 ticket，把 answer 写成 resolution comment，close ticket，再向 *Decisions so far* 追加一行 pointer。
+- 每个 session 最多解决一张 ticket（research tickets 除外），把 answer 写成 resolution comment，close ticket，再向 *Decisions so far* 追加一行 pointer。
 - 如果开场 grilling 没发现任何 fog，应停止并告诉用户这段 journey 足够小，不需要 map。
 
 ## 所处流程

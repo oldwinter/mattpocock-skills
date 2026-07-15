@@ -1,0 +1,3 @@
+interface:
+  display_name: "Request Refactor Plan"
+  short_description: "规划安全的渐进式重构"

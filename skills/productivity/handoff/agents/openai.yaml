@@ -1,0 +1,5 @@
+interface:
+  display_name: "Handoff"
+  short_description: "将 conversation 压缩成 handoff"
+policy:
+  allow_implicit_invocation: false

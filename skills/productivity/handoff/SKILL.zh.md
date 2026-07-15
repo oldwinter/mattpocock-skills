@@ -2,6 +2,7 @@
 name: handoff
 description: 将当前 conversation 压缩成 handoff document，方便另一个 agent 接手。
 argument-hint: "下一次 session 会用来做什么？"
+disable-model-invocation: true
 ---
 
 写一份 handoff document，总结当前 conversation，让一个 fresh agent 可以继续这项工作。保存到用户 OS 的 temporary directory，而不是 current workspace。

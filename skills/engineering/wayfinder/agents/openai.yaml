@@ -1,0 +1,5 @@
+interface:
+  display_name: "Wayfinder"
+  short_description: "用 decision tickets 绘制大型 effort"
+policy:
+  allow_implicit_invocation: false
