@@ -13,7 +13,7 @@
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
 > [!IMPORTANT]
-> 这是 `mattpocock/skills` 的社区维护中文 fork，当前同步到上游 `66898f6`。中文版安装命令必须指向本 fork；安装器会直接加载已中文化的 `SKILL.md`。
+> 这是 `mattpocock/skills` 的社区维护中文 fork，当前同步到上游 `e9fcdf9`。中文版安装命令必须指向本 fork；安装器会直接加载已中文化的 `SKILL.md`。
 
 这些是我每天用于 real engineering 的 agent skills，不是 vibe coding。
 

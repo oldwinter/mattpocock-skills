@@ -9,3 +9,4 @@
 - **[writing-shape](./writing-shape/SKILL.zh.md)** — 将 raw material markdown file 逐段塑造成 article，并在每一步争论 format choices。
 - **[claude-handoff](./claude-handoff/SKILL.zh.md)** — 将当前 conversation 交给 fresh background agent，通过 `claude --bg` 注入 handoff summary 后立即继续工作。User-invoked。
 - **[setup-ts-deep-modules](./setup-ts-deep-modules/SKILL.zh.md)** — 为 TypeScript repo 接入 dependency-cruiser，使每个 package 都成为 deep module：implementation 隐藏在 subfolders 中，只能通过 entry-point files 访问。User-invoked。
+- **[to-questionnaire](./to-questionnaire/SKILL.zh.md)** — 把用户无法独自回答的 decision 整理成 Markdown questionnaire，交给其他人异步填写或在 meeting 中共同完成。它 grill 的是发送方式（交给谁、需要什么），而不是 subject 本身。User-invoked。
