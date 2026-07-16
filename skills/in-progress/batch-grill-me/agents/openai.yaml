@@ -1,5 +1,5 @@
 interface:
   display_name: "Batch Grill Me"
-  short_description: "Sharpen a plan a round of questions at a time"
+  short_description: "按轮次提问，逐步打磨计划"
 policy:
   allow_implicit_invocation: false
