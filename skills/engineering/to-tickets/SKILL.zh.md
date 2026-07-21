@@ -107,5 +107,3 @@ issue tracker 和 triage label 词汇表应已提供；若没有，请运行 `/s
 </issue-template>
 
 无论使用哪种形式，都避免写入具体文件路径或代码片段，因为它们很快会过时。例外：如果 prototype 产出的代码片段比文字更准确地表达了某项决策（例如 state machine、reducer、schema 或 type shape），可以内联，但必须先把准确 excerpt、发布 target 和可见范围纳入批准 payload，确认其中不含 secrets 或 private implementation details，并简短注明它来自 prototype。只保留承载决策的信息，不要放入完整可运行的 demo。
-
-每次清理上下文后，用 `/implement` 逐张处理 frontier 上的 ticket。
