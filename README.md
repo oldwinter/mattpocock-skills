@@ -15,7 +15,7 @@
 > [!IMPORTANT]
 > **安装中文版（社区维护 fork）**
 >
-> 本仓库是 `mattpocock/skills` 的中文本地化 fork，不是上游官方发行。当前已同步到上游 `e9fcdf9`。请从中文 fork 安装：
+> 本仓库是 `mattpocock/skills` 的中文本地化 fork，不是上游官方发行。当前已同步到上游 `2ab9580`。请从中文 fork 安装：
 >
 > ```bash
 > npx skills@latest add oldwinter/mattpocock-skills
@@ -33,49 +33,66 @@ If you want to keep up with changes to these skills, and any new ones I create, 
 
 [Sign Up To The Newsletter](https://www.aihero.dev/s/skills-newsletter)
 
-## Quickstart (30-second setup)
+## 安装（30 秒完成）
 
-1. Run the skills.sh installer:
+两种入口对应两种使用方式。**[Claude Code plugin](https://code.claude.com/docs/en/plugins)** 会把整套 skill 作为只读、可更新的托管包安装；**[skills.sh](https://skills.sh/oldwinter/mattpocock-skills)** 则把可编辑的 skill 文件复制到项目中。请选择其中一种，避免重复安装。
 
-```bash
-npx skills@latest add oldwinter/mattpocock-skills
-```
+### 1. 获取 skills
 
-2. Pick the skills you want, and which coding agents you want to install them on. **Make sure you select `/setup-matt-pocock-skills`**.
+<details>
+<summary><strong>Claude Code</strong></summary>
 
-3. Run `/setup-matt-pocock-skills` in your agent. It will:
-   - Recommend an issue tracker from `git remote` (GitHub, GitLab, local files, or a custom workflow)
-   - Confirm the label vocabulary only when `/triage` is installed
-   - Default to single-context domain docs, asking about a multi-context layout only when it detects a monorepo
+先添加中文 fork marketplace，再安装其中的 plugin：
 
-4. Bam - you're ready to go.
-
-## Install as a Claude Code plugin
-
-Prefer a plug-and-play install you don't maintain by hand? These skills also ship as a native [Claude Code plugin](https://code.claude.com/docs/en/plugins). Instead of copying editable files into your repo, the plugin installs the whole skill set as a managed bundle that updates when I ship a new version — you subscribe rather than fork.
-
-Inside Claude Code:
-
-```
+```text
 /plugin marketplace add oldwinter/mattpocock-skills
 /plugin install mattpocock-skills@mattpocock
 ```
 
-Or from your shell:
+也可以在 shell 中执行：
 
 ```bash
 claude plugin marketplace add oldwinter/mattpocock-skills
 claude plugin install mattpocock-skills@mattpocock
 ```
 
-Then run `/setup-matt-pocock-skills` once per repo, exactly as in the quickstart above.
+</details>
 
-Two ways to install, two philosophies:
+<details>
+<summary><strong>Codex 与其他 agent</strong></summary>
 
-- **[skills.sh](https://skills.sh/oldwinter/mattpocock-skills)** copies the skills into your project so you can hack on them and make them your own.
-- **The plugin** keeps them as a read-only, always-current bundle you don't edit — best when you just want my set to work and follow along as it evolves.
+```bash
+npx skills@latest add oldwinter/mattpocock-skills
+```
 
-> Using Codex or another agent? The [skills.sh installer](https://skills.sh/oldwinter/mattpocock-skills) already installs these skills into Codex and other Agent-Skills-standard harnesses today. A native Codex plugin is on the roadmap — see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+选择要安装的 skill 和目标 coding agent。**请确保勾选 `setup-matt-pocock-skills`。**
+
+原生 Codex plugin 仍在规划中，详见 [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md)。
+
+</details>
+
+<details>
+<summary><strong>需要自行修改 skill</strong></summary>
+
+包括 Claude Code 在内，任何 agent 都可以使用同一个安装器：
+
+```bash
+npx skills@latest add oldwinter/mattpocock-skills
+```
+
+安装器会把 skill 作为普通文件写入项目，你可以直接修改。它不会在后台自动更新；需要新版本时运行 `npx skills update`。
+
+</details>
+
+### 2. 运行 `/setup-matt-pocock-skills`
+
+每个仓库运行一次。它会：
+
+- 根据 `git remote` 推荐 issue tracker（GitHub、GitLab、本地文件或自定义工作流）
+- 仅在安装了 `/triage` 时确认 label 词汇
+- 默认使用单一上下文的 domain docs；只有检测到 monorepo 时才询问是否采用多上下文布局
+
+### 3. 完成
 
 ## Why These Skills Exist
 
