@@ -11,7 +11,7 @@ Prototype 是**用来回答问题的 throwaway code**。问题决定形状。
 
 识别正在回答的问题：从用户 prompt、surrounding code，或在用户在线时询问：
 
-- **“Does this logic / state model feel right?”** → [LOGIC.md](LOGIC.md)。构建一个 tiny interactive terminal app，让 state machine 经过那些纸上难以推理的 cases。
+- **“Does this logic / state model feel right?”** → [LOGIC.md](LOGIC.md)。构建一个可分享的单文件 HTML：既有 free-play buttons，也有 tabbed guided walkthroughs，用它把 state machine 推过纸上难以推理的 cases，而且 non-developer 也能操作。
 - **“What should this look like?”** → [UI.md](UI.md)。在 single route 上生成几个 radically different UI variations，通过 URL search param 和 floating bottom bar 切换。
 
 两个 branches 会产出非常不同的 artifacts；选错会浪费整个 prototype。如果问题真的 ambiguous 且用户 unreachable，默认选择更匹配 surrounding code 的 branch（backend module → logic；page/component → UI），并在 prototype 顶部说明 assumption。
@@ -19,8 +19,8 @@ Prototype 是**用来回答问题的 throwaway code**。问题决定形状。
 ## Rules that apply to both
 
 1. **从 day one 就是 throwaway，并明确标记。** 将 prototype code 放在接近实际会使用它的位置（靠近被 prototyping 的 module 或 page），这样 context 清楚；但命名要让 casual reader 看出它是 prototype，不是 production。Throwaway UI routes 要遵守项目现有 routing convention，不要发明新的 top-level structure。
-2. **One command to run.** 使用项目 existing task runner 支持的方式：`pnpm <name>`、`python <path>`、`bun <path>` 等。用户必须不费脑就能启动它。
+2. **Trivial to run.** UI prototype 通过项目 existing task runner 中的一条 command 启动，例如 `pnpm <name>`、`python <path>`、`bun <path>`。Logic demo 是用户双击即可打开的单个 HTML file。两种形式都不应要求用户思考如何启动。
 3. **No persistence by default.** State 保存在 memory。Persistence 是 prototype 要 checking 的东西，而不是 prototype 应依赖的东西。如果问题明确涉及 database，就使用 scratch DB 或带清晰 “PROTOTYPE — wipe me” 名称的 local file。
 4. **Skip the polish.** 没有 tests，没有超出 runnable 所需的 error handling，没有 abstractions。重点是快速 learn。
 5. **Surface the state.** 每次 action 后（logic）或每次 variant switch 时（UI），print 或 render 完整相关 state，让用户看到发生了什么变化。
-6. **Capture it when done.** 把 validated decision fold 进 real code。Prototype 本身可以作为 **primary source** 保存到 main 之外的 throwaway branch，并在 implementation issue 中留下 context pointer，但这些都不是自动动作。创建 branch、commit、push、修改 issue 前，分别展示准确的 action 与 target，并取得用户明确批准；未获批准时，把 prototype 留在 working tree，报告路径和验证结论即可。还要在获准的 issue 或 commit 中记录 answer，也就是 verdict 以及它解决的 question。Main branch 只保留 validated decision。
+6. **Capture it when done.** 把 validated decision fold 进 real code，然后把 prototype 本身作为 **primary source** 保存：commit 到 main 之外的 throwaway branch，并从 implementation issue 留下指向该 branch 的 context pointer。还要在 issue 或 commit 中记录 answer，也就是 verdict 以及它解决的 question。Main branch 只保留 validated decision。

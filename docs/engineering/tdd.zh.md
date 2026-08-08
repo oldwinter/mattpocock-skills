@@ -1,15 +1,3 @@
-Quickstart:
-
-```bash
-npx skills add oldwinter/mattpocock-skills --skill=tdd
-```
-
-```bash
-npx skills update tdd
-```
-
-[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/tdd)
-
 ## What it does
 
 `tdd` 会 test-first 地构建 feature 或修复 bug，一次一个 behaviour，通过 red-green loop 驱动代码出现。
@@ -28,13 +16,43 @@ Leading idea 是 **red-green loop**：写一个 failing test（red），添加�
 
 两条规则保持 tests 诚实。好 test 像 specification 一样读起来（“user can checkout with valid cart”），并通过 public API 走真实 code paths，所以重命名 internal function 不会破坏它。Expected values 来自 independent source of truth，例如 known-good literal、worked example 或 spec，而不是用和 code 相同的方式重新计算；后者会形成 **tautological** test，按构造必然通过，却不给信心。
 
-Refactoring 只在 suite green 后发生；red 时绝不 refactor。
+Refactoring 不属于这个 loop；它进入 review stage，由 [code-review](https://aihero.dev/skills-code-review) 处理。这里的 implementation cycle 只有 red -> green。
 
 ## It's working if
 
 - 它写一个 test，让它通过，然后才写下一个，而不是先 batch tests 再 batch code。
 - Tests 命名 behaviours，而不是 internals，并且能经受 internal rename。
 - Expected values 是 spec 中的 literals，而不是用 code 同样方式推导的数字。
+
+## Common questions
+
+**Description 写了 “red-green-refactor”，为什么它不 refactor？**
+
+Refactor step 已有意移除，因为 agents 几乎从不可靠执行它，把 implementation 与 review 放在不同 sessions 效果更好。Trigger phrase 仍保留，因此你说 “red-green-refactor” 会触发本 skill，但实际得到 red -> green，refactoring 交给 [code-review](https://aihero.dev/skills-code-review)。这个文案 mismatch 记录在 [issue #589](https://github.com/mattpocock/skills/issues/589)。
+
+**它让我选 test seam，但我不知道如何选择。**
+
+这是 [issue #607](https://github.com/mattpocock/skills/issues/607) 记录的常见 friction。当前 prompt 只列 candidate 名称，不解释 trade-offs。回答前先要求 agent 说明每个 seam 能捕获/遗漏什么，以及运行速度；更理想的是在 `to-spec` 阶段看到完整 feature 时就预先约定 seams。
+
+**它还是先写 implementation，再补 test。**
+
+这会发生。任何 instruction 都无法让 agent 100% 遵守，过度强制又会牺牲其他能力。某个 slice 必须严格 test-first 时，应观察 run，确认 test 先因正确原因变红，不能只相信 skill 会自动 enforce。
+
+**应该先写 browser 或 end-to-end tests 吗？**
+
+通常不要，本 skill 也不会自动阻止。Browser tests 太慢，会让 red-green feedback loop 失去收益。可在 repo `CLAUDE.md` / `AGENTS.md` 中规定：先让 behaviour 工作，再写 browser tests。
+
+**`/tdd` 会取代 `/implement` 或课程里的 `/do-work` 吗？**
+
+不会。`tdd` 定义 methodology；`implement` 是 work -> feedback -> commit 的 driver，也最接近 `/do-work`。对一张 ticket 开始工作时，通常运行 `/implement`，由它在内部使用 `/tdd`。
+
+**Deep-modules 与 interface-design guidance 去哪里了？**
+
+在 v1.0 被抽到 [codebase-design](https://aihero.dev/skills-codebase-design)，供多个 skills 共享。`refactoring.md` 同期移除，refactoring 由带 Fowler smell baseline 的 [code-review](https://aihero.dev/skills-code-review) 负责。
+
+**它知道 sibling tickets 的 scope 吗？**
+
+不知道。只给一张 ticket 时，它可能提出属于另一张 ticket 的工作。附带 spec 会有所帮助，更根本的解决方式是在上游正确切分 tickets。
 
 ## Where it fits
 

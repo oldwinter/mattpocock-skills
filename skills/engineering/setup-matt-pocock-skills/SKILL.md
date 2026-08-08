@@ -37,7 +37,7 @@ Summarise 哪些 present、哪些 missing。然后按顺序处理 sections：一
 
 **Section A — Issue tracker.**
 
-> Explainer: “issue tracker” 是这个 repo 存放 issues 的位置。`to-tickets`、`triage`、`to-spec` 和 `qa` 等 skills 会读写它；它们需要知道应该调用 `gh issue create`、在 `.scratch/` 下写 markdown file，还是遵循你描述的其他 workflow。请选择你实际用于跟踪此 repo 工作的位置。
+> Explainer: “issue tracker” 是这个 repo 存放 issues 的位置。`to-tickets`、`triage` 和 `to-spec` 等 skills 会读写它；它们需要知道应该调用 `gh issue create`、在 `.scratch/` 下写 markdown file，还是遵循你描述的其他 workflow。请选择你实际用于跟踪此 repo 工作的位置。
 
 Default posture：这些 skills 是为 GitHub 设计的。如果 `git remote` 指向 GitHub，就 propose GitHub。如果 `git remote` 指向 GitLab（`gitlab.com` 或 self-hosted host），就 propose GitLab。否则（或用户偏好），提供：
 

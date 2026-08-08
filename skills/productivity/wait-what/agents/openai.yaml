@@ -1,0 +1,5 @@
+interface:
+  display_name: "Wait What"
+  short_description: "补充缺失 context，重讲上一条消息"
+policy:
+  allow_implicit_invocation: false

@@ -1,5 +1,0 @@
-interface:
-  display_name: "Ubiquitous Language"
-  short_description: "构建共享的 domain glossary"
-policy:
-  allow_implicit_invocation: false

@@ -4,7 +4,7 @@ description: 将当前对话整理成规格说明并发布到项目的 issue tra
 disable-model-invocation: true
 ---
 
-本技能利用当前对话上下文和对代码库的理解生成一份规格说明（你也可能把这种文档称为 PRD）。不要再访谈用户，只综合已经掌握的信息。
+本技能利用当前对话上下文和对代码库的理解生成一份规格说明。不要再访谈用户，只综合已经掌握的信息。
 
 issue tracker 和 triage label 词汇表应已提供；若没有，请运行 `/setup-matt-pocock-skills`。
 

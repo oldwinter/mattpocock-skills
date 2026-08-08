@@ -1,15 +1,3 @@
-Quickstart:
-
-```bash
-npx skills add oldwinter/mattpocock-skills --skill=teach
-```
-
-```bash
-npx skills update teach
-```
-
-[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/productivity/teach)
-
 ## What it does
 
 `teach` 会把当前 directory 变成长期教学 workspace，并跨多个 sessions 教你一个 topic：设计短小、漂亮、interactive 的 lessons，并与 *你为什么想学* 绑定。
@@ -41,6 +29,40 @@ npx skills update teach
 ## Storage strength, not fluency
 
 要记住的词是 **storage strength**，也就是长期保持；它的对立面是 **fluency**，即当下 recall 的顺畅感，看起来像 mastery，但不是。`teach` 通过 desirable difficulty 刻意构建前者：retrieval practice、spacing、interleaving。Knowledge 先被讲授（此时 difficulty 是敌人），skills 再通过 tight feedback loop drill（此时 difficulty 是工具）。
+
+## Common questions
+
+**Files 会写到哪里？我的内容跑进了 `~/.claude/skills`。**
+
+这是 [issue #377](https://github.com/mattpocock/skills/issues/377) 的 open bug。`SKILL.md` 同时用 `./` 指 skill 自带 templates 和用户 workspace；agent 可能把后者也解析到安装目录。开始时明确指定 workspace path，并在第一课后检查 `lessons/` 实际落点。
+
+**每节课都留在同一 session，还是开新 session？**
+
+三种都可：同一 session 继续、在新 session 重新调用 `/teach`，或在相同 folder 开 fresh session。每节 lesson 是独立 invocation，连续性来自 folder，不是 conversation。
+
+**怎样确认它没有编造知识？**
+
+不能只凭 skill 保证，必须检查 primary sources。`RESOURCES.md`、每课 citations 与推荐 source 的作用是降低 verification 成本，不是取消 verification。Procedural domain 与精确 notation 风险最高；能直接运行的 code 等可观测输出风险较低。
+
+**Quiz 正确答案总在第一个位置。**
+
+这是多个 models 都复现、仍未修复的问题。当前 rule 只要求 options 字数相同，没解决 position bias；instruction-level shuffling 也未必有效。可在自己的 `assets/` 中加入 render-time shuffle component，暂时不要把答案位置当作信号。
+
+**它假设我已经懂某些内容，又使用未定义术语。**
+
+当前没有正式 assessment step，第一 session 也没有 learning records。开始时明确写出 prior knowledge 与 gaps；lesson level 不对时当场纠正，correction 会进入 learning record 并影响下一课。显式 knowledge assessment 仍是 [feature request #725](https://github.com/mattpocock/skills/issues/725)。
+
+**支持 spaced repetition 吗？知道何时停止教学吗？**
+
+前者没有 scheduler，后者也不可靠。Spacing 与 interleaving 是设计原则，但没有 Anki/calendar integration；skill 更擅长生成 next lesson，不一定会主动切换到 review 或 real practice。需要时应显式要求 review/drill 或停止。
+
+**只适合学习 code 吗？**
+
+不是。语言、音乐、board game design、film plot、认证考试、儿童 printable books 等都可用。Mission、resources、zone of proximal development 与 drill 不依赖 programming。Coding 中特别适合熟悉陌生 codebase 或新 team stack。
+
+**应该使用哪个 model？**
+
+没有唯一答案，reported differences 很大。更高 [reasoning effort](https://www.aihero.dev/ai-coding-dictionary/effort) 通常产生更完整 lessons；同一 skill 在不同 [harness](https://www.aihero.dev/ai-coding-dictionary/harness) 可能从完整课程退化成很短 HTML card。Output 太薄时，先换 model、harness 或 effort，再考虑重写 prompt。
 
 ## Where it fits
 

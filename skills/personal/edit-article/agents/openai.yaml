@@ -1,5 +1,0 @@
-interface:
-  display_name: "Edit Article"
-  short_description: "重组并精简 draft"
-policy:
-  allow_implicit_invocation: false

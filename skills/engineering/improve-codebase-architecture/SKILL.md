@@ -24,7 +24,7 @@ Surface architectural friction，并提出 **deepening opportunities**：把 sha
 
 先读取项目的 domain glossary（`CONTEXT.md`），以及你触碰区域的任何 ADRs。
 
-然后使用 Agent tool，`subagent_type=Explore`，walk the codebase。不要遵循 rigid heuristics；organic explore，并记录你在哪里 experience friction：
+然后 spawn 一个 sub-agent 来 walk the codebase。不要遵循 rigid heuristics；organic explore，并记录你在哪里 experience friction：
 
 - 理解一个 concept 是否需要在许多 small modules 之间 bounce？
 - 哪些 modules **shallow**：interface nearly as complex as the implementation？

@@ -20,7 +20,7 @@
 
 Model 或 user 都能触达（使用 rich trigger phrasing，让 model 能主动 reach for them）。
 
-- **[prototype](./prototype/SKILL.md)** — 构建 throwaway prototype 来回答 design question：针对 state/logic 的 runnable terminal app，或多个可切换 UI variations。
+- **[prototype](./prototype/SKILL.md)** — 构建 throwaway prototype 来回答 design question：针对 state/logic 生成单个可分享 HTML，或提供多个可切换的 UI variations。
 - **[diagnosing-bugs](./diagnosing-bugs/SKILL.md)** — 面向 hard bugs 和 performance regressions 的 disciplined diagnosis loop：reproduce → minimise → hypothesise → instrument → fix → regression-test。
 - **[research](./research/SKILL.md)** — 基于高可信 primary sources 调查问题，并作为 background agent 在 repo 中保存带引用的 Markdown findings。
 - **[tdd](./tdd/SKILL.md)** — 使用 red-green loop 的 Test-driven development。一次一个 vertical slice 构建 feature 或修复 bug。
@@ -28,3 +28,4 @@ Model 或 user 都能触达（使用 rich trigger phrasing，让 model 能主动
 - **[codebase-design](./codebase-design/SKILL.md)** — 设计 deep modules 的 shared discipline 和 vocabulary：small interfaces、clean seams、通过 interface test。
 - **[code-review](./code-review/SKILL.md)** — 针对 fixed point 之后的 diff 做 two-axis review：**Standards**（是否遵守 repo coding standards 加 Fowler smell baseline）和 **Spec**（是否忠实实现 originating Issue/spec），并用 parallel sub-agents 运行。
 - **[resolving-merge-conflicts](./resolving-merge-conflicts/SKILL.md)** — 逐 hunk 处理进行中的 git merge 或 rebase conflict，依据两侧 primary source 的 intent 解决，然后完成操作；绝不 `--abort`。
+- **[wizard](./wizard/SKILL.md)** — 生成 interactive bash wizard，引导 human 完成只有他们能执行的基础设施配置、credential/CI secret 设置、第三方 dashboard 操作或一次性 migration/cutover。

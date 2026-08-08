@@ -57,8 +57,6 @@ Repo 中任何记录 code 应如何写的内容，例如 `CODING_STANDARDS.md` �
 
 ### 4. Spawn both sub-agents in parallel
 
-发送一条 message，包含两个 `Agent` tool calls。两者都使用 `general-purpose` subagent。
-
 **Standards sub-agent prompt** — include：
 
 - Full diff command 和 commit list。

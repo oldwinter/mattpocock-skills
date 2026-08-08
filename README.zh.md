@@ -13,7 +13,7 @@
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
 > [!IMPORTANT]
-> 这是 `mattpocock/skills` 的社区维护中文 fork，当前同步到上游 `2ab9580`。中文版安装命令必须指向本 fork；安装器会直接加载已中文化的 `SKILL.md`。
+> 这是 `mattpocock/skills` 的社区维护中文 fork，当前同步到上游 `6acc160`。中文版安装命令必须指向本 fork；安装器会直接加载已中文化的 `SKILL.md`。
 
 这些是我每天用于 real engineering 的 agent skills，不是 vibe coding。
 
@@ -208,7 +208,7 @@ Software engineering fundamentals 比以往更重要。这些 skills 是我将�
 
 **Model-invoked**
 
-- **[prototype](./skills/engineering/prototype/SKILL.md)** — 构建 throwaway prototype 来回答 design question：可以是针对 state/logic 的 runnable terminal app，也可以是若干可切换的 UI variations。
+- **[prototype](./skills/engineering/prototype/SKILL.md)** — 构建 throwaway prototype 来回答 design question：针对 state/logic 生成单个可分享 HTML，或在同一路由提供若干可切换的 UI variations。
 - **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)** — 面向 hard bugs 和 performance regressions 的 disciplined diagnosis loop：reproduce → minimise → hypothesise → instrument → fix → regression-test。
 - **[research](./skills/engineering/research/SKILL.md)** — 基于高可信 primary sources 调查问题，并作为 background agent 在 repo 中保存带引用的 Markdown findings。
 - **[tdd](./skills/engineering/tdd/SKILL.md)** — 使用 red-green loop 的 Test-driven development。一次一个 vertical slice 构建 feature 或修复 bug。
@@ -216,6 +216,7 @@ Software engineering fundamentals 比以往更重要。这些 skills 是我将�
 - **[codebase-design](./skills/engineering/codebase-design/SKILL.md)** — 设计 deep modules 的 shared discipline 和 vocabulary：用 small interface 包住大量 behaviour，放在 clean seam 上，并通过 interface test。
 - **[code-review](./skills/engineering/code-review/SKILL.md)** — 针对 fixed point 之后的 diff 做 two-axis review：**Standards**（是否遵守 repo coding standards 加 Fowler smell baseline）和 **Spec**（是否忠实实现 originating Issue/spec），并用 parallel sub-agents 分开运行。
 - **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)** — 逐 hunk 处理进行中的 git merge 或 rebase conflict，依据两侧 primary source 的 intent 解决，然后完成操作；绝不 `--abort`。
+- **[wizard](./skills/engineering/wizard/SKILL.md)** — 生成 interactive bash wizard，引导 human 完成只有他们能执行的基础设施配置、credential/CI secret 设置、第三方 dashboard 操作或一次性 migration/cutover。
 
 ### Productivity
 
@@ -223,11 +224,13 @@ Software engineering fundamentals 比以往更重要。这些 skills 是我将�
 
 **User-invoked**
 
-- **[grill-me](./skills/productivity/grill-me/SKILL.md)** — 围绕 plan 或 design 进行持续 interview，直到 decision tree 的每个 branch 都被 resolved。
+- **[grill-me](./skills/productivity/grill-me/SKILL.md)** — 围绕 plan 或 design 持续追问，按轮次解决 decision tree 当前 frontier 上的全部问题，直到 frontier 为空。
 - **[handoff](./skills/productivity/handoff/SKILL.md)** — 将当前 conversation 压缩成 handoff document，方便另一个 agent 继续工作。
 - **[teach](./skills/productivity/teach/SKILL.md)** — 使用当前 directory 作为 stateful teaching workspace，跨多个 sessions 教用户一个新 skill 或 concept。
-- **[writing-great-skills](./skills/productivity/writing-great-skills/SKILL.md)** — 写好和编辑 skills 的 reference：让 skill predictable 的 vocabulary 和 principles。
+- **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)** — 把用户无法独自回答的 decision 整理成 Markdown questionnaire，交给掌握缺失知识的人异步填写或在 meeting 中共同完成。
+- **[wait-what](./skills/productivity/wait-what/SKILL.md)** — 当上一条消息没有讲明白时立即触发；agent 会补齐缺失 context，并用 `CONTEXT.md` 术语和 plain language 重讲。
 
 **Model-invoked**
 
-- **[grilling](./skills/productivity/grilling/SKILL.md)** — 围绕 plan、decision 或 idea 持续 interview 用户，直到 decision tree 的每个 branch 都被 resolved。它是 `grill-me` 和 `grill-with-docs` 背后的 reusable loop。
+- **[grilling](./skills/productivity/grilling/SKILL.md)** — 围绕 plan、decision 或 idea 按轮次追问当前 frontier，直到 decision tree 被解决；它是 `grill-me`、`grill-with-docs`、`triage`、`wayfinder` 和 `improve-codebase-architecture` 背后的 reusable primitive。
+- **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)** — 编写供 agent 使用的文档，包括 skills、`AGENTS.md` / `CLAUDE.md`，以及 agent 通过 pointer 读取的任何文档。

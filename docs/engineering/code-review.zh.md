@@ -1,15 +1,3 @@
-Quickstart:
-
-```bash
-npx skills add oldwinter/mattpocock-skills --skill=code-review
-```
-
-```bash
-npx skills update code-review
-```
-
-[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/code-review)
-
 ## What it does
 
 `code-review` 会审查 `HEAD` 与你提供的固定点之间的 diff，固定点可以是 commit、branch、tag 或 merge-base。它沿两个独立轴审查：**Standards**（代码是否遵守此 repo 的文档化约定）和 **Spec**（是否实现了 originating issue 或 spec 的要求）。每个轴由独立 parallel sub-agent 运行，并并排报告。它绝不合并或重新排序两组 findings，因为分开就是重点：一个 change 可能通过一个轴但未通过另一个，混成单一 verdict 会让其中一方遮住另一方。
@@ -35,6 +23,36 @@ npx skills update code-review
 - 它先 pin 并确认 fixed point（`git rev-parse`），bad ref 或 empty diff 会快速失败，而不是在 sub-agents 内部才失败。
 - Standards 和 Spec findings 分成两个清晰 blocks，每条都引用其来源：前者是 repo standard 或 baseline smell，后者是 quoted spec line。
 - 找不到 spec 时，Spec 轴报告 “no spec available”，而不是编造需求。
+
+## Common questions
+
+**它和 Claude Code 自带的 `/code-review` 重名，怎么办？**
+
+这是最常见、尚未解决的问题。Claude Code 内建版本主要找 diff 中的 bugs，本 skill 检查 spec compliance 与 repo standards。Plugin marketplace 安装会使用 `mattpocock-skills:` 前缀；普通 skills 安装则可能让本地文件覆盖内建版本。持久做法是把本 skill fork 成新名字，并从 managed set 中移除原名；直接改 frontmatter 或目录名会被 `npx skills update` 覆盖。
+
+**Sub-agents 会再次调用 `/code-review` 并继续派生 agents。**
+
+这是多个 harness 中都复现过的 open bug。Standards 与 Spec briefs 没有禁止 delegation，sub-agent 可能重新发现本 skill 并扇出。常用 fork 修复是在两个 brief 末尾加入：“不要调用 `/code-review` 或继续派生 agents，直接完成本次 review。”无人值守运行时应观察 agent 数量。
+
+**应该在刚写完 code 的同一 [session](https://www.aihero.dev/ai-coding-dictionary/session) 运行吗？**
+
+优先使用 fresh session。同一 context 中的 reviewing agent 持有塑造代码的全部 assumptions，容易把 review 变成 confirmation。Clean session 中手动调用 `/code-review` 才更接近独立 review。
+
+**每张 ticket 后运行，还是 branch 完成后统一运行？**
+
+两种都可以。Per-ticket 能让 diff 足够小，Spec 轴只需对照一个 spec；branch 末尾统一 review 能发现 tickets 之间的 interaction。拿不准时，每张 ticket 后跑一次，再从 branch point 做最终 pass。
+
+**可以直接相信 findings 吗？**
+
+不可以。Sub-agent output 是 hypothesis，不是 evidence；本 skill 汇总两份报告时不会逐条重新验证，finding 可能引用错误位置或夸大影响。行动前检查每条 citation。强制附带 standards rule、smell+hunk 或 spec line，正是为了让它可核验。
+
+**为什么每次重跑都会找到新问题？**
+
+修复会创造新 surface，Standards 轴中的 judgement calls 也不具备跨运行确定性。没有 convergence guarantee。把一次 pass 当成带引用的 leads，处理有依据的部分后停止，不要循环运行直到“完全干净”。
+
+**它会 review 未提交的工作吗？**
+
+不会。它比较 `<fixed-point>...HEAD`，three-dot diff 从 merge-base 计算，不包含 staged 或 working-tree changes。先 commit，再 review，之后 amend 或追加 fixup。
 
 ## Where it fits
 

@@ -14,13 +14,13 @@ disable-model-invocation: true
 
 大多数 work 会走这条 route。你有一个 idea，并希望它被 built。
 
-1. **`/grill-with-docs`** — 通过 interview 打磨 idea。当你 **有 codebase** 时从这里开始：它是 stateful 的，会把学到的东西保存在 `CONTEXT.md` 和 ADRs 中。（没有 codebase？使用 `/grill-me` — 见 Standalone。两者运行同一个 `/grilling` primitive；`grill-with-docs` 是会留下 paper trail 的那个。）
-2. **Branch — 能否在 conversation 中解决每个问题？** 如果某个问题需要 runnable answer（state、business logic、必须看到的 UI），就绕行到 prototype，并用 **`/handoff`** 双向桥接（见 Crossing sessions）：
+1. **`/grill-with-docs`** — 通过 interview 打磨 idea。只要你 **正在 working directory 中工作** 就从这里开始：它是 stateful 的，会把学到的东西保存在 `CONTEXT.md` 和 ADRs 中。（没有 working directory？使用 `/grill-me` — 见 Standalone。两者运行同一个 `/grilling` primitive；`grill-with-docs` 会留下 paper trail，因此只要 repo 能承载记录，它就是更好的选择。）
+2. **Branch — 能否在 conversation 中解决每个问题？** 如果某个问题需要 runnable answer（state、business logic、必须看到的 UI），就绕行到 prototype，并用 **`/handoff`** 双向桥接（prototype 位于自己的 directory 中，这正是 `/handoff` 的用途 — 见 Phase boundaries）：
    - **`/handoff`** out，然后基于那个 file 开启 fresh session，
    - **`/prototype`** 用 throwaway code 回答问题，
    - **`/handoff`** back 你学到的东西，并在原 idea thread 中 reference 它。
 3. **Branch — 这是 multi-session build 吗？**
-   - **Yes** → **`/to-spec`**（把 thread 转成 spec），然后用 **`/to-tickets`** 将它拆成 tracer-bullet tickets，每个 ticket 都明确自己的 **blocking edges**。使用 local tracker 时，每个 ticket 是 `.scratch/<feature>/issues/` 下的一个文件，按 blocker-first 顺序手动处理；使用真实 tracker 时，edges 会变成原生 blocking links，因此 blockers 已完成的 ticket 都可以被领取。每个 ticket 都单独启动 **`/implement`**，并且 **在 tickets 之间清理 context**。
+   - **Yes** → **`/to-spec`**（把 thread 转成 spec），然后用 **`/to-tickets`** 将它拆成 tracer-bullet tickets，每个 ticket 都明确自己的 **blocking edges**。使用 local tracker 时，每个 ticket 是 `.scratch/<feature>/issues/` 下的一个文件，按 blocker-first 顺序手动处理；使用真实 tracker 时，edges 会变成原生 blocking links，因此 blockers 已完成的 ticket 都可以被领取。每个 ticket 都单独启动 **`/implement`**，并在 tickets 之间执行 **`/clear`**。每个 ticket 都是 self-contained，因此最后一个 ticket 的 context 可以直接丢弃。
    - **No** → 在同一个 context window 中直接运行 **`/implement`**。
 
    无论哪种方式，**`/implement`** 都会通过内部驱动 **`/tdd`** 构建每个 Issue，一次一个 red-green slice；随后运行 **`/code-review`**，也就是对 diff 进行 two-axis review（Standards + Spec），最后再 commit。当你只是想 test-first 构建一个具体 behaviour、且不需要完整 spec 时，直接使用 **`/tdd`**；当你想基于 fixed point review branch 或 PR 时，直接使用 **`/code-review`**。
@@ -29,7 +29,7 @@ disable-model-invocation: true
 
 让 steps 1–3 保持在 **一个不间断的 context window** 中；在 `/to-tickets` 之前不要 compact 或 clear，这样 grilling、spec 和 tickets 都能基于同一套 thinking。随后每个 `/implement` 都 fresh start，只从 ticket 出发。
 
-限制是 **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**：在其中 model 仍然 sharp reasoning 的 window（state-of-the-art models 大约 120k tokens）。如果 session 在 `/to-tickets` 前接近这个区间，不要在 degraded 状态硬撑；用 `/handoff` 并在 fresh thread 中继续。
+限制是 **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**：在其中 model 仍然 sharp reasoning 的 window（state-of-the-art models 大约 150k tokens）。如果 session 在 `/to-tickets` 前接近这个区间，不要在 degraded 状态硬撑；在最近的 phase boundary 执行 `/compact` 后继续（见 Phase boundaries）。
 
 ## On-ramps
 
@@ -58,20 +58,32 @@ disable-model-invocation: true
 - **`/domain-modeling`** — 打磨项目的 *domain* language：challenge fuzzy term、解决 overloaded word（例如 “account” 同时做三件事）、把 hard-to-reverse decision 记录成 ADR。它是 `/grill-with-docs` 用来保持 `CONTEXT.md` 是干净 glossary 的 active discipline。
 - **`/codebase-design`** — deep-module vocabulary（module、interface、depth、seam、adapter、leverage、locality），用于设计 module 的 *shape*：大量 behaviour 位于小 interface 后、处在 clean seam 上。`/tdd` 和 `/improve-codebase-architecture` 都使用这套语言。
 
-## Crossing sessions
+## Phase boundaries
 
-- **`/handoff`** — 当 thread 太满，或你需要 branch off（例如进入 `/prototype` session）时，把 conversation compact 成 markdown file。你不会原地继续；你 **打开新 session 并 reference 该 file** 来携带 context。它是在 context windows 之间双向移动的 bridge。当你想要 **fresh session** 但需要 **保留当前 conversation** 时使用。
-- **`/compact`**（built-in）— 留在 **同一个 conversation** 中，让 earlier turns 被 summarized。只在 **phases 之间的 intentional breaks** 使用，且你不介意丢失 verbatim history。不要在 mid-phase compact；agent 可能 lose its way。`/handoff` 是 fork；`/compact` 是 continue。
+一个 **phase** 是 session 内的一段 work，例如 grilling、implementation 或 QA。在两个 phase 的 **boundary** 上有五种选择；在整张 map 中，这也是最模糊的一项判断：
+
+- **Continue** — 留在原地。没有额外成本，也不丢失内容。
+- **`/clear`** — 清空 window，适用于当前内容与下一步完全无关。
+- **`/handoff`** — 写出可移植的 Markdown file。用途很窄：切换到 **new harness**、**new directory**、**colleague**，或在 **mid-phase** fork 一个 side task。它换来的是 portability。
+- **Subagent** — 把 tightly-scoped task 交给独立 window，再收回 report。
+- **`/compact`** — 压缩当前 context，并用它为 fresh session 提供 seed。它是决策树最底部的 **default**，不是第一反应。
+
+阅读 [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md) 获取有序决策树：五个问题、每条 branch 的理由，以及为什么 primary-source cost 让 **Continue** 成为首先应排除的选项。只在 boundary 做这个决定；mid-phase 要么继续，要么把剩余工作拆给 subagents。
 
 ## Standalone
 
 完全不在 main flow 上。
 
-- **`/grill-me`** — 和 `/grill-with-docs` 一样的 relentless interview，但用于 **没有 codebase** 的场景。Stateless：不会保存本地内容，不会创建 `CONTEXT.md`。用它打磨任何不属于 repo 的 plan 或 design。
-- **`/prototype`** — 一个小型 throwaway program，用来回答一个 design question：state model 是否合理，或 UI 应该长什么样。从第一天起就是 throwaway；把 validated decision 吸收到真实 code，再把 prototype 作为 primary source 提交到 main 之外的 throwaway branch。它是 main flow 第 2 步的 detour，但任何难以在纸面 settle 的 design question 都可以直接触达它。
+- **`/grill-me`** — 和 `/grill-with-docs` 一样的 relentless interview，但它是 **stateless**：不会保存本地内容，也不会创建 `CONTEXT.md`。当你 **不在 working directory 中工作** 时使用，例如打磨 plan、design、writing，或任何不属于 repo 的内容。如果有 working directory，就改用 `/grill-with-docs`：它运行相同 interview 并留下 paper trail，因此严格来说是更好的选择。
+- **`/grilling`** — interview primitive 本身：rounds、frontier、facts 由 agent 负责、decisions 由你负责。`/grill-me` 与 `/grill-with-docs` 是两个具名入口，`/triage`、`/wayfinder` 和 `/improve-codebase-architecture` 也会在内部运行它。只有需要没有 wrapper 的 interview 时才直接使用。
+- **`/resolving-merge-conflicts`** — 逐 hunk 处理正在进行的 merge 或 rebase conflict，依据双方 primary source 中的 **intent** 解决，而不是机械选行，随后完成操作。它绝不会运行 `--abort`。这是完全独立于各条 flow 的 standalone；已经处于 conflict 中时使用。
+- **`/prototype`** — 一个小型 throwaway program，用来回答一个 design question：state model 是否合理，或 UI 应该长什么样。Throwaway 限定的是 code 的写法，并不承诺销毁它：answer 会 fold 进 real code，而 prototype 本身作为 **primary source** 保存在 main 之外的 `prototype/<name>` branch，并从 implementation issue 指向它。它是 main flow 第 2 步的 detour，但任何难以在纸面 settle 的 design question 都可以直接使用。
 - **`/research`** — 将阅读工作委派给 **background agent**：它基于 **primary sources** 调查问题，然后在 repo 中留下带引用的 Markdown file。它阅读时你继续推进。产出的文件可以带入 main flow 的 `/grill-with-docs`；research feeds the thinking, it doesn't replace it。
+- **`/to-questionnaire`** — 当 blocker 不在你的脑中或 codebase 中，而在 **另一个人**那里时，生成一份 questionnaire 供对方填写。它是 `/grill-me` 的反向形式：不 interview 你关于 subject，而是 interview 这次 **send**，即发给谁、需要拿回什么，并把问题瞄准 knowledge gap。返回内容可进入 `/grill-with-docs` 或 `/to-spec`。
+- **`/wizard`** — 用于只有 **human** 能完成的步骤：provisioning infrastructure、设置 credentials 或 CI secrets、操作陌生的第三方 dashboard，或执行一次性 migration/cutover。它生成 interactive bash script，打开每个 URL、采集每个 value，并写入 `.env` 和 GitHub secrets，因此无需每次向 agent 重新解释流程。它是 model-invoked；agent 一遇到只有你能跨过的阻碍就应使用。如果 agent 自己能做，就应直接做；wizard 只服务于真正需要 human in the loop 的地方。
+- **`/wait-what`** — 修正没有讲明白的上一条消息。在 conversation 中、甚至另一个 skill 内随时使用；agent 会补上缺失 context，以 plain English 和 `CONTEXT.md` vocabulary 重新解释。它是事后补救；`/grill-with-docs` 是事前预防，因为提前约定 shared language 才能阻止 jargon 出现。
 - **`/teach`** — 使用当前 directory 作为 stateful workspace，跨多个 sessions 学习一个 concept。
-- **`/writing-great-skills`** — 写好和编辑 skills 的 reference。
+- **`/writing-for-agents`** — 编写 agent 会消费的 documents 的 reference，包括 skills、`AGENTS.md` 与 pointed-at docs。
 
 ## Precondition
 

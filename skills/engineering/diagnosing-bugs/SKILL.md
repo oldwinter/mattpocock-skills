@@ -9,6 +9,12 @@ description: 面向 hard bugs 和 performance regressions 的 disciplined diagno
 
 探索 codebase 时，使用项目的 domain glossary 建立相关 modules 的清晰 mental model，并检查你触碰区域的 ADRs。
 
+## Redact
+
+这个 skill 会要求展示 commands、outputs 与 captured artifacts。**必须先脱敏所有 secret**，并用 `<REDACTED>` 替代。用 env vars 构建 loop，让 credential 留在 environment 中，而不是出现在展示内容里。Captured artifacts 可能带有 auth headers；只引用包含有效 signal 的行。
+
+如果脱敏后的 output 不足以诊断 bug，明确说明并询问用户。
+
 ## Phase 1 — Build a feedback loop
 
 **This is the skill.** 其他一切都是机械步骤。如果你拥有一个快速、deterministic、agent-runnable 的 pass/fail signal 来捕捉 bug，你就会找到原因；bisection、hypothesis-testing、instrumentation 都只是在消费这个 signal。如果没有，盯着 code 看再久也救不了你。
@@ -46,7 +52,16 @@ description: 面向 hard bugs 和 performance regressions 的 disciplined diagno
 
 ### When you genuinely cannot build a loop
 
-停下并明确说明。列出你尝试过什么。向用户请求：(a) 能 reproduce 的 environment access，(b) captured artifact（HAR file、log dump、core dump、带 timestamps 的 screen recording），或 (c) 允许添加 temporary production instrumentation。没有 loop 时，**不要**继续 hypothesise。
+停下并明确说明。列出你尝试过什么。向用户请求：(a) 能 reproduce 的 environment access，(b) 已脱敏的 captured artifact（HAR file、log dump、core dump、带 timestamps 的 screen recording），或 (c) 允许添加 temporary production instrumentation。没有 loop 时，**不要**继续 hypothesise。
+
+### Completion criterion — a tight loop that goes red
+
+Phase 1 完成的标准是 loop 足够 **tight** 且 **red-capable**：你能指出**一条 command**（script path、test invocation 或 curl），已经至少运行过一次（展示已脱敏的 invocation 与 output），并满足：
+
+- [ ] **Red-capable** — 它会驱动实际 bug code path，并断言**用户描述的 exact symptom**，因此能在这个 bug 上变 red、修复后变 green。仅仅“运行时不报错”不够，它必须能捕获这个 specific bug。
+- [ ] **Deterministic** — 每次运行 verdict 相同；flaky bugs 则按上文固定在较高 reproduction rate。
+- [ ] **Fast** — 用时数秒，而不是数分钟。
+- [ ] **Agent-runnable** — 可以 unattended 运行；human in the loop 只允许通过 `scripts/hitl-loop.template.sh`。
 
 在拥有一个你相信的 loop 前，不要进入 Phase 2。
 

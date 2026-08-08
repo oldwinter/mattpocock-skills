@@ -1,13 +1,16 @@
 # In Progress
 
-Skills that are still being developed. They're not ready to ship — expect rough edges, breaking changes, and abandoned experiments. They're excluded from the plugin and the top-level README until they graduate to a stable bucket.
+Beta。这里的 skills 是有意公开的：请试用并反馈哪里会出问题。它们在晋级到 stable bucket 前不会进入 plugin 或 top-level README，也没有 docs pages，并且可能随时发生 breaking changes 或被移除。
 
-- **[loop-me](./loop-me/SKILL.md)** — Grill yourself into implementable workflow specs over multiple sessions, using the current directory as a stateful workspace. User-invoked.
-- **[wizard](./wizard/SKILL.md)** — Generate an interactive bash wizard that walks a human through a manual procedure (setup, a one-off migration, a state transition) — opening URLs, capturing values, writing `.env` and GitHub Actions secrets. User-invoked.
-- **[writing-beats](./writing-beats/SKILL.md)** — Shape an article as a journey of beats, choose-your-own-adventure style. Pick a starting beat, write only that beat, then pivot to the next, until the article reaches a natural end.
-- **[writing-fragments](./writing-fragments/SKILL.md)** — Grilling session that mines you for fragments — heterogeneous nuggets of writing — and appends them to a single document as raw material for a future article.
-- **[writing-shape](./writing-shape/SKILL.md)** — Take a markdown file of raw material and shape it into an article paragraph by paragraph, arguing format choices at each step.
-- **[claude-handoff](./claude-handoff/SKILL.md)** — Hand the current conversation off to a fresh background agent that picks up the work immediately, seeded with a handoff summary via `claude --bg`. User-invoked.
-- **[setup-ts-deep-modules](./setup-ts-deep-modules/SKILL.md)** — Wire dependency-cruiser into a TypeScript repo so each package is a deep module — implementation hidden in subfolders, reachable only through its entry-point files, tests exercising it through those. User-invoked.
-- **[to-questionnaire](./to-questionnaire/SKILL.md)** — Turn a decision you can't fully answer into a Markdown questionnaire for someone else to fill in async, or over a meeting. It grills you about the send (who it's for, what you need back), not the subject. User-invoked.
-- **[batch-grill-me](./batch-grill-me/SKILL.md)** — 按轮次遍历设计树，而不是一次只问一个问题；每轮询问前置条件已确定的整个决策前沿，再根据你的回答重新计算。由用户调用。
+Plugin 不会提供这些 skills。单独安装某一个：
+
+```bash
+npx skills@latest add oldwinter/mattpocock-skills --skill=<name>
+```
+
+- **[loop-me](./loop-me/SKILL.md)** — 使用当前 directory 作为 stateful workspace，跨多个 sessions 把自己 grill 成可实施的 workflow specs。User-invoked。
+- **[writing-beats](./writing-beats/SKILL.md)** — 像 choose-your-own-adventure 一样，把文章塑造成一段 beats 旅程：选一个 opening beat，只写这一段，再转向下一段，直到文章自然结束。
+- **[writing-fragments](./writing-fragments/SKILL.md)** — 通过 grilling 挖出 heterogeneous writing fragments，并 append 到单个 document，作为未来文章的 raw material。
+- **[writing-shape](./writing-shape/SKILL.md)** — 读取 raw material Markdown，逐 paragraph 塑造成文章，并在每一步论证 format choices。
+- **[claude-handoff](./claude-handoff/SKILL.md)** — 通过 `claude --bg` 把当前 conversation 交给 fresh background agent，并用 handoff summary 为其提供 seed。User-invoked。
+- **[setup-ts-deep-modules](./setup-ts-deep-modules/SKILL.md)** — 在 TypeScript repo 中接入 dependency-cruiser，让每个 package 成为 deep module：implementation 隐藏在 subfolders，只能通过 entry-point files 访问，tests 也只经这些入口 exercise。User-invoked。

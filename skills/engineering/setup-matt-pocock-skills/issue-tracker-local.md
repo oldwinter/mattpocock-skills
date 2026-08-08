@@ -1,6 +1,6 @@
 # Issue tracker: Local Markdown
 
-此 repo 的 Issues 和 specs（你也可能把 spec 称为 PRD）作为 markdown files 存放在 `.scratch/` 中。
+此 repo 的 Issues 和 specs 作为 markdown files 存放在 `.scratch/` 中。
 
 ## Conventions
 

@@ -1,15 +1,3 @@
-快速开始：
-
-```bash
-npx skills add oldwinter/mattpocock-skills --skill=setup-matt-pocock-skills
-```
-
-```bash
-npx skills update setup-matt-pocock-skills
-```
-
-[源码](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/setup-matt-pocock-skills)
-
 ## 功能
 
 `setup-matt-pocock-skills` 为当前 repo 写入 engineering skills 共享的 configuration：issue tracker、可选的 triage labels，以及 domain docs layout。
@@ -36,6 +24,36 @@ npx skills update setup-matt-pocock-skills
 - 没安装 `triage` 时不创建无用 label config。
 - 非 monorepo 不会要求用户做多余的 context-layout 决策。
 - 之后 `triage`、`to-spec` 与 `to-tickets` 会直接使用正确 tracker 和 labels。
+
+## Common questions
+
+**必须使用 GitHub 吗？**
+
+不必。GitHub、GitLab 和 `.scratch/` 下的 local markdown 都有内建 templates，其他 tracker 可走 “other” 路径。Tracker 是 setup answer，不是 skill property。
+
+**Skills 更新后要重新运行 setup 吗？**
+
+日常情况下只有切换 tracker 或从头配置才需要重跑；但 seed templates 会随版本变化，旧 `docs/agents/issue-tracker.md` 可能与新 runtime 产生漂移。若 downstream skill 的行为和当前 docs 不一致，重跑是最便宜的修复；先 review diff，避免覆盖自己的定制。
+
+**它写入 `CLAUDE.md`，但我使用 Codex。**
+
+这是尚未解决的 gap。规则是“存在 `CLAUDE.md` 就编辑它，否则编辑 `AGENTS.md`”，检查的是文件存在，不是当前 [harness](https://www.aihero.dev/ai-coding-dictionary/harness)。可手工把 block 移到 `AGENTS.md`，或让 `AGENTS.md` 作为 canonical file、`CLAUDE.md` 只指向它。两者都不存在时，skill 会询问创建哪一个。
+
+**它没有创建 triage labels。**
+
+它只写 `docs/agents/triage-labels.md` mapping，不会运行 `gh label create`。Fresh repo 中 labels 可能真的不存在，需要手工创建。Canonical names 已存在时 identity mapping 就是预期 common case；wayfinder 的 `wayfinder:map` 与 `wayfinder:<type>` labels 也不在这里创建。
+
+**可以在这里配置 grilling cadence、question format 或 tone 吗？**
+
+不能。它只配置 tracker、labels 与 docs layout。用户偏好应作为 plain instructions 放进自己的 `CLAUDE.md` / `AGENTS.md`，由所有 skills 共同读取。
+
+**能把 config 放在 `~/.claude`，而不是每个 repo 都 commit 一份吗？**
+
+当前不支持 user-level mode。每个 repo 都维护自己的 `docs/agents/`。
+
+**用一个 skill 配置其他 skills，不奇怪吗？**
+
+这是有意识的 trade-off；否则每个触碰 Issues 的 skill 都要重复 tracker instructions。输出是可读、可编辑的 Markdown，能由你 review；日常 tweaks 直接修改文件，不需要再次调用 setup。
 
 ## 所处流程
 

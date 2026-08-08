@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "A workflow to design, or nothing to go find one"
 ---
 
-运行一个 stateful `/grilling` session，唯一输出是 **workflow** specs。使用 grilling discipline：relentless、一次一个问题、每个问题都附 recommended answer；问题围绕下方 vocabulary 和 goal。随着 grilling 逐步 resolve，create、edit、delete specs。
+运行一个 stateful `/grilling` session，唯一输出是 **workflow** specs。使用 grilling discipline：relentless、每轮提出一组问题、每个问题都附 recommended answer；问题围绕下方 vocabulary 和 goal。随着 grilling 逐步 resolve，create、edit、delete specs。
 
 ## The loop lens
 

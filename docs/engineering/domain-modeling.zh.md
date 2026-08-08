@@ -1,15 +1,3 @@
-Quickstart:
-
-```bash
-npx skills add oldwinter/mattpocock-skills --skill=domain-modeling
-```
-
-```bash
-npx skills update domain-modeling
-```
-
-[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/domain-modeling)
-
 ## What it does
 
 `domain-modeling` 会在 design 过程中构建并打磨项目的 **ubiquitous language**：挑战模糊术语，用具体场景 pressure-test relationships，并在 glossary 和 decisions 成形时立即写下。
@@ -40,6 +28,36 @@ npx skills update domain-modeling
 `domain-modeling` 是构建项目 ubiquitous language 的 **single source of truth**，作为独立 model-invoked skill 拆出，因此其他 skill 都能触达它。[grill-with-docs](https://aihero.dev/skills-grill-with-docs) 依赖它在 grilling session 中记录 terms 和 decisions，[triage](https://aihero.dev/skills-triage) 用它让 tickets 使用项目自己的 words，[improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) 工作时也会触达它。
 
 保持 standalone 意味着你也可以直接触达它，将其作为打磨 model 的 **reference**，而不接受任何其他 skill 的强制步骤。Language 只存在于一个地方，所有需要它的流程都指向那里。
+
+## Common questions
+
+**我的 `CONTEXT.md` 已经有 500、1000 甚至 3000 行，怎么办？**
+
+长度是症状，真正问题是文件吸收了 implementation details 和不属于 glossary 的 decisions。直接运行 `/grill-with-docs make my CONTEXT.md more concise and remove any implementation details from it`。只有文件已经足够 lean，却仍覆盖两个不应同时装进读者脑中的 domains 时，才拆成 `CONTEXT-MAP.md`；拆分 bloated file 只会得到多个 bloated files。
+
+**为什么叫 `CONTEXT.md`，而不是 `GLOSSARY.md`？**
+
+这个命名没有定论。`GLOSSARY.md` 更准确地表达“只放 glossary”，而 `CONTEXT-MAP.md` 指向多个 bounded-context `CONTEXT.md` 又更自然。可以在 fork 中改名，但整套 skills 都会查找 `CONTEXT.md`，因此必须一起修改。
+
+**`/ubiquitous-language` 去哪了？**
+
+它已删除，职责并入 `domain-modeling`。新 skill 持续维护整个 model，而不是从一次 conversation 中一次性 dump glossary；vocabulary enforcement 现在运行在 grilling、triage 和 mapping 下方。
+
+**现有 codebase 没有 glossary，怎么开始？**
+
+显式调用：`/grill-with-docs help me scaffold my existing repo with a CONTEXT.md`。Brownfield repo 靠日常使用慢慢积累通常太慢；预期会有一次较长的 interview。
+
+**可以保留 domain model，但使用团队自己的 ADR format 吗？**
+
+当前不够干净。Glossary 与 ADR instructions 位于同一个 skill。可在本地 fork 中修改，或在 repo 的 agent docs 中覆盖 ADR location、template 与 naming；将两者拆分仍是 [open request](https://github.com/mattpocock/skills/issues/557)。
+
+**Glossary 真的值得维护吗？它也会 stale。**
+
+不总是。它的收益位于 naming 与 concept alignment，尤其是 module、table、status enum、Issue title、CLI command 等命名边界；在普通 prose 中价值更低。一天就结束的 build 可以跳过。未经 review、由 agent 自行生成的 glossary 甚至比没有更糟，因为后续 sessions 会把自信的 lore 当作事实。
+
+**它能自动把模糊 prompt 改写成 domain language 吗？**
+
+不能。自己都不理解的 domain language 写出来只会变成空话。本 skill 在你已有理解后强制 precision，不会凭空制造 vocabulary；仅使用正确 nouns、却没有正确 conceptual structure，同样会得到看似正确的错误结果。
 
 ## Where it fits
 

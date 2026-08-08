@@ -26,3 +26,16 @@ Skills 位于 `skills/` 下的 bucket folders 中：`engineering/` 和 `producti
 
 - 每个 promoted skill 都必须出现在 `.claude-plugin/plugin.json` 的 `skills` array 中。这原本就是 `CLAUDE.md` 的规则，现在也直接约束 plugin content。
 - `.claude-plugin/plugin.json` 的 `version` 跟随 `package.json` version；release 时两者同时 bump。Claude 使用 plugin `version` 判断 installed users 何时能看到 update。
+
+## 更新：2026-08-05
+
+上游 `mattpocock-skills` 已进入 Claude Code 官方 marketplace（配置名 `claude-plugins-official`，来源仓库 `anthropics/claude-plugins-official`）。上游因此把 `claude plugins install mattpocock-skills` 作为默认入口；`.claude-plugin/marketplace.json` 在上游仅保留为直接安装仓库、未发布提交或 fork 的 fallback。
+
+官方 listing 指向 `https://github.com/mattpocock/skills.git`，不会分发本中文 fork。因此，这条上游安装路径**不适用于中文版**。中文 fork 继续把自己的 `.claude-plugin/marketplace.json` 作为正式 Claude Code 入口：
+
+```bash
+claude plugin marketplace add oldwinter/mattpocock-skills
+claude plugin install mattpocock-skills@mattpocock
+```
+
+中文 fork 的固定安装措辞以 [`.agents/install-block.md`](../install-block.md) 为准；不能用上游官方 marketplace 命令替换，否则用户会得到英文 runtime。

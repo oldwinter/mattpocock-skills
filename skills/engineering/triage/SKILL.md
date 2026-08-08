@@ -73,7 +73,7 @@ Query Issue tracker，并按 oldest first 展示三个 buckets：
 
 3. **Verify the claim.** 在任何 grilling 前检查 claim 是否成立。对 bug，从 reporter steps reproduce。对 PR，确认 diff 确实做了它声称的事：check it out，运行 relevant tests 或 commands。报告发生了什么：confirmed（with code path）、failed，或 insufficient detail（强 `needs-info` signal）。Confirmed verification 会让 agent brief 强很多。
 
-4. **Grill（if needed）.** 如果 request 需要 fleshing out，同时运行 `/grilling` 和 `/domain-modeling` skills：一次一个问题把它 grill into shape，打磨 domain terms，并随着 decisions landing inline 更新 `CONTEXT.md`/ADRs。
+4. **Grill（if needed）.** 如果 request 需要 fleshing out，同时运行 `/grilling` 和 `/domain-modeling` skills：每轮提出一组问题，把它 grill into shape，打磨 domain terms，并随着 decisions landing inline 更新 `CONTEXT.md`/ADRs。
 
 5. **Apply the outcome:**
    - `ready-for-agent` — 发布 agent brief comment（[AGENT-BRIEF.zh.md](AGENT-BRIEF.md)）。

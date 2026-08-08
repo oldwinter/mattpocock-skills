@@ -1,15 +1,3 @@
-快速开始：
-
-```bash
-npx skills add oldwinter/mattpocock-skills --skill=to-tickets
-```
-
-```bash
-npx skills update to-tickets
-```
-
-[源码](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/to-tickets)
-
 ## 功能
 
 `to-tickets` 会把 plan、spec 或当前 conversation 拆成一组 **tickets**。每张 ticket 都是 tracer-bullet vertical slice，并明确声明哪些 tickets 会 block 它，然后发布到已配置的 tracker。
@@ -46,6 +34,40 @@ Edges 始终属于 ticket；medium 只决定是否会并行执行。`to-tickets`
 **Wide refactor** 是 tracer-bullet rule 的例外：一次机械性 change（如 rename column、修改 shared symbol type）会把 blast radius 扩散到整个 codebase，无法让单个 vertical slice 保持 green。
 
 此时使用 **expand–contract**：先 expand，在 old form 旁加入 new form；再按 blast radius 分批 migrate callers，每批一张 ticket，旧形式仍存在，因此 CI 持续 green；最后 contract，在所有迁移完成后删除 old form。如果连单批迁移也不能独立 green，则共享 integration branch，并由所有批次 block 最终 integrate-and-verify ticket，只在最后恢复 green。
+
+## Common questions
+
+**三行 change 却生成了十二张 tickets。**
+
+Over-decomposition 是最常见 friction，[model](https://www.aihero.dev/ai-coding-dictionary/model) 容易默认 atomic units，丢掉有意义 grouping。Quiz step 正是用来要求 merge。更根本的 floor 是：整个 change 若装得进一个 context window，就不需要本 skill，直接进入 [implement](https://aihero.dev/skills-implement)。
+
+**Tickets 按 layer 拆了：一张 schema、一张 API。**
+
+这是 vertical-slice rule 要避免的 failure。Quiz 时逐张问：“完成后能 demo 什么？”没有答案就是 horizontal slice。可在每张 ticket 加 “demo path”，促使 model 形成贯穿各层的 decomposition。
+
+**GitHub tickets 没有成为 spec Issue 的 sub-issues。**
+
+这是 [issue #554](https://github.com/mattpocock/skills/issues/554) 的已知问题，在 Codex 上更常见。`gh` 已支持 `gh issue create --parent <n>`，也可事后运行 `gh issue edit <parent> --add-sub-issue <n>`。模板修复前，手工补 parent links 最可靠。
+
+**“Blocked by” 只写进 body，没有 native blocking link。**
+
+同类问题记录在 [issue #513](https://github.com/mattpocock/skills/issues/513)。GitHub 支持 `gh issue create --blocked-by 12,15`；因为 blockers 先发布，创建 downstream Issue 时已有编号。Body text 应只作为不支持 native edge 的 tracker fallback。
+
+**Local tickets 在哪里？v1.1 notes 说 root `tickets.md`。**
+
+旧说明是 bug。Local mode 现在按 dependency order 写入 `.scratch/<feature-slug>/issues/<NN>-<slug>.md`，每张 ticket 一个文件，避免 parallel write race；`NN` 也是可传给 `/implement 03` 的真实 ID。
+
+**读取 spec 时一直 truncation。**
+
+Very large tracker Issue 可能无法一次完整返回，又没有 local copy fallback。不要在 `/to-spec` 与 `/to-tickets` 之间 [clear](https://www.aihero.dev/ai-coding-dictionary/clearing) 或 [compact](https://www.aihero.dev/ai-coding-dictionary/compaction)；在同一 context window 连续运行。
+
+**Acceptance criteria 什么都没检验，甚至 base commit 已经通过。**
+
+逐条命名“什么 observation 会让它失败”，并确认从 implementer 起始 commit 看确实是 red。常见坏形状是 base commit 已满足、只能由 sibling ticket 满足，或只是重复 request 而非从 artifact 导出。正确 vertical slice 通常会自然避免这些问题。
+
+**Tickets 发布后，实际怎样执行？**
+
+Skill 在 artifact 处结束，没有 auto-dispatch。查看 board，数出所有 open blockers 为空的 frontier tickets，打开同样数量的 fresh agent sessions，每个 session 一张。注意 [implement](https://aihero.dev/skills-implement) 不保证关闭或勾选 ticket，最终 state 需要你更新。
 
 ## 所处流程
 

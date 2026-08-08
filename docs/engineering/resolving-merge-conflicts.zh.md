@@ -1,15 +1,3 @@
-Quickstart:
-
-```bash
-npx skills add oldwinter/mattpocock-skills --skill=resolving-merge-conflicts
-```
-
-```bash
-npx skills update resolving-merge-conflicts
-```
-
-[Source](https://github.com/oldwinter/mattpocock-skills/tree/main/skills/engineering/resolving-merge-conflicts)
-
 ## What it does
 
 `resolving-merge-conflicts` 会处理正在进行的 git merge 或 rebase conflict，逐个 hunk 解决，并完成整个操作：resolved、checked、committed。
@@ -34,6 +22,20 @@ Conflict 的陷阱是把它当成 text problem：选择 “ours” 或 “theirs
 - 没有引入任一分支上都不存在的新行为。
 - 项目的 checks，包括 typecheck、tests、format，被找到并在 commit 前通过。
 - Merge 或 rebase 被一路完成为 clean committed tree，而不是 abort。
+
+## Common questions
+
+**Claude Code 本来就很会解决 conflicts，为什么还需要 skill？**
+
+增量价值在“找到 primary sources”和“运行 feedback loops”两步。未提示的 agent 往往只看 diff 产出 plausible resolution，然后停止；本 skill 不允许跳过每一侧为什么存在，以及 resolution 后是否真的工作。随着 [model](https://www.aihero.dev/ai-coding-dictionary/model) 提升，这个 margin 可以很薄。
+
+**为避免 conflicts，是否应让 parallel agents 永远不碰同一文件？**
+
+通常没必要，按文件 zoning 的成本往往大于 conflict 本身。真正值得保留的 discipline 是先做大型 refactor，避免十个 branches 都从 rename 之前分出。独立 worktrees 合回时，最好让写出 change 的原 session 处理自己的 conflict，因为它已经掌握 intent；全部交给末尾一个 agent，会丢掉本 skill 又要重建的 [context](https://www.aihero.dev/ai-coding-dictionary/context)。
+
+**为什么绝不 `--abort`？**
+
+Abort 会丢弃已完成的 resolution work，并让下次尝试再次遇到同一 conflict。本 skill 面向“这个 merge 确实要完成”的情况；若决定不 merge，应在调用前作出，而不是把 abort 放进 resolution loop。
 
 ## Where it fits
 

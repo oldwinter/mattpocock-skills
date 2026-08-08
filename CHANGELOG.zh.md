@@ -1,6 +1,17 @@
 # mattpocock-skills
 
-## 未发布（同步上游 `391a270`）
+## 未发布（同步上游 `6acc160`）
+
+- 新增 `wait-what`，用于在上一条消息没有讲明白时补齐 context 并用 plain language 重讲。
+- 将 `to-questionnaire` 晋升到 Productivity，将 `wizard` 晋升到 Engineering，并把两者加入 plugin、router、README 与 docs。
+- 将 `writing-great-skills` 重命名并扩展为 model-invoked 的 `writing-for-agents`，覆盖 skills、`AGENTS.md` / `CLAUDE.md` 与 pointer docs。
+- `prototype` 的 logic 分支改为单个可分享 HTML；原型作为 primary source 保存在 throwaway branch，而不是完成后删除。
+- `grilling` 改为按轮次处理 decision tree frontier，并用 background sub-agents 处理环境可回答的问题。
+- `diagnosing-bugs` 现在要求对命令、输出和采集 artifacts 做 secret redaction；subagent instructions 也改为跨 harness 的中性表达。
+- Claude Code plugin 升级到 `1.2.3`；`wizard` 以 stage 数显示进度，不再给不可靠的时间估算。
+- 清理已退役的 deprecated、personal 与旧 draft skills；in-progress bucket 明确为公开 Beta。
+
+## 较早的未发布变更（同步上游 `391a270`）
 
 - 将 `to-prd` 重命名为 `to-spec`，并把 spec 作为当前 conversation 的综合产物。
 - 用 `to-tickets` 取代 `to-issues`：每张 ticket 都是 tracer-bullet vertical slice，并明确 blocking edges；local tracker 改为每张 ticket 一个文件。
