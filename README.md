@@ -15,7 +15,7 @@
 > [!IMPORTANT]
 > **安装中文版（社区维护 fork）**
 >
-> 本仓库是 `mattpocock/skills` 的中文本地化 fork，不是上游官方发行。当前已同步到上游 `6acc160`。请从中文 fork 安装：
+> 本仓库是 `mattpocock/skills` 的中文本地化 fork，不是上游官方发行。当前已同步到上游 `84fdeff`。请从中文 fork 安装：
 >
 > ```bash
 > npx skills@latest add oldwinter/mattpocock-skills

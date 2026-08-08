@@ -1,6 +1,6 @@
 # mattpocock-skills
 
-## 未发布（同步上游 `6acc160`）
+## 未发布（同步上游 `84fdeff`）
 
 - 新增 `wait-what`，用于在上一条消息没有讲明白时补齐 context 并用 plain language 重讲。
 - 将 `to-questionnaire` 晋升到 Productivity，将 `wizard` 晋升到 Engineering，并把两者加入 plugin、router、README 与 docs。
@@ -10,6 +10,7 @@
 - `diagnosing-bugs` 现在要求对命令、输出和采集 artifacts 做 secret redaction；subagent instructions 也改为跨 harness 的中性表达。
 - Claude Code plugin 升级到 `1.2.3`；`wizard` 以 stage 数显示进度，不再给不可靠的时间估算。
 - 清理已退役的 deprecated、personal 与旧 draft skills；in-progress bucket 明确为公开 Beta。
+- 修正 `grill-me` 的说明：目标是让用户能够对想法作出承诺，而不是声称想法本身“持有 decisions”。
 
 ## 较早的未发布变更（同步上游 `391a270`）
 

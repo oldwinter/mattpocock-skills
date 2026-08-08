@@ -1,6 +1,6 @@
 ## What it does
 
-`grill-me` 接收一个 **模糊想法**，持续追问，直到其中形成真正的 decisions。开始时不需要已有完整 plan；产出 plan 正是这次 [session](https://www.aihero.dev/ai-coding-dictionary/session) 的目的。它按 **轮次** 提问：每轮覆盖完整 **frontier**，也就是 prerequisites 已经解决的全部问题，因此不会在尚未获得前置答案时追问下游问题。
+`grill-me` 接收一个 **模糊想法**，持续追问，直到你能够对它作出承诺。开始时不需要已有完整 plan；产出 plan 正是这次 [session](https://www.aihero.dev/ai-coding-dictionary/session) 的目的。它按 **轮次** 提问：每轮覆盖完整 **frontier**，也就是 prerequisites 已经解决的全部问题，因此不会在尚未获得前置答案时追问下游问题。
 
 它是 **[stateless](https://www.aihero.dev/ai-coding-dictionary/stateless)** 的：不写文件，也不留下 workspace。它唯一留下的是你脑中更清晰、更可辩护的想法。
 
