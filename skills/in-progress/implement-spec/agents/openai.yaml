@@ -1,0 +1,5 @@
+interface:
+  display_name: "Implement Spec"
+  short_description: "用一个 PR 实施完整 spec"
+policy:
+  allow_implicit_invocation: false

@@ -8,7 +8,7 @@
 - 中文 fork：`https://github.com/oldwinter/mattpocock-skills`
 - 安装入口：`npx skills@latest add oldwinter/mattpocock-skills`
 - Runtime：`skills` CLI 会扫描 `skills/**/SKILL.md`；`.claude-plugin/plugin.json` 只标识 promoted skills，不能用它限制 CLI 的本地发现范围
-- 当前同步上游 commit：`0ab1b63a410a03d3627979a109c8695de27af954`
+- 当前同步上游 commit：`5b15a47f2d7150f545fbcacbfe381787fc0230dc`
 
 ## 本地化目标
 
@@ -52,7 +52,7 @@
 
 - `git diff --check`
 - 精确冲突标记扫描：`rg -n '^(<<<<<<< .+|=======|>>>>>>> .+)$' .`
-- 所有 `skills/**/SKILL.md` 都包含中文；当前同步版本共 35 个 discoverable runtime entries。
+- 所有 `skills/**/SKILL.md` 都包含中文；当前同步版本共 36 个 discoverable runtime entries。
 - 每个 promoted `SKILL.md` 与对应 `SKILL.zh.md` 一致。
 - 每个 `skills/**/agents/openai.yaml` 都保留完整 schema，且 `short_description` 已中文化。
 - README 中文安装命令指向 `oldwinter/mattpocock-skills`，而不是上游 repo。
