@@ -15,3 +15,4 @@ npx skills@latest add oldwinter/mattpocock-skills --skill=<name>
 - **[claude-handoff](./claude-handoff/SKILL.md)** — 通过 `claude --bg` 把当前 conversation 交给 fresh background agent，并用 handoff summary 为其提供 seed。User-invoked。
 - **[setup-ts-deep-modules](./setup-ts-deep-modules/SKILL.md)** — 在 TypeScript repo 中接入 dependency-cruiser，让每个 package 成为 deep module：implementation 隐藏在 subfolders，只能通过 entry-point files 访问，tests 也只经这些入口 exercise。User-invoked。
 - **[implement-spec](./implement-spec/SKILL.md)**：在单个 branch 上实施完整 spec。它把 tickets 作为 task graph 而非列表处理，在 ready frontier 上并发运行 implementer subagents，并把结果汇总为一个 PR。User-invoked。
+- **[retro](./retro/SKILL.md)** — 在 session 结束后，为 coding agent 的环境提出改进建议（steering files、coding standards、自动化检查、tooling 等）。STUB：仅为设计笔记，暂未实现功能。User-invoked。
