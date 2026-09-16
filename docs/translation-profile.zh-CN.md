@@ -45,7 +45,7 @@
 - `skills` CLI 能发现的每个 `skills/**/SKILL.md` 都必须中文化，包括 deprecated、misc、personal 与 in-progress buckets；它们仍可能出现在 CLI 选择列表中。
 - `.claude-plugin/plugin.json` 中的 promoted skills 还必须出现在 top-level README、bucket README 与 docs tree 中。
 - 对应 `SKILL.zh.md` 存在时，应与 `SKILL.md` 保持一致；不能让 sidecar 比 runtime 更新。
-- 新增或改名 skill 时，同步更新 `README.md`、bucket `README.md`、`ask-matt` router 和相应 docs page。
+- 新增或改名 skill 时，同步更新 `README.md`、bucket `README.md`、`ask-matt` router 和相应 docs page。README Reference 每个 promoted skill 必须同时链 `SKILL.md` 和 `docs/<bucket>/<skill>.md`。Agent 文档链 `SKILL.md`，不要链 sidecar。
 - 上游删除或改名文件时，删除失效的中文 sidecar，避免留下不可达文档。
 
 ## 同步后检查

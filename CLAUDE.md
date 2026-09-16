@@ -10,7 +10,7 @@ Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must
 
 Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). `.claude-plugin/marketplace.json` makes the repo its own single-plugin marketplace (a fallback the install block explains, not the documented route). Run `claude plugin validate . --strict` after touching either manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
 
-Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
+Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md` and add a docs link to `docs/<bucket>/<skill-name>.md`.
 
 Each bucket folder has a `README.md` that lists every skill in the bucket with a one-line description, with the skill name linked to its `SKILL.md`. The promoted buckets' `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**; non-promoted bucket `README.md`s (`misc/`, `in-progress/`) use a flat list.
 

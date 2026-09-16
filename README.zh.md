@@ -186,6 +186,18 @@ Example
 
 Software engineering fundamentals 比以往更重要。这些 skills 是我将这些 fundamentals 凝练成 repeatable practices 的 best effort，帮助你 ship 职业生涯中最好的 apps。Enjoy.
 
+## 三层文件
+
+本 fork 里每个 promoted skill 有三层文件，彼此不是副本。
+
+| 层 | 路径 | 谁读 |
+| --- | --- | --- |
+| Runtime | `skills/<bucket>/<skill>/SKILL.md` | 安装器和 agent |
+| Sidecar | `SKILL.zh.md`、`docs/**/*.zh.md` | 同步和人工对照，不会被加载 |
+| Human docs | `docs/<bucket>/<skill>.md` | 人：做什么、何时用、和谁搭配 |
+
+docs page 不是 `SKILL.md` 的副本。`grill-with-docs` 的 runtime 只有一行委托；何时用它写在 [`docs/engineering/grill-with-docs.md`](./docs/engineering/grill-with-docs.md)。`aihero.dev` 上的 hosted docs 属于上游。这个 fork 的读者用仓库里的 `docs/`。
+
 ## Reference
 
 这些 skills 只按一个轴划分：谁能 invoke 它们。**User-invoked** skills 只有在你输入它们的名字时才能触达（例如 `/grill-me`），职责是 orchestration。**Model-invoked** skills 可以由你 invoke，也可以在 task 匹配时由 agent 自动触达；它们承载 reusable discipline。User-invoked skill 可以 invoke model-invoked skills，但永远不能 invoke 另一个 user-invoked skill。
@@ -196,27 +208,27 @@ Software engineering fundamentals 比以往更重要。这些 skills 是我将�
 
 **User-invoked**
 
-- **[ask-matt](./skills/engineering/ask-matt/SKILL.md)** — 询问哪个 skill 或 flow 适合你的情况；它是这个 repo 中 skills 的 router。
-- **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** — Grilling session，也会构建项目的 domain model、打磨 terminology，并 inline 更新 `CONTEXT.md` 和 ADRs。
-- **[triage](./skills/engineering/triage/SKILL.md)** — 让 issues 通过 triage roles 的 state machine 流转。
-- **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** — 扫描 codebase 的 deepening opportunities，生成 visual HTML report，然后围绕你选中的机会进行 grilling。
-- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)** — 为 engineering skills 配置当前 repo（issue tracker、triage labels、domain doc layout）。每个 repo 使用其他 engineering skills 前运行一次。
-- **[to-spec](./skills/engineering/to-spec/SKILL.md)** — 将当前 conversation 整理成 spec 并发布到 issue tracker；不再 interview，只 synthesize 已讨论内容。
-- **[to-tickets](./skills/engineering/to-tickets/SKILL.md)** — 把 plan、spec 或 conversation 拆成 tracer-bullet tickets，并明确 blocking edges。
-- **[implement](./skills/engineering/implement/SKILL.md)** — 按 spec 或 tickets 实现工作，使用 `/tdd` 驱动并在 commit 前运行 `/code-review`。
-- **[wayfinder](./skills/engineering/wayfinder/SKILL.md)** — 把单个 session 装不下的大型 effort 绘制成共享 decision ticket map，一次解决一个 ticket，直到通往 destination 的路径清晰。
+- **[ask-matt](./skills/engineering/ask-matt/SKILL.md)** ([docs](./docs/engineering/ask-matt.md)) — 询问哪个 skill 或 flow 适合你的情况；它是这个 repo 中 skills 的 router。
+- **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** ([docs](./docs/engineering/grill-with-docs.md)) — Grilling session，也会构建项目的 domain model、打磨 terminology，并 inline 更新 `CONTEXT.md` 和 ADRs。
+- **[triage](./skills/engineering/triage/SKILL.md)** ([docs](./docs/engineering/triage.md)) — 让 issues 通过 triage roles 的 state machine 流转。
+- **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** ([docs](./docs/engineering/improve-codebase-architecture.md)) — 扫描 codebase 的 deepening opportunities，生成 visual HTML report，然后围绕你选中的机会进行 grilling。
+- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)** ([docs](./docs/engineering/setup-matt-pocock-skills.md)) — 为 engineering skills 配置当前 repo（issue tracker、triage labels、domain doc layout）。每个 repo 使用其他 engineering skills 前运行一次。
+- **[to-spec](./skills/engineering/to-spec/SKILL.md)** ([docs](./docs/engineering/to-spec.md)) — 将当前 conversation 整理成 spec 并发布到 issue tracker；不再 interview，只 synthesize 已讨论内容。
+- **[to-tickets](./skills/engineering/to-tickets/SKILL.md)** ([docs](./docs/engineering/to-tickets.md)) — 把 plan、spec 或 conversation 拆成 tracer-bullet tickets，并明确 blocking edges。
+- **[implement](./skills/engineering/implement/SKILL.md)** ([docs](./docs/engineering/implement.md)) — 按 spec 或 tickets 实现工作，使用 `/tdd` 驱动并在 commit 前运行 `/code-review`。
+- **[wayfinder](./skills/engineering/wayfinder/SKILL.md)** ([docs](./docs/engineering/wayfinder.md)) — 把单个 session 装不下的大型 effort 绘制成共享 decision ticket map，一次解决一个 ticket，直到通往 destination 的路径清晰。
 
 **Model-invoked**
 
-- **[prototype](./skills/engineering/prototype/SKILL.md)** — 构建 throwaway prototype 来回答 design question：针对 state/logic 生成单个可分享 HTML，或在同一路由提供若干可切换的 UI variations。
-- **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)** — 面向 hard bugs 和 performance regressions 的 disciplined diagnosis loop：reproduce → minimise → hypothesise → instrument → fix → regression-test。
-- **[research](./skills/engineering/research/SKILL.md)** — 基于高可信 primary sources 调查问题，并作为 background agent 在 repo 中保存带引用的 Markdown findings。
-- **[tdd](./skills/engineering/tdd/SKILL.md)** — 使用 red-green loop 的 Test-driven development。一次一个 vertical slice 构建 feature 或修复 bug。
-- **[domain-modeling](./skills/engineering/domain-modeling/SKILL.md)** — 主动构建和打磨项目的 domain model：对照 glossary challenge terms，用 edge-case scenarios stress-test，并 inline 更新 `CONTEXT.md` 和 ADRs。
-- **[codebase-design](./skills/engineering/codebase-design/SKILL.md)** — 设计 deep modules 的 shared discipline 和 vocabulary：用 small interface 包住大量 behaviour，放在 clean seam 上，并通过 interface test。
-- **[code-review](./skills/engineering/code-review/SKILL.md)** — 针对 fixed point 之后的 diff 做 two-axis review：**Standards**（是否遵守 repo coding standards 加 Fowler smell baseline）和 **Spec**（是否忠实实现 originating Issue/spec），并用 parallel sub-agents 分开运行。
-- **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)** — 逐 hunk 处理进行中的 git merge 或 rebase conflict，依据两侧 primary source 的 intent 解决，然后完成操作；绝不 `--abort`。
-- **[wizard](./skills/engineering/wizard/SKILL.md)** — 生成 interactive bash wizard，引导 human 完成只有他们能执行的基础设施配置、credential/CI secret 设置、第三方 dashboard 操作或一次性 migration/cutover。
+- **[prototype](./skills/engineering/prototype/SKILL.md)** ([docs](./docs/engineering/prototype.md)) — 构建 throwaway prototype 来回答 design question：针对 state/logic 生成单个可分享 HTML，或在同一路由提供若干可切换的 UI variations。
+- **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)** ([docs](./docs/engineering/diagnosing-bugs.md)) — 面向 hard bugs 和 performance regressions 的 disciplined diagnosis loop：reproduce → minimise → hypothesise → instrument → fix → regression-test。
+- **[research](./skills/engineering/research/SKILL.md)** ([docs](./docs/engineering/research.md)) — 基于高可信 primary sources 调查问题，并作为 background agent 在 repo 中保存带引用的 Markdown findings。
+- **[tdd](./skills/engineering/tdd/SKILL.md)** ([docs](./docs/engineering/tdd.md)) — 使用 red-green loop 的 Test-driven development。一次一个 vertical slice 构建 feature 或修复 bug。
+- **[domain-modeling](./skills/engineering/domain-modeling/SKILL.md)** ([docs](./docs/engineering/domain-modeling.md)) — 主动构建和打磨项目的 domain model：对照 glossary challenge terms，用 edge-case scenarios stress-test，并 inline 更新 `CONTEXT.md` 和 ADRs。
+- **[codebase-design](./skills/engineering/codebase-design/SKILL.md)** ([docs](./docs/engineering/codebase-design.md)) — 设计 deep modules 的 shared discipline 和 vocabulary：用 small interface 包住大量 behaviour，放在 clean seam 上，并通过 interface test。
+- **[code-review](./skills/engineering/code-review/SKILL.md)** ([docs](./docs/engineering/code-review.md)) — 针对 fixed point 之后的 diff 做 two-axis review：**Standards**（是否遵守 repo coding standards 加 Fowler smell baseline）和 **Spec**（是否忠实实现 originating Issue/spec），并用 parallel sub-agents 分开运行。
+- **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)** ([docs](./docs/engineering/resolving-merge-conflicts.md)) — 逐 hunk 处理进行中的 git merge 或 rebase conflict，依据两侧 primary source 的 intent 解决，然后完成操作；绝不 `--abort`。
+- **[wizard](./skills/engineering/wizard/SKILL.md)** ([docs](./docs/engineering/wizard.md)) — 生成 interactive bash wizard，引导 human 完成只有他们能执行的基础设施配置、credential/CI secret 设置、第三方 dashboard 操作或一次性 migration/cutover。
 
 ### Productivity
 
@@ -224,13 +236,13 @@ Software engineering fundamentals 比以往更重要。这些 skills 是我将�
 
 **User-invoked**
 
-- **[grill-me](./skills/productivity/grill-me/SKILL.md)** — 围绕 plan 或 design 持续追问，按轮次解决 decision tree 当前 frontier 上的全部问题，直到 frontier 为空。
-- **[handoff](./skills/productivity/handoff/SKILL.md)** — 将当前 conversation 压缩成 handoff document，方便另一个 agent 继续工作。
-- **[teach](./skills/productivity/teach/SKILL.md)** — 使用当前 directory 作为 stateful teaching workspace，跨多个 sessions 教用户一个新 skill 或 concept。
-- **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)** — 把用户无法独自回答的 decision 整理成 Markdown questionnaire，交给掌握缺失知识的人异步填写或在 meeting 中共同完成。
-- **[wait-what](./skills/productivity/wait-what/SKILL.md)** — 当上一条消息没有讲明白时立即触发；agent 会补齐缺失 context，并用 `CONTEXT.md` 术语和 plain language 重讲。
+- **[grill-me](./skills/productivity/grill-me/SKILL.md)** ([docs](./docs/productivity/grill-me.md)) — 围绕 plan 或 design 持续追问，按轮次解决 decision tree 当前 frontier 上的全部问题，直到 frontier 为空。
+- **[handoff](./skills/productivity/handoff/SKILL.md)** ([docs](./docs/productivity/handoff.md)) — 将当前 conversation 压缩成 handoff document，方便另一个 agent 继续工作。
+- **[teach](./skills/productivity/teach/SKILL.md)** ([docs](./docs/productivity/teach.md)) — 使用当前 directory 作为 stateful teaching workspace，跨多个 sessions 教用户一个新 skill 或 concept。
+- **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)** ([docs](./docs/productivity/to-questionnaire.md)) — 把用户无法独自回答的 decision 整理成 Markdown questionnaire，交给掌握缺失知识的人异步填写或在 meeting 中共同完成。
+- **[wait-what](./skills/productivity/wait-what/SKILL.md)** ([docs](./docs/productivity/wait-what.md)) — 当上一条消息没有讲明白时立即触发；agent 会补齐缺失 context，并用 `CONTEXT.md` 术语和 plain language 重讲。
 
 **Model-invoked**
 
-- **[grilling](./skills/productivity/grilling/SKILL.md)** — 围绕 plan、decision 或 idea 按轮次追问当前 frontier，直到 decision tree 被解决；它是 `grill-me`、`grill-with-docs`、`triage`、`wayfinder` 和 `improve-codebase-architecture` 背后的 reusable primitive。
-- **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)** — 编写供 agent 使用的文档，包括 skills、`AGENTS.md` / `CLAUDE.md`，以及 agent 通过 pointer 读取的任何文档。
+- **[grilling](./skills/productivity/grilling/SKILL.md)** ([docs](./docs/productivity/grilling.md)) — 围绕 plan、decision 或 idea 按轮次追问当前 frontier，直到 decision tree 被解决；它是 `grill-me`、`grill-with-docs`、`triage`、`wayfinder` 和 `improve-codebase-architecture` 背后的 reusable primitive。
+- **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)** ([docs](./docs/productivity/writing-for-agents.md)) — 编写供 agent 使用的文档，包括 skills、`AGENTS.md` / `CLAUDE.md`，以及 agent 通过 pointer 读取的任何文档。
