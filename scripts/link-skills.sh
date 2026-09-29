@@ -35,7 +35,10 @@ for DEST in "${DESTS[@]}"; do
   # per-skill symlinks back into the repo's own skills/ tree. Detect and bail
   # out instead of polluting the working copy.
   if [ -L "$DEST" ]; then
-    resolved="$(readlink -f "$DEST")"
+    if ! resolved="$(cd -P "$DEST" 2>/dev/null && pwd -P)"; then
+      echo "error: $DEST is a broken or inaccessible directory symlink." >&2
+      exit 1
+    fi
     case "$resolved" in
       "$REPO"|"$REPO"/*)
         echo "error: $DEST is a symlink into this repo ($resolved)." >&2
