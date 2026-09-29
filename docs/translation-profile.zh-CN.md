@@ -42,7 +42,7 @@
 
 ## Runtime 规则
 
-- `skills` CLI 能发现的每个 `skills/**/SKILL.md` 都必须中文化，包括 deprecated、misc、personal 与 in-progress buckets；它们仍可能出现在 CLI 选择列表中。
+- `skills` CLI 能发现的每个 `skills/**/SKILL.md` 都必须中文化，包括 deprecated、misc 与 in-progress buckets；它们仍可能出现在 CLI 选择列表中。
 - `.claude-plugin/plugin.json` 中的 promoted skills 还必须出现在 top-level README、bucket README 与 docs tree 中。
 - 对应 `SKILL.zh.md` 存在时，应与 `SKILL.md` 保持一致；不能让 sidecar 比 runtime 更新。
 - 新增或改名 skill 时，同步更新 `README.md`、bucket `README.md`、`ask-matt` router 和相应 docs page。
