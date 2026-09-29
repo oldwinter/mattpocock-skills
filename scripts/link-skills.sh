@@ -45,16 +45,25 @@ for DEST in "${DESTS[@]}"; do
     esac
   fi
 
+  for i in "${!names[@]}"; do
+    name="${names[$i]}"
+    target="$DEST/$name"
+
+    if [ -e "$target" ] && [ ! -L "$target" ]; then
+      echo "error: existing non-symlink target: $target" >&2
+      echo "Move or remove it explicitly, then re-run this script." >&2
+      exit 1
+    fi
+  done
+done
+
+for DEST in "${DESTS[@]}"; do
   mkdir -p "$DEST"
 
   for i in "${!names[@]}"; do
     name="${names[$i]}"
     src="${srcs[$i]}"
     target="$DEST/$name"
-
-    if [ -e "$target" ] && [ ! -L "$target" ]; then
-      rm -rf "$target"
-    fi
 
     ln -sfn "$src" "$target"
     echo "linked $name -> $src ($DEST)"
