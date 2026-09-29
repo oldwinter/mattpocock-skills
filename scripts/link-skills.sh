@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ -z "${HOME:-}" ]; then
+  echo "error: HOME must be set to a non-empty user directory." >&2
+  exit 1
+fi
+
 # NOTE: This is a dev-only script, intended for use by maintainers of this repo.
 # It is not a supported installer. Modifications to it, or requests for
 # modifications, will not be approved.
