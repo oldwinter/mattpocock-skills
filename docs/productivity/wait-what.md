@@ -24,6 +24,17 @@ The body reuses the leading words already in your global `CLAUDE.md` and your pr
 
 If you have no `CONTEXT.md` (and no `CONTEXT-MAP.md` pointing to one for the context at hand), the skill still works. You lose only the domain-vocabulary half.
 
+## Common questions
+
+**Is this just a request for a shorter answer?**
+No. Shortening can remove the premise you needed and make the explanation harder to follow. `wait-what` asks the agent to back up, restore the missing context, and then use plain language.
+
+**Can I use it while another skill is running?**
+Yes. It repairs the current explanation without changing the surrounding workflow. Once the message lands, continue from the same point.
+
+**What happens if the project has no `CONTEXT.md`?**
+The agent still re-pitches in plain English. It simply cannot reuse a project glossary that does not exist.
+
 ## It's working if
 
 - The re-pitch is **shorter and clearer**, not shorter and blunter.
