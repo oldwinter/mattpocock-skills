@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ -z "${HOME:-}" ]; then
+  echo "error: HOME must be set to a non-empty user directory." >&2
+  exit 1
+fi
+
 # NOTE: This is a dev-only script, intended for use by maintainers of this repo.
 # It is not a supported installer. Modifications to it, or requests for
 # modifications, will not be approved.
@@ -35,7 +40,10 @@ for DEST in "${DESTS[@]}"; do
   # per-skill symlinks back into the repo's own skills/ tree. Detect and bail
   # out instead of polluting the working copy.
   if [ -L "$DEST" ]; then
-    resolved="$(readlink -f "$DEST")"
+    if ! resolved="$(cd -P "$DEST" 2>/dev/null && pwd -P)"; then
+      echo "error: $DEST is a broken or inaccessible directory symlink." >&2
+      exit 1
+    fi
     case "$resolved" in
       "$REPO"|"$REPO"/*)
         echo "error: $DEST is a symlink into this repo ($resolved)." >&2

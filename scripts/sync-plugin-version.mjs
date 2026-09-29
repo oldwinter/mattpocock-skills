@@ -11,6 +11,14 @@ const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const pluginPath = join(repo, ".claude-plugin", "plugin.json");
 
 const { version } = JSON.parse(readFileSync(join(repo, "package.json"), "utf8"));
+const semanticVersion =
+  /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/;
+
+if (typeof version !== "string" || !semanticVersion.test(version)) {
+  console.error("package.json version must be a valid semantic version.");
+  process.exit(1);
+}
+
 const source = readFileSync(pluginPath, "utf8");
 const plugin = JSON.parse(source);
 

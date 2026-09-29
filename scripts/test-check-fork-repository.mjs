@@ -12,9 +12,13 @@ const packageJson = JSON.parse(readFileSync(join(repo, "package.json"), "utf8"))
 const plugin = JSON.parse(
   readFileSync(join(repo, ".claude-plugin", "plugin.json"), "utf8"),
 );
+const changesets = JSON.parse(
+  readFileSync(join(repo, ".changeset", "config.json"), "utf8"),
+);
 
 assert.equal(packageJson.repository.url, FORK);
 assert.equal(plugin.repository, FORK);
+assert.equal(changesets.changelog[1].repo, "oldwinter/mattpocock-skills");
 assert.equal(plugin.author.name, "Matt Pocock");
 assert.doesNotMatch(packageJson.repository.url, /mattpocock\/skills/);
 assert.doesNotMatch(plugin.repository, /mattpocock\/skills/);

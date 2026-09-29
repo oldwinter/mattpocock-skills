@@ -12,7 +12,9 @@
     "changeset": "changeset",
     "version": "changeset version && node scripts/sync-plugin-version.mjs",
     "check-plugin-version": "node scripts/sync-plugin-version.mjs --check",
-    "check-fork-repository": "node scripts/check-fork-repository.mjs"
+    "check-fork-repository": "node scripts/check-fork-repository.mjs",
+    "test": "node scripts/test-check-fork-repository.mjs && bash scripts/test-link-skills.sh all && bash scripts/test-list-skills.sh && node scripts/test-sync-plugin-version.mjs && node scripts/test-docs-contract.mjs && node scripts/check-guidance-buckets.mjs && node scripts/test-workflows.mjs",
+    "validate": "npm test && npm run check-plugin-version && npm run check-fork-repository"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",
