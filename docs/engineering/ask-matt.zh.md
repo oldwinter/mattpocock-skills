@@ -20,7 +20,7 @@ Tracker-dependent routes 假设 [setup-matt-pocock-skills](https://aihero.dev/sk
 
 ## Flows, not skills
 
-它的 leading word 是 **flow**，也就是穿过多个 skills 的 path，而不是只根据 keyword 匹配一个工具。Main flow 是 idea → grill → spec → tickets → implement → review；on-ramps 用于 incoming work、broken behavior 或大到单 session 容不下的 foggy effort；standalone 处理 prototype、questionnaire 或已经发生的 merge conflict；底层 vocabulary layer 则由 `domain-modeling` 与 `codebase-design` 提供。
+它的 leading word 是 **flow**，也就是穿过多个 skills 的 path，而不是只根据 keyword 匹配一个工具。Main flow 是 idea → grill → spec → tickets → implement 或 implement-spec → review → pr → retro；on-ramps 用于 incoming work、broken behavior 或大到单 session 容不下的 foggy effort；standalone 处理 prototype 和 questionnaire；底层 vocabulary layer 则由 `domain-modeling` 与 `codebase-design` 提供。
 
 ## The phase boundary
 

@@ -4,7 +4,7 @@
 
 多数 skills 是 **user-invoked**：agent 不会替你自动触发它们，所以记住它们何时存在、何时该用的是 *你*。这种记忆就是 **cognitive load**。docs 页面的职责是降低它：围绕一个 skill 为一个读者定向，让他们能把它装进脑中，知道何时触达它，并看清它在系统中的位置。所有页面共同构成一个分布式 router；每页都是一个节点。
 
-只要 promoted skill 被添加、重命名或行为改变，就创建或重新同步它的 docs 页面。重命名也要移动文件（`docs/<bucket>/<old>.md` -> `docs/<bucket>/<new>.md`），因为发布 URL 跟随名称；skill 在 `engineering/` 和 `productivity/` 之间移动时，也要移动到匹配的 docs 文件夹。`misc/`、`in-progress/` 和 `deprecated/` 中的 skills 没有页面；移入 `engineering/` 或 `productivity/` 时才新增页面，移出时删除页面。
+只要 promoted skill 被添加、重命名或行为改变，就创建或重新同步它的 docs 页面。重命名也要移动文件（`docs/<bucket>/<old>.md` -> `docs/<bucket>/<new>.md`），因为发布 URL 跟随名称；skill 在 `engineering/` 和 `productivity/` 之间移动时，也要移动到匹配的 docs 文件夹。`misc/`、`in-progress/` 和 `deprecated/` 中的 skills 没有页面；移入 `engineering/` 或 `productivity/` 时才新增页面，移出时删除页面。Promoted skill 被彻底删除时例外：保留原页面作为 **archived** 页面，并在开头添加 blockquote notice，说明移除版本和替代项，让已发布 URL 继续可访问。
 
 这些页面发布在 `aihero.dev` 上，所以 **每个链接都必须是绝对链接**。指向另一个 skill 的链接写 `https://aihero.dev/skills-<name>`；指向 repo 的链接写完整 `https://github.com/mattpocock/skills/...`。能在 repo 中工作的相对链接发布后会失效。
 
@@ -33,7 +33,7 @@
 
 ## Prerequisites
 
-可选。只有 skill 需要某些东西已经就位时才包含，否则整个 heading 删除。包括：它会写入的 **workspace**（例如 `grill-with-docs` 写 `CONTEXT.md` 和 ADRs；`teach` 会构建整个目录）、**prior setup**（`triage`/`to-spec`/`to-tickets` 需要 `setup-matt-pocock-skills` 配置 issue tracker）、或 **repo-specific tooling**。无状态、到处可跑的 skill 没有 prerequisites。
+可选。只有 skill 需要某些东西已经就位时才包含，否则整个 heading 删除。包括：它会写入的 **workspace**（例如 `grill-with-docs` 写 `GLOSSARY.md` 和 ADRs；`teach` 会构建整个目录）、**prior setup**（`triage`/`to-spec`/`to-tickets` 需要 `setup-matt-pocock-skills` 配置 issue tracker）、或 **repo-specific tooling**。无状态、到处可跑的 skill 没有 prerequisites。
 
 ## <free-form middle>
 

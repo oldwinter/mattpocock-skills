@@ -1,3 +1,5 @@
+> **Archived.** 此 skill 已在 v1.3.0 从 plugin 移除，不再维护，也没有替代项；agent 会在没有专用 skill 的情况下处理 merge 或 rebase conflict。本页仅为保留参考。
+
 ## What it does
 
 `resolving-merge-conflicts` 会处理正在进行的 git merge 或 rebase conflict，逐个 hunk 解决，并完成整个操作：resolved、checked、committed。

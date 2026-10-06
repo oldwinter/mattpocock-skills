@@ -1,10 +1,10 @@
 Skills 按 bucket folders 组织在 `skills/` 下：
 
-- `engineering/` — 日常 code work
-- `productivity/` — 日常 non-code workflow tools
-- `misc/` — 保留着但很少使用，不推广
-- `in-progress/` — 尚未 ready to ship 的 drafts
-- `deprecated/` — 不再使用
+- `engineering/`: 日常 code work
+- `productivity/`: 日常 non-code workflow tools
+- `misc/`: 保留着但很少使用，不推广
+- `in-progress/`: 尚未 ready to ship 的 drafts
+- `deprecated/`: 不再使用
 
 `engineering/` 或 `productivity/`（**promoted** buckets）中的每个 skill，都必须在 top-level `README.md` 中有 reference，并在 `.claude-plugin/plugin.json` 的 `skills` array 中有 entry（Claude Code plugin 只发布 promoted set）。`misc/`、`in-progress/` 和 `deprecated/` 中的 skills 不得出现在两者中。
 
@@ -14,7 +14,7 @@ Top-level `README.md` 中的每个 skill entry，都必须将 skill name link �
 
 每个 bucket folder 都有一个 `README.md`，列出 bucket 中的每个 skill，并附一行 description，skill name link 到它的 `SKILL.md`。Promoted buckets 的 `README.md` 和 top-level `README.md` 会将 entries 分为 **User-invoked** 和 **Model-invoked**；non-promoted bucket `README.md`s（`misc/`、`in-progress/`）使用 flat list。
 
-`engineering/` 和 `productivity/` 中的 skills 还拥有面向人的 docs page：`docs/<bucket>/<skill-name>.md`（docs tree 镜像 `skills/` 下这两个 bucket）。发布 URL 始终是 `https://aihero.dev/skills-<skill-name>`，与 bucket 无关；docs path 只是 repo organization。添加、重命名或改变 `engineering/` 或 `productivity/` 中 skill 的行为时，按 [.agents/writing-docs.zh.md](./.agents/writing-docs.zh.md) 创建或重新同步 docs page。Non-promoted buckets（`misc/`、`in-progress/`、`deprecated/`）中的 skills **没有** docs page。
+`engineering/` 和 `productivity/` 中的 skills 还拥有面向人的 docs page：`docs/<bucket>/<skill-name>.md`（docs tree 镜像 `skills/` 下这两个 bucket）。发布 URL 始终是 `https://aihero.dev/skills-<skill-name>`，与 bucket 无关；docs path 只是 repo organization。添加、重命名或改变 `engineering/` 或 `productivity/` 中 skill 的行为时，按 [.agents/writing-docs.zh.md](./.agents/writing-docs.zh.md) 创建或重新同步 docs page。Non-promoted buckets（`misc/`、`in-progress/`、`deprecated/`）中的 skills **没有** docs page；唯一例外是被彻底删除的 promoted skill，其页面应保留并标记 archived。
 
 每个 `SKILL.md` 要么是 user-invoked（`disable-model-invocation: true`，并在 `agents/openai.yaml` 中设置 `policy.allow_implicit_invocation: false`，只有 human 可触达），要么是 model-invoked（model 或 user 均可触达）。见 [.agents/invocation.zh.md](./.agents/invocation.zh.md)。
 

@@ -7,7 +7,7 @@ description: Test-driven development. Use when the user wants to build features 
 
 TDD 是 red → green loop。这个 skill 是让该 loop 产出值得保留的 tests 的 reference：什么是好 test、tests 放在哪里、anti-patterns、以及 loop rules。每个 section 都适用于每个 cycle；在 loop 之前和期间查阅它，而不是事后。
 
-探索 codebase 时，读取 `CONTEXT.md`（如果存在），让 test names 和 interface vocabulary 与项目 domain language 匹配，并尊重你触碰区域的 ADRs。
+探索 codebase 时，读取 `GLOSSARY.md`（如果存在），让 test names 和 interface vocabulary 与项目 domain language 匹配，并尊重你触碰区域的 ADRs。
 
 ## What a good test is
 
@@ -23,7 +23,7 @@ Tests 应通过 public interfaces 验证 behavior，而不是 implementation det
 
 Ask: "What's the public interface, and which seams should we test?"
 
-When the shape of that interface is itself in question — how deep the module is, where the seam belongs, what the interface should expose — call the Skill tool with "codebase-design" for the vocabulary. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms, and it is a reference to consult, not a session to run.
+When the shape of that interface is itself in question: how deep the module is, where the seam belongs, what the interface should expose: call the Skill tool with "codebase-design" for the vocabulary. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms, and it is a reference to consult, not a session to run.
 
 ## Anti-patterns
 

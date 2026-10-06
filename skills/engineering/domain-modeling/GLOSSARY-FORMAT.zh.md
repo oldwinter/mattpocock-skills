@@ -1,4 +1,4 @@
-# CONTEXT.md Format
+# GLOSSARY.md Format
 
 ## Structure
 
@@ -31,18 +31,18 @@ _Avoid_: Client, buyer, account
 
 ## Single vs multi-context repos
 
-**Single context（大多数 repos）：** root 一个 `CONTEXT.md`。
+**Single context（大多数 repos）：** root 一个 `GLOSSARY.md`。
 
-**Multiple contexts：** root 的 `CONTEXT-MAP.md` 列出 contexts、它们所在位置以及彼此关系：
+**Multiple contexts：** root 的 `GLOSSARY-MAP.md` 列出 contexts、它们所在位置以及彼此关系：
 
 ```md
 # Context Map
 
 ## Contexts
 
-- [Ordering](./src/ordering/CONTEXT.md) — receives and tracks customer orders
-- [Billing](./src/billing/CONTEXT.md) — generates invoices and processes payments
-- [Fulfillment](./src/fulfillment/CONTEXT.md) — manages warehouse picking and shipping
+- [Ordering](./src/ordering/GLOSSARY.md): receives and tracks customer orders
+- [Billing](./src/billing/GLOSSARY.md): generates invoices and processes payments
+- [Fulfillment](./src/fulfillment/GLOSSARY.md): manages warehouse picking and shipping
 
 ## Relationships
 
@@ -53,8 +53,8 @@ _Avoid_: Client, buyer, account
 
 Skill 会 infer 应用哪种 structure：
 
-- 如果 `CONTEXT-MAP.md` 存在，读取它来寻找 contexts
-- 如果只有 root `CONTEXT.md`，就是 single context
-- 如果都不存在，在第一个 term 被 resolved 时 lazily 创建 root `CONTEXT.md`
+- 如果 `GLOSSARY-MAP.md` 存在，读取它来寻找 contexts
+- 如果只有 root `GLOSSARY.md`，就是 single context
+- 如果都不存在，在第一个 term 被 resolved 时 lazily 创建 root `GLOSSARY.md`
 
 当存在多个 contexts 时，infer 当前 topic 属于哪个。若不清楚，就询问。

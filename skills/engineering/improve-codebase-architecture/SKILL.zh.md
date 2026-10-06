@@ -11,18 +11,18 @@ Surface architectural friction，并提出 **deepening opportunities**：把 sha
 这个 command 由项目的 domain model _informed_，并建立在 shared design vocabulary 之上：
 
 - 运行 `/codebase-design` skill 获取 architecture vocabulary（**module**、**interface**、**depth**、**seam**、**adapter**、**leverage**、**locality**）及其 principles（deletion test、"the interface is the test surface"、"one adapter = hypothetical seam, two = real"）。每条 suggestion 都精确使用这些 terms，不要漂移到 “component”、“service”、“API” 或 “boundary”。
-- `CONTEXT.md` 中的 domain language 为 good seams 命名；`docs/adr/` 中的 ADRs 记录此 command 不应重新争论的 decisions。
+- `GLOSSARY.md` 中的 domain language 为 good seams 命名；`docs/adr/` 中的 ADRs 记录此 command 不应重新争论的 decisions。
 
 ## Process
 
 ### 1. Explore
 
-**扫描前先确定 scope — YAGNI。** Deepen module 的收益，是让未来对它的 change 更容易，因此要对 codebase 中最近发生变化的部分赋予更高权重。先决定去哪里看，再开始扫描：
+**扫描前先确定 scope: YAGNI。** Deepen module 的收益，是让未来对它的 change 更容易，因此要对 codebase 中最近发生变化的部分赋予更高权重。先决定去哪里看，再开始扫描：
 
 - 如果用户已经点名方向，例如 module、subsystem 或 pain point，就沿该方向开始，并跳过下方推断。
 - 否则，回看足够长的一段 commit history（`git log --oneline`），找出 codebase 的 hot spots，也就是反复出现的 files 和 areas，并优先关注这些 paths。如果 changes 很分散、没有清晰 hot spot，再扩大范围。
 
-先读取项目的 domain glossary（`CONTEXT.md`），以及你触碰区域的任何 ADRs。
+先读取项目的 domain glossary（`GLOSSARY.md`），以及你触碰区域的任何 ADRs。
 
 然后 spawn 一个 sub-agent 来 walk the codebase。不要遵循 rigid heuristics；organic explore，并记录你在哪里 experience friction：
 
@@ -42,18 +42,18 @@ Report 使用 **Tailwind via CDN** 做 layout/styling，使用 **Mermaid via CDN
 
 每个 candidate 渲染为 card，包含：
 
-- **Files** — 涉及哪些 files/modules
-- **Problem** — 当前 architecture 为什么造成 friction
-- **Solution** — plain English 描述会改变什么
-- **Benefits** — 用 locality 和 leverage 解释，以及 tests 会如何改善
-- **Before / After diagram** — side-by-side、custom-drawn，展示 shallowness 和 deepening
-- **Recommendation strength** — `Strong`、`Worth exploring`、`Speculative` 之一，渲染为 badge
+- **Files**: 涉及哪些 files/modules
+- **Problem**: 当前 architecture 为什么造成 friction
+- **Solution**: plain English 描述会改变什么
+- **Benefits**: 用 locality 和 leverage 解释，以及 tests 会如何改善
+- **Before / After diagram**: side-by-side、custom-drawn，展示 shallowness 和 deepening
+- **Recommendation strength**: `Strong`、`Worth exploring`、`Speculative` 之一，渲染为 badge
 
 Report 以 **Top recommendation** section 结尾：你会先 tackle 哪个 candidate，以及 why。
 
-**Domain 使用 CONTEXT.md vocabulary，architecture 使用 `/codebase-design` vocabulary。** 如果 `CONTEXT.md` 定义了 “Order”，就说 “the Order intake module”，而不是 “the FooBarHandler”，也不是 “the Order service”。
+**Domain 使用 GLOSSARY.md vocabulary，architecture 使用 `/codebase-design` vocabulary。** 如果 `GLOSSARY.md` 定义了 “Order”，就说 “the Order intake module”，而不是 “the FooBarHandler”，也不是 “the Order service”。
 
-**ADR conflicts**：如果 candidate 与 existing ADR 冲突，只有当 friction 足够 real、值得 revisiting ADR 时才 surface。清楚标在 card 中（例如 warning callout：_"contradicts ADR-0007 — but worth reopening because…"_）。不要列出 ADR 禁止的每个 theoretical refactor。
+**ADR conflicts**：如果 candidate 与 existing ADR 冲突，只有当 friction 足够 real、值得 revisiting ADR 时才 surface。清楚标在 card 中（例如 warning callout：_"contradicts ADR-0007: but worth reopening because…"_）。不要列出 ADR 禁止的每个 theoretical refactor。
 
 完整 HTML scaffold、diagram patterns 和 styling guidance 见 [HTML-REPORT.zh.md](HTML-REPORT.md)。
 
@@ -65,7 +65,7 @@ Report 以 **Top recommendation** section 结尾：你会先 tackle 哪个 candi
 
 随着 decisions crystallize，side effects inline 发生；运行 `/domain-modeling` skill，持续保持 domain model 最新：
 
-- **Deepened module 的命名来自 `CONTEXT.md` 中不存在的 concept？** 将该 term 添加到 `CONTEXT.md`。如果 file 不存在，lazily 创建。
-- **Conversation 中 sharpen 了 fuzzy term？** 立刻更新 `CONTEXT.md`。
+- **Deepened module 的命名来自 `GLOSSARY.md` 中不存在的 concept？** 将该 term 添加到 `GLOSSARY.md`。如果 file 不存在，lazily 创建。
+- **Conversation 中 sharpen 了 fuzzy term？** 立刻更新 `GLOSSARY.md`。
 - **用户用 load-bearing reason reject candidate？** Offer 一个 ADR，措辞为：_"Want me to record this as an ADR so future architecture reviews don't re-suggest it?"_ 只有当这个 reason 确实是 future explorer 为避免重提同一件事所需要的，才 offer。跳过 ephemeral reasons（“not worth it right now”）和 self-evident reasons。
 - **想探索 deepened module 的 alternative interfaces？** 运行 `/codebase-design` skill，并使用它的 design-it-twice parallel sub-agent pattern。

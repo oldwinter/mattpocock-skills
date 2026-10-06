@@ -13,7 +13,7 @@
 三个 grilling skills 的选择取决于眼前材料：
 
 - **任何主题、任何环境**：使用 `grill-me`。它不需要 repo、不写文件，主题也不必是 code。
-- **需要与 codebase 对齐**：使用 [grill-with-docs](https://aihero.dev/skills-grill-with-docs)。它执行同类 interview，但属于 [stateful](https://www.aihero.dev/ai-coding-dictionary/stateful) flow，会读取 code 并把结论写入 `CONTEXT.md` 和 ADRs。
+- **需要与 codebase 对齐**：使用 [grill-with-docs](https://aihero.dev/skills-grill-with-docs)。它执行同类 interview，但属于 [stateful](https://www.aihero.dev/ai-coding-dictionary/stateful) flow，会读取 code 并把结论写入 `GLOSSARY.md` 和 ADRs。
 - **单个 session 装不下**：使用 [wayfinder](https://aihero.dev/skills-wayfinder)。它先把大型 effort 画成 map，再在其中运行多次 grilling session。
 
 关闭 [plan mode](https://www.aihero.dev/ai-coding-dictionary/agent-mode)。Plan mode 会促使 agent 尽快产出 plan，与持续 inquiry 的目标相反。
@@ -35,13 +35,6 @@ Skill 负责提问，但 **scope 由你掌控**。这一点决定 session 是把
 “一个长表单还是三页？”、“这个 interaction 应该是什么感觉？”都属于 **不可 grill** 的问题，需要先看到东西。遇到这种问题时停止 grilling，用 [prototype](https://aihero.dev/skills-prototype) 做 throwaway version，实际观察后再回来用一句话回答。
 
 试图纯靠对话解决不可 grill 的问题，会让 session 不断膨胀：agent 反复换说法，你不断猜测，scope 最终填满全部 uncertainty。
-
-## It's working if
-
-- 你曾经明确反对某个建议；完全没有 pushback 的 session 通常没有必要。
-- 问题以少数几轮出现，而不是一条条滴出；后续轮次明显建立在前面的回答上。
-- 你最终到达了原先没预料的位置，因为某个问题暴露了之前隐式作出的 decision。
-- 结束时，你可以向没参与 session 的人解释并捍卫每个选择。
 
 ## Common questions
 
@@ -67,10 +60,17 @@ When grilling, ask one question at a time.
 **Model 重要吗？**
 比多数 skills 更重要。Grilling 依赖 [model](https://www.aihero.dev/ai-coding-dictionary/model) 对系统失效方式的判断，因此应使用最强 model；implementation 更依赖既有 context，通常可以容忍更便宜的 model。
 
+## It's working if
+
+- 你曾经明确反对某个建议；完全没有 pushback 的 session 通常没有必要。
+- 问题以少数几轮出现，而不是一条条滴出；后续轮次明显建立在前面的回答上。
+- 你最终到达了原先没预料的位置，因为某个问题暴露了之前隐式作出的 decision。
+- 结束时，你可以向没参与 session 的人解释并捍卫每个选择。
+
 ## Where it fits
 
 `grill-me` 是 **可在任何地方、针对任何主题运行的 standalone**。Stateless 使它具备 portability：不需要 repo、workspace 或 setup，也不假定主题与软件有关。它可以用于商业决策、写作和下一步选择。
 
-这正是它和 [grill-with-docs](https://aihero.dev/skills-grill-with-docs) 的差异：后者运行同类 interview，但会读取 codebase，并把结论记录到 `CONTEXT.md` 与 ADRs。两者都建立在 [grilling](https://aihero.dev/skills-grilling) primitive 上；`grill-me` 是 user-invoked、且不携带任何状态的入口。
+这正是它和 [grill-with-docs](https://aihero.dev/skills-grill-with-docs) 的差异：后者运行同类 interview，但会读取 codebase，并把结论记录到 `GLOSSARY.md` 与 ADRs。两者都建立在 [grilling](https://aihero.dev/skills-grilling) primitive 上；`grill-me` 是 user-invoked、且不携带任何状态的入口。
 
 如果 grill 的内容最终是软件工作，可以在同一 conversation 中交给 [to-spec](https://aihero.dev/skills-to-spec)，继续 build flow；这只是可选后续，不是 skill 本身的目的。不确定该用哪条 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。

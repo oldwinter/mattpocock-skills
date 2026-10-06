@@ -16,7 +16,7 @@
 
 整个 skill 围绕一个想法：**depth**。Deep module 将大量功能隐藏在小而稳定的 interface 后；shallow module 会通过几乎和底下代码一样宽的 interface 泄露 implementation。Report 会寻找 shallowness：为了 testability 抽出的 pure functions，但真正 bugs 藏在调用方式中（没有 **locality**）；跨 **seams** 泄露的 modules；必须打开五个文件才能理解的 concepts。然后它提出能修复这些问题的 deepening。
 
-它使用共享 design vocabulary（**module**、**interface**、**depth**、**seam**、**adapter**、**leverage**、**locality**）和你项目 `CONTEXT.md` 中的 domain language，所以 candidate 会读作 “deepen the Order intake module”，而不是 “refactor the FooBarHandler”。
+它使用共享 design vocabulary（**module**、**interface**、**depth**、**seam**、**adapter**、**leverage**、**locality**）和你项目 `GLOSSARY.md` 中的 domain language，所以 candidate 会读作 “deepen the Order intake module”，而不是 “refactor the FooBarHandler”。
 
 ## The report, then the grill
 
@@ -64,4 +64,4 @@ Report 默认从 CDN 加载 Tailwind 和 Mermaid，打开时需要网络；secur
 
 ## Where it fits
 
-`improve-codebase-architecture` 是 **periodic maintenance**：每隔几天运行，而不是 chain 中一步。它的邻居是 [codebase-design](https://aihero.dev/skills-codebase-design)，也就是所有 candidates 使用的 depth-and-seam vocabulary 的所有者；[grilling](https://aihero.dev/skills-grilling)，用于在你选定 candidate 后走 decision tree；以及 [domain-modeling](https://aihero.dev/skills-domain-modeling)，用于在 redesign settle 时保持 `CONTEXT.md` 和 ADRs 当前。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。
+`improve-codebase-architecture` 是 **periodic maintenance**：每隔几天运行，而不是 chain 中一步。它的邻居是 [codebase-design](https://aihero.dev/skills-codebase-design)，也就是所有 candidates 使用的 depth-and-seam vocabulary 的所有者；[grilling](https://aihero.dev/skills-grilling)，用于在你选定 candidate 后走 decision tree；以及 [domain-modeling](https://aihero.dev/skills-domain-modeling)，用于在 redesign settle 时保持 `GLOSSARY.md` 和 ADRs 当前。无法确定该用哪个 skill 或 flow 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。

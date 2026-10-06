@@ -1,6 +1,6 @@
 ## What it does
 
-`wait-what` 修正上一条没有讲明白的消息。它补上缺失 context，使用 ASD-STE100 Simplified Technical English，并采用 `CONTEXT.md` 中已经约定的 ubiquitous language 重新解释。
+`wait-what` 修正上一条没有讲明白的消息。它补上缺失 context，使用 ASD-STE100 Simplified Technical English，并采用 `GLOSSARY.md` 中已经约定的 ubiquitous language 重新解释。
 
 它只重讲刚才的内容，不开启新的教学流程，也不把原答案继续扩展成更长的 exposition。
 
@@ -17,7 +17,7 @@
 ## It's working if
 
 - 新解释先补最少必要 context，再用 plain language 重讲。
-- Project terms 与 `CONTEXT.md` 一致。
+- Project terms 与 `GLOSSARY.md` 一致。
 - 解释比原消息更容易跟上，而不是仅换一组同样抽象的 words。
 
 ## Where it fits

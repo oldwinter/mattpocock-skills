@@ -2,7 +2,7 @@
 
 `setup-matt-pocock-skills` 为当前 repo 写入 engineering skills 共享的 configuration：issue tracker、可选的 triage labels，以及 domain docs layout。
 
-它只写 config，不 hard-code behaviour。下游 skills 依赖这些文件，避免猜测 issues 存放位置、label strings 或 `CONTEXT.md` layout。
+它只写 config，不 hard-code behaviour。下游 skills 依赖这些文件，避免猜测 issues 存放位置、label strings 或 `GLOSSARY.md` layout。
 
 ## 何时使用
 
@@ -14,7 +14,7 @@
 
 - **Issue tracker**：根据 `git remote` 推荐 GitHub 或 GitLab，并确定后续是调用 `gh`、`glab`，还是在 `.scratch/` 下写 local markdown；也支持你描述的自定义 tracker workflow。
 - **Triage labels**：只有安装了 `triage` skill 才询问；默认接受 `needs-triage`、`needs-info`、`ready-for-agent`、`ready-for-human`、`wontfix`，仅在 repo 已有不同名称时 override。
-- **Domain docs**：默认 single-context，即 root `CONTEXT.md` + `docs/adr/`；只有检测到 monorepo signals 才询问是否使用 `CONTEXT-MAP.md`。
+- **Domain docs**：默认 single-context，即 root `GLOSSARY.md` + `docs/adr/`；只有检测到 monorepo signals 才询问是否使用 `GLOSSARY-MAP.md`。
 
 输出位于 `docs/agents/`：始终包括 `issue-tracker.md` 和 `domain.md`，安装了 `triage` 时再包括 `triage-labels.md`；同时在 repo 已使用的 `CLAUDE.md` 或 `AGENTS.md` 中维护 `## Agent skills` block。
 

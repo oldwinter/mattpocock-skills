@@ -1,6 +1,6 @@
 ---
 name: triage
-description: Move issues and external PRs through a state machine of triage roles — categorise, verify, grill if needed, and write agent-ready briefs.
+description: Move issues and external PRs through a state machine of triage roles: categorise, verify, grill if needed, and write agent-ready briefs.
 disable-model-invocation: true
 ---
 
@@ -18,23 +18,23 @@ Triage 期间发布到 Issue tracker 的每条 comment 或 Issue **必须**以�
 
 ## Reference docs
 
-- [AGENT-BRIEF.zh.md](AGENT-BRIEF.md) — 如何写 durable agent briefs
-- [OUT-OF-SCOPE.zh.md](OUT-OF-SCOPE.md) — `.out-of-scope/` knowledge base 如何工作
+- [AGENT-BRIEF.zh.md](AGENT-BRIEF.md): 如何写 durable agent briefs
+- [OUT-OF-SCOPE.zh.md](OUT-OF-SCOPE.md): `.out-of-scope/` knowledge base 如何工作
 
 ## Roles
 
 两个 **category** roles：
 
-- `bug` — 某些东西坏了
-- `enhancement` — 新 feature 或 improvement
+- `bug`: 某些东西坏了
+- `enhancement`: 新 feature 或 improvement
 
 五个 **state** roles：
 
-- `needs-triage` — maintainer 需要 evaluate
-- `needs-info` — 等待 reporter 提供更多 information
-- `ready-for-agent` — fully specified，ready for an AFK agent
-- `ready-for-human` — 需要 human implementation
-- `wontfix` — 不会 action
+- `needs-triage`: maintainer 需要 evaluate
+- `needs-info`: 等待 reporter 提供更多 information
+- `ready-for-agent`: fully specified，ready for an AFK agent
+- `ready-for-human`: 需要 human implementation
+- `wontfix`: 不会 action
 
 对 PR 来说，相同 states 要按 attached code 理解：`ready-for-agent` 表示已附 agent brief，agent 应该对 diff 执行下一步；`ready-for-human` 表示它已经 ready for human to merge。
 
@@ -57,9 +57,9 @@ Maintainer invoke `/triage` 并用自然语言描述想做什么。Interpret req
 
 Query Issue tracker，并按 oldest first 展示三个 buckets：
 
-1. **Unlabeled** — 从未 triaged。
-2. **`needs-triage`** — evaluation in progress。
-3. **`needs-info` with reporter activity since the last triage notes** — 需要 re-evaluation。
+1. **Unlabeled**: 从未 triaged。
+2. **`needs-triage`**: evaluation in progress。
+3. **`needs-info` with reporter activity since the last triage notes**: 需要 re-evaluation。
 
 当 PRs in scope 时，把 external PRs 纳入这些 buckets，并给每行标注 `[PR]` 或 `[issue]`。Discovery surface 只包含 *external* PRs（tracker config 定义谁算 external）；collaborator's in-flight PR 不是 triage work。这个 filter 只用于 discovery；显式 named PR 总是 triaged，不管 author 是谁。
 
@@ -67,23 +67,23 @@ Query Issue tracker，并按 oldest first 展示三个 buckets：
 
 ## Triage a specific issue or PR
 
-1. **Gather context.** 读取完整 Issue 或 PR（body、comments、labels、author、dates；对 PR 也读取 diff）。Parse prior triage notes，避免重新问 resolved questions。使用项目的 domain glossary 探索 codebase，并尊重该区域 ADRs。对 codebase 运行两个 checks：(a) **redundancy** — 按 domain concept（不只是 request wording）搜索 requested behavior 是否已有 implementation，并报告你看过哪里。如果找到了，它就是 already-implemented `wontfix`（step 5）。(b) **prior rejection** — 读取 `.out-of-scope/*.md`，surface 任何类似 request。
+1. **Gather context.** 读取完整 Issue 或 PR（body、comments、labels、author、dates；对 PR 也读取 diff）。Parse prior triage notes，避免重新问 resolved questions。使用项目的 domain glossary 探索 codebase，并尊重该区域 ADRs。对 codebase 运行两个 checks：(a) **redundancy**: 按 domain concept（不只是 request wording）搜索 requested behavior 是否已有 implementation，并报告你看过哪里。如果找到了，它就是 already-implemented `wontfix`（step 5）。(b) **prior rejection**: 读取 `.out-of-scope/*.md`，surface 任何类似 request。
 
 2. **Recommend.** 告诉 maintainer 你的 category 和 state recommendation、reasoning，以及与 request 相关的简短 codebase summary，包括它是否 already implemented。等待 direction。
 
 3. **Verify the claim.** 在任何 grilling 前检查 claim 是否成立。对 bug，从 reporter steps reproduce。对 PR，确认 diff 确实做了它声称的事：check it out，运行 relevant tests 或 commands。报告发生了什么：confirmed（with code path）、failed，或 insufficient detail（强 `needs-info` signal）。Confirmed verification 会让 agent brief 强很多。
 
-4. **Grill（if needed）.** 如果 request 需要 fleshing out，同时运行 `/grilling` 和 `/domain-modeling` skills：每轮提出一组问题，把它 grill into shape，打磨 domain terms，并随着 decisions landing inline 更新 `CONTEXT.md`/ADRs。
+4. **Grill（if needed）.** 如果 request 需要 fleshing out，同时运行 `/grilling` 和 `/domain-modeling` skills：每轮提出一组问题，把它 grill into shape，打磨 domain terms，并随着 decisions landing inline 更新 `GLOSSARY.md`/ADRs。
 
 5. **Apply the outcome:**
-   - `ready-for-agent` — 发布 agent brief comment（[AGENT-BRIEF.zh.md](AGENT-BRIEF.md)）。
-   - `ready-for-human` — 使用 agent brief 的相同结构，但注明为什么不能 delegate（judgment calls、external access、design decisions、manual testing）。
-   - `needs-info` — 发布 triage notes（template below）。
-   - `wontfix` — close，comment 取决于 *why*：
-     - **Already implemented** — change 已存在于 codebase。指出它在哪里；**不要**写入 `.out-of-scope/`（该 KB 用于 *rejected* requests，不用于已 built 的内容）。
-     - **Rejected（bug）** — 礼貌解释，然后 close。
-     - **Rejected（enhancement）** — 写入 `.out-of-scope/`，从 comment 链接到它，然后 close（[OUT-OF-SCOPE.zh.md](OUT-OF-SCOPE.md)）。
-   - `needs-triage` — 应用该 role。如果有 partial progress，可选发布 comment。
+   - `ready-for-agent`: 发布 agent brief comment（[AGENT-BRIEF.zh.md](AGENT-BRIEF.md)）。
+   - `ready-for-human`: 使用 agent brief 的相同结构，但注明为什么不能 delegate（judgment calls、external access、design decisions、manual testing）。
+   - `needs-info`: 发布 triage notes（template below）。
+   - `wontfix`: close，comment 取决于 *why*：
+     - **Already implemented**: change 已存在于 codebase。指出它在哪里；**不要**写入 `.out-of-scope/`（该 KB 用于 *rejected* requests，不用于已 built 的内容）。
+     - **Rejected（bug）**: 礼貌解释，然后 close。
+     - **Rejected（enhancement）**: 写入 `.out-of-scope/`，从 comment 链接到它，然后 close（[OUT-OF-SCOPE.zh.md](OUT-OF-SCOPE.md)）。
+   - `needs-triage`: 应用该 role。如果有 partial progress，可选发布 comment。
 
 ## Quick state override
 

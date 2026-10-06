@@ -60,7 +60,7 @@
 
 **Tickets 开始后要保持 spec frozen，还是继续更新？**
 
-没有自动同步机制，所以它实际上是当时 knowledge 的 snapshot，implementation 一产生新信息就会变 stale。Work ship 后可把它视为 throwaway；真正长期保存的 knowledge 应进入 `CONTEXT.md` 与 ADRs。
+没有自动同步机制，所以它实际上是当时 knowledge 的 snapshot，implementation 一产生新信息就会变 stale。Work ship 后可把它视为 throwaway；真正长期保存的 knowledge 应进入 `GLOSSARY.md` 与 ADRs。
 
 **我的工作是 refactor 或 module boundary，不是 feature，模板适合吗？**
 

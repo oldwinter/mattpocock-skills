@@ -1,6 +1,6 @@
 ---
 name: pr
-description: "用于编写 PR 正文。"
+description: "定义 PR 正文结构：用最小 visual 总结变更、提供 before/after evidence，并说明 merge risk。"
 metadata:
   credits:
     skill: show-me
@@ -34,7 +34,7 @@ metadata:
 
 ## 章节
 
-省略所有铺垫，并保持正文简短。使用用户在 `CONTEXT.md` 中定义的 domain language。
+省略所有铺垫，并保持正文简短。使用用户在 `GLOSSARY.md` 中定义的 domain language。
 
 ### Summary
 
@@ -62,9 +62,11 @@ submitForm
 
 - 使用 component tree 展示 UI structure，并包含相关的 state 和 module boundaries：
 
-```tsx
-<SessionPage>(apps / example / src / routes / session.tsx);
-useSessionEvents() < SessionToolbar > <RunSkillButton>(packages / ui);
+```text
+<SessionPage> (apps/example/src/routes/session.tsx)
+  useSessionEvents()
+  <SessionToolbar>
+    <RunSkillButton> (packages/ui)
 ```
 
 - 使用 shallow file tree 展示 file responsibility 或 broad refactor：

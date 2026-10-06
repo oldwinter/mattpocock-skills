@@ -1,6 +1,31 @@
 # mattpocock-skills
 
-## 未发布（同步上游 `84fdeff`）
+## 1.3.1
+
+### Patch Changes
+
+- `ask-matt` 不再声称 `diagnosing-bugs` 会在 post-mortem 阶段 hand off 到 `improve-codebase-architecture`。Bug 修复后改为运行 `/retro`，分析什么改进本可防止问题；只有 finding 指向缺少合适 seam 时，才使用 `/improve-codebase-architecture`。
+
+## 1.3.0
+
+### Minor Changes
+
+- 将 **`implement-spec`** 晋升到 **Engineering**，加入 Claude Code plugin、docs 和 `ask-matt` router。它把 tickets 读取为 task graph，在 ready frontier 上并行运行独立 worktree 中的 implementer subagents，并把结果落到一个 integration branch，最后运行 `code-review`。只有 tracker 通过 PR 关闭工作或用户明确要求时才创建 draft PR。
+- 将 model-invoked 的 **`pr`** 晋升到 **Engineering**。它用最小 visual 组织 PR Summary，提供 before/after Evidence，并判断 one-way 或 two-way door 及 blast radius。
+- 将 user-invoked 的 **`retro`** 晋升到 **Engineering**，作为 main flow 中 `code-review` 之后的最后一步。它回顾 coding session，并针对 agent environment 提出 navigation pointers、automated checks、coding standards、steering files、tool economy 和 information access 等改进。
+- 移除 **`resolving-merge-conflicts`** skill，不提供替代项。Agent 会直接处理 merge/rebase conflicts；已发布 docs 页面保留并标记 archived。
+- 将 domain docs 约定从 `CONTEXT.md` / `CONTEXT-MAP.md` 改名为 `GLOSSARY.md` / `GLOSSARY-MAP.md`。已有 repo 需要用 `git mv` 迁移，skills 此后只读取新名称。
+
+### Patch Changes
+
+- `domain-modeling` 的 trigger 扩展为讨论 codebase terminology、直接编辑 `GLOSSARY.md` 或 ADR。
+- 修复多个 skill frontmatter 中未加引号的 colon-space，避免 `skills.sh` 在 discovery 时跳过它们。
+- `grilling` 的连续 questions 之间使用 horizontal rule。
+- 移除 repo prose 中的 em dash，并规定后续不得重新引入。
+- Cross-skill invocation 统一使用明确的 Skill tool call；user-invoked skill 的前置条件改为要求 human 运行，而不是由其他 skill 调用。
+- `wait-what` 在 multi-context repo 中会沿 `GLOSSARY-MAP.md` 找到正确的 `GLOSSARY.md`。
+
+## 1.2.3 中文同步摘要（上游 `84fdeff`）
 
 - 新增 `wait-what`，用于在上一条消息没有讲明白时补齐 context 并用 plain language 重讲。
 - 将 `to-questionnaire` 晋升到 Productivity，将 `wizard` 晋升到 Engineering，并把两者加入 plugin、router、README 与 docs。

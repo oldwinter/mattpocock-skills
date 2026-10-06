@@ -8,7 +8,7 @@
 - 中文 fork：`https://github.com/oldwinter/mattpocock-skills`
 - 安装入口：`npx skills@latest add oldwinter/mattpocock-skills`
 - Runtime：`skills` CLI 会扫描 `skills/**/SKILL.md`；`.claude-plugin/plugin.json` 只标识 promoted skills，不能用它限制 CLI 的本地发现范围
-- 当前同步上游 commit：`c55ee46073ed923f86ce59a5eb3b6d895095d1b7`
+- 当前同步上游 commit：`4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d`
 
 ## 本地化目标
 

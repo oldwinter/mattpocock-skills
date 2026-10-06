@@ -2,7 +2,7 @@
 
 `domain-modeling` 会在 design 过程中构建并打磨项目的 **ubiquitous language**：挑战模糊术语，用具体场景 pressure-test relationships，并在 glossary 和 decisions 成形时立即写下。
 
-这是 **active** discipline，而不是 passive one。仅仅读取 `CONTEXT.md` 借用 vocabulary，是任何 skill 都能做的一行习惯；此 skill 用于你正在 *改变* model 的场景：创造 canonical term，发现代码与你刚说的话矛盾，记录难以逆转的决定。它也会保持 glossary 清洁：`CONTEXT.md` 是 glossary，仅此而已，不包含 implementation details、spec 或 scratch pad。
+这是 **active** discipline，而不是 passive one。仅仅读取 `GLOSSARY.md` 借用 vocabulary，是任何 skill 都能做的一行习惯；此 skill 用于你正在 *改变* model 的场景：创造 canonical term，发现代码与你刚说的话矛盾，记录难以逆转的决定。它也会保持 glossary 清洁：`GLOSSARY.md` 是 glossary，仅此而已，不包含 implementation details、spec 或 scratch pad。
 
 ## When to reach for it
 
@@ -12,13 +12,13 @@
 
 ## Prerequisites
 
-此 skill 写入两个位置，且都 lazily created，只有出现值得记录的内容时才创建。Resolved terms 写入 root `CONTEXT.md`；在带 `CONTEXT-MAP.md` 的 multi-context repo 中，写入对应 context 的 `CONTEXT.md`。Decisions 写入 `docs/adr/`。开始前无需任何文件存在；第一个 resolved term 创建 glossary，第一个真正 trade-off 创建 ADR。
+此 skill 写入两个位置，且都 lazily created，只有出现值得记录的内容时才创建。Resolved terms 写入 root `GLOSSARY.md`；在带 `GLOSSARY-MAP.md` 的 multi-context repo 中，写入对应 context 的 `GLOSSARY.md`。Decisions 写入 `docs/adr/`。开始前无需任何文件存在；第一个 resolved term 创建 glossary，第一个真正 trade-off 创建 ADR。
 
 ## Glossary vs. ADR
 
 两个 artifacts，两条不同门槛：
 
-- **The glossary**（`CONTEXT.md`）捕获 language。每次 vague term 变成 canonical，就 inline 写下，而不是 batch 到最后，这样 shared vocabulary 与 conversation 同步。它严格排除 implementation detail。
+- **The glossary**（`GLOSSARY.md`）捕获 language。每次 vague term 变成 canonical，就 inline 写下，而不是 batch 到最后，这样 shared vocabulary 与 conversation 同步。它严格排除 implementation detail。
 - **An ADR** 捕获 decision，门槛很高：只有当 choice **hard to reverse**、**surprising without context**、且 **result of a real trade-off** 时才提出。缺任一项，就没有 ADR。这样 `docs/adr/` 保存的是 consequential forks，而不是 diary。
 
 让它真正起作用的动作是：当你陈述某件事如何运作时，此 skill 会 cross-reference code 并浮现矛盾，例如 “你的代码取消整个 Order，但你刚说 partial cancellation 可行，哪个才对？” Language 和 code 被迫对齐。
@@ -31,13 +31,13 @@
 
 ## Common questions
 
-**我的 `CONTEXT.md` 已经有 500、1000 甚至 3000 行，怎么办？**
+**我的 `GLOSSARY.md` 已经有 500、1000 甚至 3000 行，怎么办？**
 
-长度是症状，真正问题是文件吸收了 implementation details 和不属于 glossary 的 decisions。直接运行 `/grill-with-docs make my CONTEXT.md more concise and remove any implementation details from it`。只有文件已经足够 lean，却仍覆盖两个不应同时装进读者脑中的 domains 时，才拆成 `CONTEXT-MAP.md`；拆分 bloated file 只会得到多个 bloated files。
+长度是症状，真正问题是文件吸收了 implementation details 和不属于 glossary 的 decisions。直接运行 `/grill-with-docs make my GLOSSARY.md more concise and remove any implementation details from it`。只有文件已经足够 lean，却仍覆盖两个不应同时装进读者脑中的 domains 时，才拆成 `GLOSSARY-MAP.md`；拆分 bloated file 只会得到多个 bloated files。
 
-**为什么叫 `CONTEXT.md`，而不是 `GLOSSARY.md`？**
+**为什么叫 `GLOSSARY.md`，而不是 `GLOSSARY.md`？**
 
-这个命名没有定论。`GLOSSARY.md` 更准确地表达“只放 glossary”，而 `CONTEXT-MAP.md` 指向多个 bounded-context `CONTEXT.md` 又更自然。可以在 fork 中改名，但整套 skills 都会查找 `CONTEXT.md`，因此必须一起修改。
+这个命名没有定论。`GLOSSARY.md` 更准确地表达“只放 glossary”，而 `GLOSSARY-MAP.md` 指向多个 bounded-context `GLOSSARY.md` 又更自然。可以在 fork 中改名，但整套 skills 都会查找 `GLOSSARY.md`，因此必须一起修改。
 
 **`/ubiquitous-language` 去哪了？**
 
@@ -45,7 +45,7 @@
 
 **现有 codebase 没有 glossary，怎么开始？**
 
-显式调用：`/grill-with-docs help me scaffold my existing repo with a CONTEXT.md`。Brownfield repo 靠日常使用慢慢积累通常太慢；预期会有一次较长的 interview。
+显式调用：`/grill-with-docs help me scaffold my existing repo with a GLOSSARY.md`。Brownfield repo 靠日常使用慢慢积累通常太慢；预期会有一次较长的 interview。
 
 **可以保留 domain model，但使用团队自己的 ADR format 吗？**
 

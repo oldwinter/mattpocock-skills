@@ -22,12 +22,12 @@ Spawn sub-agents 前，先为 chosen candidate 写一段 user-facing explanation
 
 用独立 technical brief prompt 每个 sub-agent（file paths、coupling details、[DEEPENING.zh.md](DEEPENING.zh.md) 中的 dependency category、seam 后面放什么）。Brief 与 Step 1 中的 user-facing problem-space explanation 相互 independent。给每个 agent 一个不同 design constraint：
 
-- Agent 1: “Minimize the interface — aim for 1–3 entry points max. Maximise leverage per entry point.”
-- Agent 2: “Maximise flexibility — support many use cases and extension.”
-- Agent 3: “Optimise for the most common caller — make the default case trivial.”
+- Agent 1: “Minimize the interface: aim for 1–3 entry points max. Maximise leverage per entry point.”
+- Agent 2: “Maximise flexibility: support many use cases and extension.”
+- Agent 3: “Optimise for the most common caller: make the default case trivial.”
 - Agent 4（if applicable）: “Design around ports & adapters for cross-seam dependencies.”
 
-Brief 中同时包含 `/codebase-design` vocabulary 和 CONTEXT.md vocabulary，让每个 sub-agent 用 architecture language 和项目 domain language consistently 命名。
+Brief 中同时包含 `/codebase-design` vocabulary 和 GLOSSARY.md vocabulary，让每个 sub-agent 用 architecture language 和项目 domain language consistently 命名。
 
 每个 sub-agent 输出：
 

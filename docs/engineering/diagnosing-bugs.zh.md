@@ -57,4 +57,4 @@ Commands、outputs 与 captured artifacts 在展示前必须先脱敏：secret �
 
 ## Where it fits
 
-`diagnosing-bugs` 是 reach-for-it-anytime standalone：一旦某东西 broken 就进入它，修复和 regression test 完成后退出。当真正发现是没有好 seam 可以锁住 bug 时，它的 post-mortem 会交给 [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture)：问题在代码结构，而不只是 bug。无法确定该用哪个 skill 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。
+`diagnosing-bugs` 是 reach-for-it-anytime standalone：一旦某东西 broken 就进入它，修复和 regression test 完成后退出。修复后使用 [retro](https://aihero.dev/skills-retro) 分析什么 environment change 本可防止这个 bug；如果 finding 是缺少能锁住 bug 的 seam，则使用 [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture)。无法确定该用哪个 skill 时，由 [ask-matt](https://aihero.dev/skills-ask-matt) 路由。

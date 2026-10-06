@@ -2,7 +2,7 @@
 
 `grill-with-docs` 会围绕 plan 或 design 进行 relentless interview，按轮次解决 decision tree 当前 frontier 上的全部问题，直到你和 agent 达成 shared understanding，并在过程中写下 vocabulary 和 decisions。
 
-这场 grilling **leaves a paper trail**。普通 interview 会打磨 thinking，然后在 session 结束后消散；这个 skill 会在 term 解决的瞬间将其写入 `CONTEXT.md` glossary，并把 hard、one-way decisions 记录成 ADRs。Alignment 不只存在于脑中，而会留在 conversation 之后。
+这场 grilling **leaves a paper trail**。普通 interview 会打磨 thinking，然后在 session 结束后消散；这个 skill 会在 term 解决的瞬间将其写入 `GLOSSARY.md` glossary，并把 hard、one-way decisions 记录成 ADRs。Alignment 不只存在于脑中，而会留在 conversation 之后。
 
 ## When to reach for it
 
@@ -12,7 +12,7 @@
 
 ## Prerequisites
 
-此 skill 是 stateful，会一边 grill 一边写入 repo。Resolved terms 写入 root `CONTEXT.md` glossary；如果 `CONTEXT-MAP.md` 标记 multi-context repo，则写入相关 context 的 `CONTEXT.md`。真正 hard-to-reverse decisions 写入 `docs/adr/`。二者都是 lazily created，第一个 term 或 decision crystallises 前不会有任何文件。你不需要提前 scaffold，但需要处在可以安全写这些文件的位置。
+此 skill 是 stateful，会一边 grill 一边写入 repo。Resolved terms 写入 root `GLOSSARY.md` glossary；如果 `GLOSSARY-MAP.md` 标记 multi-context repo，则写入相关 context 的 `GLOSSARY.md`。真正 hard-to-reverse decisions 写入 `docs/adr/`。二者都是 lazily created，第一个 term 或 decision crystallises 前不会有任何文件。你不需要提前 scaffold，但需要处在可以安全写这些文件的位置。
 
 ## The grill
 
@@ -23,7 +23,7 @@ Engine 是一个 **grill**：relentless 地沿 decision tree 向下走。每轮�
 ## It's working if
 
 - 它以少数几轮覆盖 frontier；同一轮的问题彼此不依赖，后续轮次建立在此前回答上。
-- Terms 一旦解决，就以项目自己的 words 写入 `CONTEXT.md`。
+- Terms 一旦解决，就以项目自己的 words 写入 `GLOSSARY.md`。
 - 它会在能自行回答时进入 codebase 阅读。
 - ADRs 保持稀少，你不会被要求 rubber-stamp 可逆选择。
 
@@ -33,11 +33,11 @@ Engine 是一个 **grill**：relentless 地沿 decision tree 向下走。每轮�
 
 由 scope 决定。一个 session 能解决的工作使用本 skill；单个 session 装不下时使用 [wayfinder](https://aihero.dev/skills-wayfinder)，先把 effort 绘制成 decision [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) map。Wayfinder 更慢、更 dense；对 well-scoped feature 过早使用它是常见错误。
 
-**运行结束后没有出现 `CONTEXT.md` 或 ADR。**
+**运行结束后没有出现 `GLOSSARY.md` 或 ADR。**
 
 可能确实没有内容达到门槛：没有新 vocabulary 时无需改 glossary，ADR 也必须同时满足三个 gates。另一个已知 bug 是它位于其他 orchestration layer 内时，interview 正常运行而 file-writing 静默丢失。使用这种 wrapper 时，应检查实际 working directory 与输出文件。
 
-**它一次抛出所有问题、没有 recommendations，也没提 `CONTEXT.md`。**
+**它一次抛出所有问题、没有 recommendations，也没提 `GLOSSARY.md`。**
 
 这通常说明两个依赖没有完整加载。`SKILL.md` 只负责 delegation；agent 若没有加载 [grilling](https://aihero.dev/skills-grilling) 和 [domain-modeling](https://aihero.dev/skills-domain-modeling)，就会自行猜测“grilling”。只加载前者则会得到正确 interview，却没有 paper trail。可直接询问 agent 实际加载了哪些 skills。
 
@@ -47,7 +47,7 @@ Engine 是一个 **grill**：relentless 地沿 decision tree 向下走。每轮�
 
 **可以用于完全没有 docs 的现有 repo 吗？**
 
-可以。直接说“help me document my repo”。它会阅读 code，并让你判断 codebase 中哪些 words 才是 canonical；常见做法是与 [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) 配合建立或修复 `CONTEXT.md`。
+可以。直接说“help me document my repo”。它会阅读 code，并让你判断 codebase 中哪些 words 才是 canonical；常见做法是与 [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) 配合建立或修复 `GLOSSARY.md`。
 
 **Session 结束后做什么？**
 

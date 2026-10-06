@@ -7,7 +7,7 @@ description: 面向 hard bugs 和 performance regressions 的 disciplined diagno
 
 用于 hard bugs 的纪律化流程。只有在明确有理由时才跳过 phases。
 
-探索 codebase 时，使用项目的 domain glossary 建立相关 modules 的清晰 mental model，并检查你触碰区域的 ADRs。
+探索 codebase 时，读取 `GLOSSARY.md`（如果存在），建立相关 modules 的清晰 mental model，并检查你触碰区域的 ADRs。
 
 ## Redact
 
@@ -15,13 +15,13 @@ description: 面向 hard bugs 和 performance regressions 的 disciplined diagno
 
 如果脱敏后的 output 不足以诊断 bug，明确说明并询问用户。
 
-## Phase 1 — Build a feedback loop
+## Phase 1: Build a feedback loop
 
 **This is the skill.** 其他一切都是机械步骤。如果你拥有一个快速、deterministic、agent-runnable 的 pass/fail signal 来捕捉 bug，你就会找到原因；bisection、hypothesis-testing、instrumentation 都只是在消费这个 signal。如果没有，盯着 code 看再久也救不了你。
 
 在这里投入不成比例的努力。**Be aggressive. Be creative. Refuse to give up.**
 
-### Ways to construct one — 大致按这个顺序尝试
+### Ways to construct one: 大致按这个顺序尝试
 
 1. **Failing test**，在任何能触达 bug 的 seam 上：unit、integration、e2e。
 2. 针对运行中的 dev server 的 **Curl / HTTP script**。
@@ -54,18 +54,18 @@ description: 面向 hard bugs 和 performance regressions 的 disciplined diagno
 
 停下并明确说明。列出你尝试过什么。向用户请求：(a) 能 reproduce 的 environment access，(b) 已脱敏的 captured artifact（HAR file、log dump、core dump、带 timestamps 的 screen recording），或 (c) 允许添加 temporary production instrumentation。没有 loop 时，**不要**继续 hypothesise。
 
-### Completion criterion — a tight loop that goes red
+### Completion criterion: a tight loop that goes red
 
 Phase 1 完成的标准是 loop 足够 **tight** 且 **red-capable**：你能指出**一条 command**（script path、test invocation 或 curl），已经至少运行过一次（展示已脱敏的 invocation 与 output），并满足：
 
-- [ ] **Red-capable** — 它会驱动实际 bug code path，并断言**用户描述的 exact symptom**，因此能在这个 bug 上变 red、修复后变 green。仅仅“运行时不报错”不够，它必须能捕获这个 specific bug。
-- [ ] **Deterministic** — 每次运行 verdict 相同；flaky bugs 则按上文固定在较高 reproduction rate。
-- [ ] **Fast** — 用时数秒，而不是数分钟。
-- [ ] **Agent-runnable** — 可以 unattended 运行；human in the loop 只允许通过 `scripts/hitl-loop.template.sh`。
+- [ ] **Red-capable**: 它会驱动实际 bug code path，并断言**用户描述的 exact symptom**，因此能在这个 bug 上变 red、修复后变 green。仅仅“运行时不报错”不够，它必须能捕获这个 specific bug。
+- [ ] **Deterministic**: 每次运行 verdict 相同；flaky bugs 则按上文固定在较高 reproduction rate。
+- [ ] **Fast**: 用时数秒，而不是数分钟。
+- [ ] **Agent-runnable**: 可以 unattended 运行；human in the loop 只允许通过 `scripts/hitl-loop.template.sh`。
 
 在拥有一个你相信的 loop 前，不要进入 Phase 2。
 
-## Phase 2 — Reproduce
+## Phase 2: Reproduce
 
 运行 loop。看 bug 出现。
 
@@ -77,7 +77,7 @@ Phase 1 完成的标准是 loop 足够 **tight** 且 **red-capable**：你能指
 
 没有 reproduce bug 前不要继续。
 
-## Phase 3 — Hypothesise
+## Phase 3: Hypothesise
 
 测试任何 hypothesis 之前，先生成 **3–5 个 ranked hypotheses**。Single-hypothesis generation 会锚定第一个 plausible idea。
 
@@ -89,7 +89,7 @@ Phase 1 完成的标准是 loop 足够 **tight** 且 **red-capable**：你能指
 
 **测试前把 ranked list 展示给用户。** 他们常有 domain knowledge，可以瞬间重新排序（“我们刚刚 deployed 了 #3 的 change”），或知道哪些 hypotheses 已经被排除。Cheap checkpoint, big time saver。不要因此阻塞；如果用户 AFK，就按你的 ranking 继续。
 
-## Phase 4 — Instrument
+## Phase 4: Instrument
 
 每个 probe 都必须映射到 Phase 3 的一个 specific prediction。**一次只改变一个 variable。**
 
@@ -103,7 +103,7 @@ Tool preference:
 
 **Perf branch.** 对 performance regressions 来说，logs 通常是错误工具。改为建立 baseline measurement（timing harness、`performance.now()`、profiler、query plan），然后 bisect。Measure first, fix second。
 
-## Phase 5 — Fix + regression test
+## Phase 5: Fix + regression test
 
 在 fix 前写 regression test，但前提是存在**正确的 seam**。
 
@@ -119,7 +119,7 @@ Tool preference:
 4. 看它 pass。
 5. 针对 original（un-minimised）scenario 重新运行 Phase 1 feedback loop。
 
-## Phase 6 — Cleanup + post-mortem
+## Phase 6: Cleanup + post-mortem
 
 宣布 done 前必须完成：
 
