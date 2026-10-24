@@ -14,9 +14,9 @@
 
 ## Two axes, never merged
 
-核心想法是 **two axes**。**Standards** 问的是 diff 是否符合此 repo 写代码的方式：它的 `CODING_STANDARDS.md` 或 `CONTRIBUTING.md`，再加上一组固定的 Fowler code smells baseline（Mysterious Name、Duplicated Code、Feature Envy、Data Clumps 等）。两条规则保证 baseline 安全：文档化 repo standard 永远覆盖 baseline；每个 smell 都是 judgement call，不是硬性违规。**Spec** 问的是正交问题：代码是否真的完成 issue 或 spec 要求，没有漏需求，也没有偷塞 scope creep。
+核心想法是 **two axes**。**Standards** 问的是 diff 是否符合此 repo 写代码的方式：它会搜索所有记录 coding standards 的文件，存在 `CODING_STANDARDS.md` 或 `CONTRIBUTING.md` 时必须纳入，再加上一组固定的 Fowler code smells baseline（Mysterious Name、Duplicated Code、Feature Envy、Data Clumps 等）。两条规则保证 baseline 安全：文档化 repo standard 永远覆盖 baseline；每个 smell 都是 judgement call，不是硬性违规。**Spec** 问的是正交问题：代码是否真的完成 issue 或 spec 要求，没有漏需求，也没有偷塞 scope creep。
 
-两个轴以 parallel sub-agents 运行，避免彼此污染 context。最终报告使用分开的 `## Standards` 和 `## Spec` headings，并分别给出 per-axis summary。这里刻意没有跨轴的单一赢家。
+两个轴以 parallel sub-agents 运行，避免彼此污染 context。两个 sub-agent 调用必须在前台一起发出，最终报告使用分开的 `## Standards` 和 `## Spec` headings，并分别给出 per-axis summary。这里刻意没有跨轴的单一赢家。
 
 ## It's working if
 

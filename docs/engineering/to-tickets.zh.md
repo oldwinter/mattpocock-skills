@@ -47,11 +47,11 @@ Over-decomposition 是最常见 friction，[model](https://www.aihero.dev/ai-cod
 
 **GitHub tickets 没有成为 spec Issue 的 sub-issues。**
 
-这是 [issue #554](https://github.com/mattpocock/skills/issues/554) 的已知问题，在 Codex 上更常见。`gh` 已支持 `gh issue create --parent <n>`，也可事后运行 `gh issue edit <parent> --add-sub-issue <n>`。模板修复前，手工补 parent links 最可靠。
+这个问题已在多个 models 上复现，[issue #554](https://github.com/mattpocock/skills/issues/554) 记录了最完整的信息。现在 `to-tickets` 会把每张 ticket 设为来源 Issue 的 sub-issue，GitHub tracker 模板也给出了命令（`gh issue create --parent <n>`，`gh` 2.94+）。重新运行 [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) 可刷新旧版 `docs/agents/issue-tracker.md`。
 
 **“Blocked by” 只写进 body，没有 native blocking link。**
 
-同类问题记录在 [issue #513](https://github.com/mattpocock/skills/issues/513)。GitHub 支持 `gh issue create --blocked-by 12,15`；因为 blockers 先发布，创建 downstream Issue 时已有编号。Body text 应只作为不支持 native edge 的 tracker fallback。
+同类问题记录在 [issue #513](https://github.com/mattpocock/skills/issues/513)。GitHub 支持 `gh issue create --blocked-by 12,15`；因为 blockers 先发布，创建 downstream Issue 时已有编号。Body text 应只作为不支持 native edge 的 tracker fallback。现在 native edges 已设置时，ticket template 会省略 `## Blocked by`。
 
 **Local tickets 在哪里？v1.1 notes 说 root `tickets.md`。**
 

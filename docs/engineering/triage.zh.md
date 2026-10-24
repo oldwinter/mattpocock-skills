@@ -41,7 +41,7 @@
 
 **应用 `ready-for-agent` 时，`gh` 说 label 不存在。**
 
-这是 [issue #616](https://github.com/mattpocock/skills/issues/616) 的 open bug。`setup-matt-pocock-skills` 只写 label mapping，不会创建 tracker labels。用 `gh label create` 或 UI 一次性创建五个 state labels 与 category labels。Wayfinder 的 labels 同样要单独创建。
+重新运行 [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills)。它在 GitHub 或 GitLab 上运行 Section B 时，现在会为 tracker 缺少的每个已配置 label 创建 label（[issue #616](https://github.com/mattpocock/skills/issues/616)）。Wayfinder 的 labels 仍需单独创建。
 
 **五个 states 不够，blocked、deferred、implemented 怎么办？**
 

@@ -1,0 +1,43 @@
+name: Bug
+description: Skill 在真实 session 中做错了事。
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        `skills/misc/` 中的 bugs 不会修复（见 [`.out-of-scope/frozen-misc-skills.md`](https://github.com/mattpocock/skills/blob/main/.out-of-scope/frozen-misc-skills.md)）。`npx skills` 安装器问题应提交给 skills.sh。
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      description: 哪个 skill，例如 `to-tickets`、`grilling`。
+    validations:
+      required: true
+  - type: input
+    id: harness
+    attributes:
+      label: Harness 和版本
+      description: 例如 Claude Code 2.3.1、Codex CLI 0.40、Cursor。请说明安装方式（plugin 或 skills.sh）以及 skills 版本。
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Model 和 effort
+      description: 例如 Opus、high effort。发生问题时 context 大约有多满？
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 发生了什么
+      description: 你运行了什么，skill 做了什么。请粘贴 session 的相关部分。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 你期待什么
+      description: Skill 本应怎么做，以及 `SKILL.md` 的哪一行（如有）说明了这一点。
+    validations:
+      required: true

@@ -10,7 +10,7 @@ description: Review 自 fixed point（commit、branch、tag 或 merge-base）以
 
 两条 axes 作为 **parallel sub-agents** 运行，避免彼此污染 context，然后此 skill aggregate findings。
 
-Issue tracker 应该已经提供；如果缺少 `docs/agents/issue-tracker.md`，运行 `/setup-matt-pocock-skills`。
+Issue tracker 应该已经提供；如果没有，请告诉用户运行 `/setup-matt-pocock-skills`。
 
 ## Process
 
@@ -26,14 +26,14 @@ Capture diff command once：`git diff <fixed-point>...HEAD`（three-dot，因此
 
 按顺序寻找 originating spec：
 
-1. Commit messages 中的 issue references（`#123`、`Closes #45`、GitLab `!67` 等）— 通过 `docs/agents/issue-tracker.md` 中 workflow fetch。
+1. Commit messages 中的 issue references（`#123`、`Closes #45`、GitLab `!67` 等），通过 tracker doc 中的 workflow fetch。
 2. 用户作为 argument 传入的 path。
 3. `docs/`、`specs/` 或 `.scratch/` 下，与 branch name 或 feature 匹配的 spec file。
 4. 如果什么都找不到，询问用户 spec 在哪里。如果他们说没有，**Spec** sub-agent 会 skip 并报告 “no spec available”。
 
 ### 3. Identify the standards sources
 
-Repo 中任何记录 code 应如何写的内容，例如 `CODING_STANDARDS.md` 或 `CONTRIBUTING.md`。
+搜索 repo 中所有记录 code 应如何写的文件。只要存在 `CODING_STANDARDS.md` 或 `CONTRIBUTING.md`，它们就必须在清单中。
 
 除 repo 自己记录的 standards 外，Standards axis 始终携带下面的 **smell baseline**：一组固定的 Fowler code smells（_Refactoring_, ch.3）。即使 repo 没有记录标准，它也适用。两条规则约束它：
 
@@ -57,7 +57,9 @@ Repo 中任何记录 code 应如何写的内容，例如 `CODING_STANDARDS.md` �
 
 ### 4. Spawn both sub-agents in parallel
 
-**Standards sub-agent prompt** — include：
+同时在前台发出两个 sub-agent 调用，并汇总它们返回的 reports。
+
+**Standards sub-agent prompt** 应包含：
 
 - Full diff command 和 commit list。
 - Step 3 找到的 standards-source files list，**加上 Step 3 中完整粘贴的 smell baseline**；sub-agent 没有其他途径访问它。

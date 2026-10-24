@@ -12,7 +12,7 @@
 
 `implement` 围绕预先约定的 **seam** 工作，也就是 feature 被测试的 stable interface。它不在实现中途随意发明 seams，而是使用 [to-spec](https://aihero.dev/skills-to-spec) 已确认的 seams，并通过 [tdd](https://aihero.dev/skills-tdd) 先写 tests。
 
-它会频繁 typecheck、运行单个 test file，最后运行完整 suite；然后执行 [code-review](https://aihero.dev/skills-code-review) 并 commit。
+它会频繁 typecheck、运行单个 test file，最后运行完整 suite；然后调用 `code-review` Skill tool，再 commit。传入 ticket reference 时，它会先从 tracker 获取并说明 title。
 
 ## Common questions
 
@@ -38,7 +38,7 @@
 
 **Fresh session 中运行 `/implement #2`，却处理了无关内容。**
 
-`#2` 可能被解析成 agent 看到的任意编号列表，而不是 configured tracker，且解析并不会 fail closed。传完整 issue URL 或 `owner/repo#2`，并让 agent 在开始前复述确认 title。
+现在 `implement` 会从 issue tracker 获取传入的 reference，并在开始前说明 title；reference 有歧义时会询问。请检查该 title 是否对应你想要的 ticket。传完整 issue URL 或 `owner/repo#2` 可以彻底消除歧义。
 
 ## 所处流程
 

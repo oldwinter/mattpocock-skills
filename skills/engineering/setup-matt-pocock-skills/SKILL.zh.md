@@ -101,6 +101,8 @@ Block：
 
 只有安装了 `triage` 且 Section B 实际运行时，才包含 `### Triage labels` sub-block 并写入 `docs/agents/triage-labels.md`；否则两者都省略。
 
+当 Section B 在 GitHub 或 GitLab 上运行时，为 tracker 缺少的每个已配置 label 创建 label（`gh label create` / `glab label create`）。
+
 然后用此 skill folder 中的 seed templates 作为起点写 docs files：
 
 - [issue-tracker-github.zh.md](./issue-tracker-github.zh.md): GitHub issue tracker

@@ -39,3 +39,19 @@ claude plugin install mattpocock-skills@mattpocock
 ```
 
 中文 fork 的固定安装措辞以 [`.agents/install-block.md`](../install-block.md) 为准；不能用上游官方 marketplace 命令替换，否则用户会得到英文 runtime。
+
+## 更新：2026-10-07
+
+上文关于 Codex 的约束已经不再成立。Codex `main` 接受 `skills` 字符串数组，并在没有 `.codex-plugin/` 时回退到 `.claude-plugin/`（[manifest.rs](https://github.com/openai/codex/blob/main/codex-rs/core-plugins/src/manifest.rs)）。Codex 仍会丢弃 symlink。
+
+在 Codex 0.161.0 上，上游 `@mattpocock` marketplace 安装会加载 promoted model-invoked skills，不加载 `misc/` 或 `in-progress/` 中的内容。Copilot CLI 读取相同 manifests，并报告 “Installed 27 skills”。
+
+这些验证描述的是上游英文 runtime。中文 fork 不会把对应上游命令当作中文安装入口，因为安装结果不会包含本 fork 的中文 `SKILL.md`。
+
+## 更新：2026-10-08：优先托管安装
+
+上游现在把 `@mattpocock` 作为 Codex、Copilot 和 VS Code 的主要路径，代价是 Copilot 需要一次性 opt-in。Claude Code 继续使用 `claude-plugins-official`，因为它默认自动更新，也不需要 `marketplace add`。
+
+上文 version invariant 现在适用于每条托管路径。`npm run version` 已通过 `scripts/sync-plugin-version.mjs` 保持版本一致。`marketplace.json` 没有 `version` field，因此不会漂移。
+
+中文 fork 只公布经过确认会加载中文 runtime 的路径：Claude Code 使用本 fork 自带的 marketplace，其他 agent 使用 skills.sh。上游 marketplace、`claude-plugins-official` 和上游 plugin source 都会安装英文 `SKILL.md`，因此不在本 fork 的安装说明中。

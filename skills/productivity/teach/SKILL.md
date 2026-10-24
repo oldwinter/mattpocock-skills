@@ -9,7 +9,7 @@ argument-hint: "你想学习什么？"
 
 ## Teaching Workspace
 
-将 current directory 视为 teaching workspace。他们的 learning state 捕获在此 directory 的几个 files 中：
+将 current directory 视为 teaching workspace。Workspace paths（`./lessons/` 等）从运行 `/teach` 的 directory 解析；只有 `*-FORMAT.md` links 从该 skill 的 folder 解析。他们的 learning state 捕获在此 directory 的几个 files 中：
 
 - `MISSION.md`：捕获用户对 topic 感兴趣的 _reason_。所有 teaching 都应以它为 grounding。使用 [MISSION-FORMAT.zh.md](./MISSION-FORMAT.md) 中的格式。
 - `./reference/*.html`：reference materials directory。这些是 lessons 压缩出来的 learnings：cheat sheets、reference algorithms、syntax、yoga poses、glossaries。它们是 raw units of learning。它们应是 beautiful documents，print out well，并为 quick reference 而设计。
@@ -107,7 +107,7 @@ Knowledge 应先从 trusted resources gather。使用 `RESOURCES.md` 追踪它�
 
 这些都应基于 **feedback loop**，让用户收到 performance feedback。这个 feedback loop 应尽可能 tight，立即给出 feedback，理想情况下自动给出。
 
-对 quizzes，每个 answer 都应有完全相同的 word count（如果可以，characters 也相同）。不要通过 formatting 给用户任何 answer clues。
+对 quizzes，每个 answer 都应有完全相同的 word count（如果可以，characters 也相同）。在不同 questions 中变化 correct answer 所在的位置。不要通过 formatting 或 order 给用户任何 answer clues。
 
 ## Acquiring Wisdom
 

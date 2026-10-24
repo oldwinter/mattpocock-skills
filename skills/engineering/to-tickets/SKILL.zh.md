@@ -64,7 +64,7 @@ issue tracker 和 triage label 词汇表应已提供；若没有，请运行 `/s
 发布已批准的 tickets。具体做法取决于 `/setup-matt-pocock-skills` 配置的 tracker；tickets 本身保持一致，只是 blocking edges 的表达方式不同：
 
 - **Local files** → 在 `.scratch/<feature-slug>/issues/<NN>-<slug>.md` 下为每张 ticket 写一个文件，从 `01` 开始按依赖顺序编号（blockers 优先）。每个文件的 "Blocked by" 列出它所依赖的编号和标题。使用下方 per-ticket file template；每张 ticket 一个文件，绝不能合并成单个文件。
-- **A real issue tracker (GitHub, Linear, …)** → 按依赖顺序（blockers 优先）为每张 ticket 发布一个 issue，使 blocking edges 能引用真实标识符。平台支持原生 blocking / sub-issue 关系时使用它；否则在每张 ticket 的 "Blocked by" 中列出 blocking issues。除非另有指示，否则应用 `ready-for-agent` triage label；这些 tickets 天生就可以由 agent 领取。
+- **A real issue tracker (GitHub, Linear, …)** → 按依赖顺序（blockers 优先）为每张 ticket 发布一个 issue，使 blocking edges 能引用真实标识符。平台支持原生 blocking 关系时使用它；否则在每张 ticket 的 "Blocked by" 中列出 blocking issues。如果来源是已有 issue，将每张 ticket 设为它的 sub-issue（使用 tracker doc 中的操作）。除非另有指示，否则应用 `ready-for-agent` triage label；这些 tickets 天生就可以由 agent 领取。
 
 处理 **frontier**：任何 blockers 都已完成的 ticket。对纯线性链来说，就是从上到下依次处理。
 
@@ -102,7 +102,7 @@ issue tracker 和 triage label 词汇表应已提供；若没有，请运行 `/s
 
 ## Blocked by
 
-- 引用每张 blocking ticket；若无，则写 "None — can start immediately"。
+- 引用每张 blocking ticket；若无，则写 "None (can start immediately)"。当 blockers 已设为原生 edges 时，省略本节。
 
 </issue-template>
 

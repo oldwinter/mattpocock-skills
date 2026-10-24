@@ -15,6 +15,8 @@ description: Grill the user relentlessly about a plan, decision, or idea. Use wh
 ➡️ <你的 recommended answer>
 ```
 
+把每个问题写成回答 "yes" 就会接受 recommended answer。
+
 用户每回答一轮，design tree 都会改变：settled decisions 把 frontier 向外推进，并解锁依赖它们的问题。重新计算 frontier，再询问下一轮。如果一个问题的答案依赖本轮另一个仍 open 的问题，它属于 _下一轮_，而不是当前轮。
 
 查找 _facts_ 是你的工作，绝不是用户的工作。当 frontier question 需要 environment（filesystem、tools 等）中的 fact 时，dispatch sub-agent 去查；不要让用户回答你可以自行查到的内容。也不要因此阻塞：正在进行的 exploration 是一个 unsettled prerequisite，只有它下游的问题需要等待 sub-agent report；现在先询问 frontier 中其余问题。_Decisions_ 属于用户，把每个 decision 交给他们并等待回答。

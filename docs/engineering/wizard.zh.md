@@ -35,7 +35,7 @@ Script 从 `template.sh` 复制，marker 上方 library 保持 byte-identical。
 
 **输错 value 后可以返回上一步吗？**
 
-运行中没有 back button，需要 Ctrl-C 后重跑。重跑有意保持便宜：已写进 `.env` 的 value 会作为 default，可一路 Enter 到错误 stage 再重新输入。另一个 open bug 是 `ask` 使用 `read -r`，arrow keys 会插入 escape sequence 而不是移动 cursor；Backspace 可用。
+运行中没有 back button，需要 Ctrl-C 后重跑。重跑有意保持便宜：已写进 `.env` 的 value 会作为 default，可一路 Enter 到错误 stage 再重新输入。当前 `ask` 使用 Readline，arrow keys 可以正常移动 cursor。
 
 **它知道哪些 setup 已经完成吗？**
 

@@ -1,0 +1,40 @@
+name: 想法或反馈
+description: 基于你实际遇到的 failure，提出对现有 skill 的改动。
+body:
+  - type: markdown
+    attributes:
+      value: |
+        此 repo 经过筛选。一个想法只有在同时满足 [`SCOPE.md`](https://github.com/mattpocock/skills/blob/main/SCOPE.md) 门槛的**两个部分**时才保持 open：
+
+        1. **实际观察到的 failure**：它描述真实 session 中出了什么问题，而不是假设性的改进。
+        2. **符合项目理念**：它不匹配 [`.out-of-scope/`](https://github.com/mattpocock/skills/tree/main/.out-of-scope) 中的任何记录，也不是 config option、harness-specific branch，或只为适配某个人 workflow 的 tweak。
+
+        不接受新 skills。`misc/` skills 已冻结。
+  - type: checkboxes
+    id: read-scope
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我已阅读 `SCOPE.md` 并检查 `.out-of-scope/`，此想法不在两者的覆盖范围内。
+          required: true
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      description: 要修改哪个现有 skill。
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: 出了什么问题
+      description: Skill 表现不足的真实 session。你运行了什么、它做了什么，以及为什么这是问题。请包含 harness 和 model。
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: 建议改动
+      description: 你希望如何修改 skill，请尽量具体。
+    validations:
+      required: true

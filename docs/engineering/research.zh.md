@@ -40,7 +40,7 @@ Skill 没有内建 stopping criterion，因此 scope 由你负责。一个 API�
 
 **`/wayfinder` 创建了 research tickets，要我手工解决吗？**
 
-不用。当前 wayfinder 会为每张 research ticket 启动 `/research` subagent，并行 burn down，把 findings 放在 throwaway `research/<name>` branch，再由 ticket 保存 [context pointer](https://www.aihero.dev/ai-coding-dictionary/context-pointer)。Research tickets 是 one-ticket-per-session rule 的唯一例外，因为它们属于 [AFK](https://www.aihero.dev/ai-coding-dictionary/afk) work。不要误开永远不会 merge 的 draft PR，也不要随意删除仍被 pointer 引用的 branch。
+不用。当前 wayfinder 会为每张 research ticket 启动 `/research` subagent，并行 burn down，把 findings 放在 throwaway `research/<name>` branch，再由 ticket 保存 [context pointer](https://www.aihero.dev/ai-coding-dictionary/context-pointer)。Research tickets 是 one-ticket-per-session rule 的唯一例外，因为它们属于 [AFK](https://www.aihero.dev/ai-coding-dictionary/afk) work。已知问题是删除 branch 后，tickets 中的 context pointers 会失效。
 
 ## Where it fits
 

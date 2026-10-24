@@ -5,7 +5,7 @@ argument-hint: "下一次 session 会用来做什么？"
 disable-model-invocation: true
 ---
 
-写一份 handoff document，总结当前 conversation，让一个 fresh agent 可以继续这项工作。保存到用户 OS 的 temporary directory，而不是 current workspace。
+写一份 handoff document，总结当前 conversation，让一个 fresh agent 可以继续这项工作。保存到用户 OS 的 temporary directory（`$TMPDIR`，否则 `/tmp`；Windows 使用 `%TEMP%`），而不是 current workspace。
 
 在文档里包含一个 “suggested skills” section，建议 agent 应该 invoke 哪些 skills。
 

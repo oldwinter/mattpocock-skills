@@ -5,7 +5,7 @@ argument-hint: "下一轮 session 将用于什么？"
 disable-model-invocation: true
 ---
 
-为当前对话写一份 handoff summary，使新的 agent 可以继续工作。不要保存为文件，而是启动一个以该 summary 作为 prompt 的 background agent：`claude --bg --name "<descriptive name>" "<handoff summary>"`。它会在当前工作目录启动并立即返回；用户通过 `claude agents` 管理它。
+为当前对话写一份 handoff summary，使新的 agent 可以继续工作。将它保存到用户 OS 的 temporary directory，然后启动一个以它为 prompt 的 background agent：`claude --bg --name "<descriptive name>" -- "$(cat <summary file>)"`。通过文件传入可避免 shell 执行 summary 中的 backticks 或展开 `$`。它会在当前工作目录启动并立即返回；用户通过 `claude agents` 管理它。
 
 始终传入 `-n`/`--name`，并使用描述性名称（例如 `--name "Fix login bug"`）；它会设置 job list、session picker 和 terminal title 中显示的名称。
 

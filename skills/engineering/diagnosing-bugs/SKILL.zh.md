@@ -114,7 +114,7 @@ Tool preference:
 如果存在正确 seam：
 
 1. 将 minimised repro 变成该 seam 上的 failing test。
-2. 看它 fail。
+2. 看它 fail。如果你通过修改 code 或 fixture 强行制造了 red，先与 pristine copy 做 `diff`，证明 mutation 确实生效，再相信这个 red。
 3. 应用 fix。
 4. 看它 pass。
 5. 针对 original（un-minimised）scenario 重新运行 Phase 1 feedback loop。

@@ -15,7 +15,7 @@
 > [!IMPORTANT]
 > **安装中文版（社区维护 fork）**
 >
-> 本仓库是 `mattpocock/skills` 的中文本地化 fork，不是上游官方发行。当前已同步到上游 `4588b32`。请从中文 fork 安装：
+> 本仓库是 `mattpocock/skills` 的中文本地化 fork，不是上游官方发行。当前已同步到上游 `5beb35b`。请从中文 fork 安装：
 >
 > ```bash
 > npx skills@latest add oldwinter/mattpocock-skills
@@ -35,7 +35,7 @@ If you want to keep up with changes to these skills, and any new ones I create, 
 
 ## 安装（30 秒完成）
 
-两种入口对应两种使用方式。**[Claude Code plugin](https://code.claude.com/docs/en/plugins)** 会把整套 skill 作为只读、可更新的托管包安装；**[skills.sh](https://skills.sh/oldwinter/mattpocock-skills)** 则把可编辑的 skill 文件复制到项目中。请选择其中一种，避免重复安装。
+两种入口对应两种使用方式。**[Claude Code plugin](https://code.claude.com/docs/en/plugins)** 会把整套 skill 作为只读的托管包安装；**[skills.sh](https://skills.sh/oldwinter/mattpocock-skills)** 则把可编辑的 skill 文件复制到项目中，由你手动更新。请为每个 agent 选择其中一种，避免重复安装。
 
 ### 1. 获取 skills
 
@@ -65,9 +65,9 @@ claude plugin install mattpocock-skills@mattpocock
 npx skills@latest add oldwinter/mattpocock-skills
 ```
 
-选择要安装的 skill 和目标 coding agent。**请确保勾选 `setup-matt-pocock-skills`。**
+选择要安装的 skill 和目标 coding agent。**请确保勾选 `setup-matt-pocock-skills`。** 更新时运行 `npx skills@latest update`，并重新运行 `add` 获取新增的 skills。
 
-原生 Codex plugin 仍在规划中，详见 [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md)。
+上游的 Codex、Copilot 与 Gemini 托管入口会安装英文 runtime；本 fork 当前只公布已验证会加载中文 `SKILL.md` 的 Claude Code marketplace 与 skills.sh 路径，详见 [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md)。
 
 </details>
 
@@ -80,7 +80,7 @@ npx skills@latest add oldwinter/mattpocock-skills
 npx skills@latest add oldwinter/mattpocock-skills
 ```
 
-安装器会把 skill 作为普通文件写入项目，你可以直接修改。它不会在后台自动更新；需要新版本时运行 `npx skills update`。
+安装器会把 skill 作为普通文件写入项目，你可以直接修改。它不会在后台自动更新；需要新版本时运行 `npx skills@latest update`，并重新运行 `add` 获取新增的 skills。
 
 </details>
 
@@ -88,9 +88,10 @@ npx skills@latest add oldwinter/mattpocock-skills
 
 每个仓库运行一次。它会：
 
-- 根据 `git remote` 推荐 issue tracker（GitHub、GitLab、本地文件或自定义工作流）
-- 仅在安装了 `/triage` 时确认 label 词汇
+- 根据 `git remote` 推荐 issue tracker（GitHub、GitLab、本地文件或你描述的其他工作流）
+- 仅在安装了 `/triage` 时确认并创建 triage label 词汇
 - 默认使用单一上下文的 domain docs；只有检测到 monorepo 时才询问是否采用多上下文布局
+- 询问你希望把生成的 docs 保存到哪里
 
 ### 3. 完成
 

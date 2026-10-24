@@ -19,7 +19,7 @@
 - `./lessons/*.html`：编号、自包含的 lessons，是 primary unit of teaching。
 - `./reference/*.html`：你会回看的 compressed cheat-sheets、algorithms、glossaries。
 - `./learning-records/*.md`：你已经学会的内容，ADR-style，用于判断下一步教什么。
-- `./assets/*`：reusable components，首先是 shared stylesheet，让 lessons 像同一门课程。
+- `./assets/*`：reusable components，首先是 shared stylesheet，让 lessons 像同一门课程。Workspace paths（`./lessons/` 等）从运行 `/teach` 的 directory 解析；只有 `*-FORMAT.md` links 从 skill folder 解析。
 - `NOTES.md`：你的 teaching preferences。
 
 ## Mission, and the zone of proximal development
@@ -34,7 +34,7 @@
 
 **Files 会写到哪里？我的内容跑进了 `~/.claude/skills`。**
 
-这是 [issue #377](https://github.com/mattpocock/skills/issues/377) 的 open bug。`SKILL.md` 同时用 `./` 指 skill 自带 templates 和用户 workspace；agent 可能把后者也解析到安装目录。开始时明确指定 workspace path，并在第一课后检查 `lessons/` 实际落点。
+现在 workspace files 会写入运行 `/teach` 的 directory（[issue #377](https://github.com/mattpocock/skills/issues/377)）。开始时仍应明确指定 workspace path，并在第一课后检查 `lessons/` 的实际落点。
 
 **每节课都留在同一 session，还是开新 session？**
 
@@ -46,7 +46,7 @@
 
 **Quiz 正确答案总在第一个位置。**
 
-这是多个 models 都复现、仍未修复的问题。当前 rule 只要求 options 字数相同，没解决 position bias；instruction-level shuffling 也未必有效。可在自己的 `assets/` 中加入 render-time shuffle component，暂时不要把答案位置当作信号。
+当前 rule 要求在不同 questions 中变化 correct answer 所在的位置（[issue #611](https://github.com/mattpocock/skills/issues/611)）。如果实际 output 仍然存在 position bias，可在自己的 `assets/` 中加入 render-time shuffle component，不要把答案位置当作信号。
 
 **它假设我已经懂某些内容，又使用未定义术语。**
 

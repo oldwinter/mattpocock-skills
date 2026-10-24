@@ -27,7 +27,7 @@
 
 **Handoff file 在哪里？**
 
-在 OS temp directory。路径长且各 OS 不同，Windows 上尤其容易找错。结束前要求 agent 明确返回 path 并保留。Temp 是刻意选择：handoff 是 transit document，不是长期维护 artifact。
+在 OS temp directory。Skill 按 `$TMPDIR`、否则 `/tmp` 解析，Windows 使用 `%TEMP%`；路径可能很长，结束前要求 agent 明确返回 path 并保留。Temp 是刻意选择：handoff 是 transit document，不是长期维护 artifact。
 
 **为什么跨 sessions 后文件消失了？**
 

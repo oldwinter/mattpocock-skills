@@ -6,10 +6,12 @@ disable-model-invocation: true
 
 实现用户在 spec 或 tickets 中描述的工作。
 
-尽可能使用 `/tdd`，并在预先约定的 seams 上做。
+如果用户传入 ticket reference，先从 issue tracker 获取它，并在开始前说明标题。若 reference 有歧义，询问用户。
+
+尽可能调用 Skill tool 的 "tdd"，并在预先约定的 seams 上做。
 
 定期运行 typechecking 和单个 test files，并在最后只运行一次完整 test suite。
 
-完成后，使用 `/code-review` review 这项工作。
+完成后，调用 Skill tool 的 "code-review" review 这项工作。
 
 将你的 work commit 到当前 branch。

@@ -21,9 +21,9 @@ Tests 应通过 public interfaces 验证 behavior，而不是 implementation det
 
 **只在 pre-agreed seams 上测试。** 写任何 test 前，先写下要测试的 seams，并与用户确认。未确认 seam 上不得写 test。你不可能测试一切；预先同意 seams，才能让 testing effort 落在 critical paths 和 complex logic 上，而不是每个 edge case。
 
-Ask: "What's the public interface, and which seams should we test?"
+询问："What's the public interface, and which seams should we test?" 为每个 proposed seam 给出一行说明，指出它能捕获什么、漏掉什么。
 
-When the shape of that interface is itself in question: how deep the module is, where the seam belongs, what the interface should expose: call the Skill tool with "codebase-design" for the vocabulary. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms, and it is a reference to consult, not a session to run.
+当 interface 本身的 shape 仍有疑问时，例如 module 有多深、seam 应放在哪里、interface 应暴露什么，调用 Skill tool 的 "codebase-design" 获取 vocabulary。它是 module、interface、depth、seam、adapter、leverage 和 locality 术语的 shared source，应作为 reference 查阅，而不是启动一个 session。
 
 ## Anti-patterns
 
