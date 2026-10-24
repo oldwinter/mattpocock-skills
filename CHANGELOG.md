@@ -1,5 +1,43 @@
 # mattpocock-skills
 
+## 1.3.2
+
+### Patch Changes
+
+- [#1194](https://github.com/mattpocock/skills/pull/1194) [`b645f47`](https://github.com/oldwinter/mattpocock-skills/commit/b645f47de3e17ed3bf60586c9bebb8092e0f79fd) Thanks [@mattpocock](https://github.com/mattpocock)! - `ask-matt` 现在会先阅读某个 skill 的 `SKILL.md`，再说明它做什么或建议跳过某个步骤，不再只依赖自身的一行摘要（[#614](https://github.com/oldwinter/mattpocock-skills/issues/614)）。
+
+- [#1304](https://github.com/mattpocock/skills/pull/1304) [`5beb35b`](https://github.com/oldwinter/mattpocock-skills/commit/5beb35b040e3de97e54fa9e386d7e42d15c295c2) Thanks [@mattpocock](https://github.com/mattpocock)! - `chief-of-staff` 现在把记忆保存在 LLM wiki 中（一个 `index.md` 加每个 topic 一个 page，通过 ingest、query 和 lint 维护），并按历史记录写入：每条 claim 都有日期，每条关于 code 的 claim 都引用它当时为真的 commit。
+
+- [#1208](https://github.com/mattpocock/skills/pull/1208) [`3da8c01`](https://github.com/oldwinter/mattpocock-skills/commit/3da8c01116264675eeefbd6e9d59c734de9095cc) Thanks [@mattpocock](https://github.com/mattpocock)! - `code-review` 现在会搜索 repo 中的 standards files，并把 `CODING_STANDARDS.md` / `CONTRIBUTING.md` 交给 Standards sub-agent（[#1065](https://github.com/oldwinter/mattpocock-skills/issues/1065)）；它会在前台运行两个 sub-agents 并使用它们返回的 reports（[#1073](https://github.com/oldwinter/mattpocock-skills/issues/1073)）；issue tracker 改为通过已提供的 tracker doc 解析，不再依赖 hard-coded path（[#937](https://github.com/oldwinter/mattpocock-skills/issues/937)）。
+
+- [#1209](https://github.com/mattpocock/skills/pull/1209) [`f3fc563`](https://github.com/oldwinter/mattpocock-skills/commit/f3fc5632f401156837ee3872f14fe33ccf1024ea) Thanks [@mattpocock](https://github.com/mattpocock)! - `diagnosing-bugs` 的 Phase 5 现在要求 agent 在相信 forced mutation 产生的 red 前，先与 pristine copy 做 `diff`；这样，实际没有改变任何内容的 edit 就无法伪装成 failing test（[#955](https://github.com/oldwinter/mattpocock-skills/issues/955)）。
+
+- [#1187](https://github.com/mattpocock/skills/pull/1187) [`e0efb6e`](https://github.com/oldwinter/mattpocock-skills/commit/e0efb6e7435ebb420d8a25d6816ed1ebaa2d23d2) Thanks [@mattpocock](https://github.com/mattpocock)! - 修复了 GitHub tracker template 的 external-PR listing；旧命令因 `authorAssociation` 而失败（[#468](https://github.com/oldwinter/mattpocock-skills/issues/468)，感谢 @lofi-coding）。重新运行 `/setup-matt-pocock-skills` 可刷新 `docs/agents/issue-tracker.md`。
+
+- [#1193](https://github.com/mattpocock/skills/pull/1193) [`95249b0`](https://github.com/oldwinter/mattpocock-skills/commit/95249b0b49782349740fd9b8c6ce32b4e59e497a) Thanks [@mattpocock](https://github.com/mattpocock)! - `grilling` 现在把每个问题都写成回答 “yes” 即接受 recommended answer，因此同意建议不再意味着回答 “no”（[#706](https://github.com/oldwinter/mattpocock-skills/issues/706)）。
+
+- [#1184](https://github.com/mattpocock/skills/pull/1184) [`4f4e943`](https://github.com/oldwinter/mattpocock-skills/commit/4f4e9433bbb7c4957ef33b1ea26686fb7c2a4cf4) Thanks [@mattpocock](https://github.com/mattpocock)! - `handoff` 现在明确写出 OS temp directory 的位置（`$TMPDIR`，否则 `/tmp`；Windows 使用 `%TEMP%`），避免 agents 猜测（[#272](https://github.com/oldwinter/mattpocock-skills/issues/272)）。
+
+- [#1189](https://github.com/mattpocock/skills/pull/1189) [`e48341a`](https://github.com/oldwinter/mattpocock-skills/commit/e48341a3d412cfeba4b9a79d3fd0331fc376ba82) Thanks [@mattpocock](https://github.com/mattpocock)! - `implement` 现在通过 Skill tool 调用 `tdd` 和 `code-review`，不再使用裸 `/skill` prose，与 [#878](https://github.com/oldwinter/mattpocock-skills/issues/878) 保持一致。
+
+- [#1196](https://github.com/mattpocock/skills/pull/1196) [`6d6a5b9`](https://github.com/oldwinter/mattpocock-skills/commit/6d6a5b9072f47ee7ba1d972d8ce0ee98b7ed4394) Thanks [@mattpocock](https://github.com/mattpocock)! - `implement` 会从 issue tracker 获取传入的 ticket reference，并在开始前说明其 title；reference 有歧义时会询问用户（[#700](https://github.com/oldwinter/mattpocock-skills/issues/700)）。
+
+- [#1197](https://github.com/mattpocock/skills/pull/1197) [`5b7cade`](https://github.com/oldwinter/mattpocock-skills/commit/5b7cade4d68947f34dae71326a0ce89f09e22c9c) Thanks [@mattpocock](https://github.com/mattpocock)! - `setup-matt-pocock-skills` 现在会在 GitHub/GitLab 上创建缺失的 triage labels（[#616](https://github.com/oldwinter/mattpocock-skills/issues/616)），修复 GitLab template 的 `glab` commands（[#635](https://github.com/oldwinter/mattpocock-skills/issues/635)），使用 `--json` 读取 GitHub issues，以确保 labels 和 body 正常返回（[#733](https://github.com/oldwinter/mattpocock-skills/issues/733)），并在 `triage-labels.md` 中明确写出 “Label in our tracker” 列（[#801](https://github.com/oldwinter/mattpocock-skills/issues/801)）。重新运行 `/setup-matt-pocock-skills` 可刷新 `docs/agents/`。
+
+- [#1192](https://github.com/mattpocock/skills/pull/1192) [`3f59913`](https://github.com/oldwinter/mattpocock-skills/commit/3f599139104dfceabc7754eeb91319802f85e042) Thanks [@mattpocock](https://github.com/mattpocock)! - `tdd` 现在会为每个 proposed seam 附上一行说明，指出它能捕获什么、遗漏什么，因此在 seams 之间选择不再靠猜（[#607](https://github.com/oldwinter/mattpocock-skills/issues/607)）。
+
+- [#1183](https://github.com/mattpocock/skills/pull/1183) [`ad5400b`](https://github.com/oldwinter/mattpocock-skills/commit/ad5400b930b297b0c0cb231ff1ffe42a7da666aa) Thanks [@mattpocock](https://github.com/mattpocock)! - `teach` 的 quizzes 现在会变化 correct answer 所在的位置（[#611](https://github.com/oldwinter/mattpocock-skills/issues/611)）。
+
+- [#1183](https://github.com/mattpocock/skills/pull/1183) [`ad5400b`](https://github.com/oldwinter/mattpocock-skills/commit/ad5400b930b297b0c0cb231ff1ffe42a7da666aa) Thanks [@mattpocock](https://github.com/mattpocock)! - `teach` 现在把 workspace 写入运行它的 directory，而不是 skill folder（[#377](https://github.com/oldwinter/mattpocock-skills/issues/377)）。
+
+- [#1188](https://github.com/mattpocock/skills/pull/1188) [`cffab50`](https://github.com/oldwinter/mattpocock-skills/commit/cffab50350e3d96688f63f890f4d7ca0e6007cfe) Thanks [@mattpocock](https://github.com/mattpocock)! - `to-tickets` 现在会把每张 ticket 设为来源 issue 的 sub-issue（GitHub tracker template 已给出命令），并在 blockers 使用 native edges 时省略 `## Blocked by`。重新运行 `/setup-matt-pocock-skills` 可刷新 `docs/agents/issue-tracker.md`。感谢 @richardwhatever（[#554](https://github.com/oldwinter/mattpocock-skills/issues/554)）和 @adamslowe（[#262](https://github.com/oldwinter/mattpocock-skills/issues/262)）。
+
+- [#1181](https://github.com/mattpocock/skills/pull/1181) [`8295b8e`](https://github.com/oldwinter/mattpocock-skills/commit/8295b8e10d4cdb6cce772a56dda7b7c37075074d) Thanks [@mattpocock](https://github.com/mattpocock)! - `wayfinder` 不再给 maps 或 tickets 添加 `ready-for-agent` label（[#518](https://github.com/oldwinter/mattpocock-skills/issues/518)），只使用真实 issue ids 写 cross-references（[#507](https://github.com/oldwinter/mattpocock-skills/issues/507)），不会从 research branches 创建 PR（[#576](https://github.com/oldwinter/mattpocock-skills/issues/576)），并按 label 指定的 type 处理每张 ticket（[#625](https://github.com/oldwinter/mattpocock-skills/issues/625)）。感谢 @jcwayne、@baob、@rynz 和 @sponge-b0b。
+
+- [#1237](https://github.com/mattpocock/skills/pull/1237) [`49dd158`](https://github.com/oldwinter/mattpocock-skills/commit/49dd158d1076134a641b33efb035946536778336) Thanks [@mattpocock](https://github.com/mattpocock)! - `wizard` template 修复：`_existing` 会解码双引号包裹的 `.env` value，因此按 Enter 保留当前值不再把引号写回（[#1220](https://github.com/oldwinter/mattpocock-skills/issues/1220)）；stages 在 `run_wizard` 内运行，所以运行中编辑 script 不会把它杀掉（[#1142](https://github.com/oldwinter/mattpocock-skills/issues/1142)）；`tput clear` 失败时，`_clear` 回退到 ANSI（[#1081](https://github.com/oldwinter/mattpocock-skills/issues/1081)）；`write_env` 也会设置 shell variable（[#1041](https://github.com/oldwinter/mattpocock-skills/issues/1041)）；移除未使用的 `RED`（[#1003](https://github.com/oldwinter/mattpocock-skills/issues/1003)）。
+
+- [#1198](https://github.com/mattpocock/skills/pull/1198) [`868c4cf`](https://github.com/oldwinter/mattpocock-skills/commit/868c4cf20cb7e08bc805c388ff1f305dbedd261a) Thanks [@mattpocock](https://github.com/mattpocock)! - `wizard` template 修复：`ask` 使用 Readline，因此 arrow keys 可以移动 cursor（[#741](https://github.com/oldwinter/mattpocock-skills/issues/741)）；`write_env` 用单引号包裹 values，使 spaces、`#`、`$` 和 quotes 能在 `source` 与 dotenv 中保留（[#770](https://github.com/oldwinter/mattpocock-skills/issues/770)）；没有 browser opener 时，`open_url` 会打印自行打开链接的 warning（[#774](https://github.com/oldwinter/mattpocock-skills/issues/774)）；`write_env` 可透过 symlink 写入 `.env`，并保留已有 file 的 mode（[#811](https://github.com/oldwinter/mattpocock-skills/issues/811)）；`ask` 和 `ask_secret` 在 EOF 时失败，不再循环（[#852](https://github.com/oldwinter/mattpocock-skills/issues/852)）。
+
 ## 1.3.1
 
 ### Patch Changes
