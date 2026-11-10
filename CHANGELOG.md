@@ -1,5 +1,15 @@
 # mattpocock-skills
 
+## 1.3.3
+
+### Patch Changes
+
+- [#1363](https://github.com/mattpocock/skills/pull/1363) [`5ae4816`](https://github.com/oldwinter/mattpocock-skills/commit/5ae481693d13b37d4d2c2c92d0b66d299c93e695) Thanks [@mattpocock](https://github.com/mattpocock)! - `chief-of-staff` 现在先寻找 shared wiki，再创建自己的。它还会在大约每五个 subagent session 中运行一次 `retro`，优先选择出了问题的那些，并自行处理 findings；对于大块工作，运行 `to-spec`、`to-tickets` 和 `implement-spec`，按相对路径读取每个 skill，使它们保持 user-invoked。
+
+- [#1342](https://github.com/mattpocock/skills/pull/1342) [`a496f55`](https://github.com/oldwinter/mattpocock-skills/commit/a496f5513d4a4cf889bc48e189e579f4b0bdf6aa) Thanks [@mattpocock](https://github.com/mattpocock)! - `implement-spec` 现在为每张 ticket 使用 fresh implementer subagent，code-review 修复也使用 fresh subagent，而不是复用之前的 implementer。
+
+- [#1316](https://github.com/mattpocock/skills/pull/1316) [`4ae2317`](https://github.com/oldwinter/mattpocock-skills/commit/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d) Thanks [@mattpocock](https://github.com/mattpocock)! - 新增 `software-factory`，一个 in-progress 的 user-invoked reference skill：设计 software factory 的术语表（tasks、runs、runners、triggers 及其接入的 services）、按所解决问题分组的示例 tasks、填充各 slot 的产品调查（ticket trackers、git hosts、runners、observability platforms），以及完成 design 所需的问题。配合 grilling session 使用。
+
 ## 1.3.2
 
 ### Patch Changes
