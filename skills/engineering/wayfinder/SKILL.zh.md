@@ -109,10 +109,10 @@ Out-of-scope work 永远不会 graduate，因为 frontier 止步于 destination�
 用户用一个松散想法调用。
 
 1. **Name the destination.** 调用 Skill tool 两次，分别使用 "grilling" 和 "domain-modeling"，钉住这张 map 要寻找路径通往什么：spec、decision 或 change。destination 固定 scope，所以必须先确定。
-2. **Map the frontier.** 再 grill 一次，这次 **breadth-first**：横向铺开整个空间，而不是沿某一条 thread 深挖，显露 open decisions 和现在能采取的第一批 steps。**如果这没有显露任何 fog**，说明通往 destination 的路已经清晰，整个 journey 小到一个 session 可容纳；不需要 map。停止并询问用户希望怎么继续。
+2. **Map the frontier.** 再 grill 一次，这次 **breadth-first**：横向铺开整个空间，而不是沿某一条 thread 深挖，显露 open decisions 和现在能采取的第一批 steps。**如果这没有显露任何 fog**（通往 destination 的路已经清晰，整个 journey 小到一个 session 可容纳），就不需要 map。停止并询问用户希望怎么继续。
 3. **Create the map**（label `wayfinder:map`）：填好 Destination 和 Notes，Decisions-so-far 为空，把 fog 画进 **Not yet specified**。
 4. **创建现在能明确描述的 tickets** 作为 map 的 child issues；然后在**第二轮**连接 blocking edges（issues 需要 ids 后才能互相引用）。也在这一轮用真实 ids 写 cross-references：placeholder `#<n>` 会自动链接到无关 issue。wiring 会把它们分到 frontier 和 blocked；所有还无法明确描述的内容留在 fog，也就是 **Not yet specified** section。
-5. **启动 research subagents。** 为刚创建的每张 `research` ticket 启动一个调用 Skill tool "research" 的 subagent 并行 resolve，把 findings 保存到 throwaway `research/<name>` branch，并从 ticket 留下 context pointer。推送该 branch，但不要创建 PR：它永远不会被 merge。
+5. **启动 research subagents。** 为刚创建的每张 `research` ticket 启动一个从 fresh context window 开始、调用 Skill tool "research" 的 subagent 并行 resolve，把 findings 保存到 throwaway `research/<name>` branch，并从 ticket 留下 context pointer。推送该 branch，但不要创建 PR：它永远不会被 merge。
 6. 停止；绘制 map 是一个 session 的工作，不要由当前 session 亲自解决 tickets。
 
 ### Work through the map

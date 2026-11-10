@@ -1,5 +1,17 @@
 # mattpocock-skills
 
+## 1.3.2
+
+### Patch Changes
+
+- 所有会派发 subagent 的 skills 现在要求每个 subagent 从 fresh context window 开始，避免 Codex 等 harness 默认 fork 父 conversation 时继承父级 context。
+- `chief-of-staff` 先寻找 shared wiki，再创建自己的 wiki；新增 Procedures，按相对路径读取 `retro`、`to-spec`、`to-tickets` 和 `implement-spec`。
+- `implement-spec` 为每张 ticket 使用 fresh implementer subagent，code review 后的修复也使用单个 fresh subagent。
+- 新增 in-progress 的 user-invoked `software-factory` skill：设计 software factory 的共享语言，包含示例 tasks 和 ticket tracker、git host、runner、observability platform 的选型调查。
+- `setup-matt-pocock-skills` 在写入 GitHub/GitLab tracker 前先接好可访问的 git remote，并主动提出把 legacy `CONTEXT.md` / `CONTEXT-MAP.md` 用 `git mv` 迁移到 `GLOSSARY` 名称；GitHub/GitLab 模板的 issue、PR 和 blocking 命令同步修复。
+- Issue templates 增加 `needs-triage`，新增 `CONTRIBUTING.md`，并按问题类型分流到 Q&A 或 Ideas。
+- `domain-modeling` 的文档更新 `GLOSSARY.md` 与 legacy `CONTEXT.md` 的命名说明。
+
 ## 1.3.1
 
 ### Patch Changes

@@ -19,13 +19,13 @@ disable-model-invocation: true
 
 所有工作都应由 subagents 完成。保护你的 context window。
 
-使用 background agents，让你能持续与用户保持 active dialogue。
+使用 background agents，让你能持续与用户保持 active dialogue。每个 subagent 都从 fresh context window 开始。
 
 与 subagents 的双向沟通应保持精简。主要通过 **context pointers** 沟通，例如 research notes、之前的 commits、wiki pages 等。不要重复 pointers 已经提供的信息。
 
 ## Wiki
 
-把记忆保存在 **wiki** 中：一个由互链 markdown pages 组成、生命周期长于当前 session 的 folder。只存在于 context 中的 tribal knowledge 会在 compaction 时丢失；wiki 是把它传给下一个 session 的方式。如果目标还没有 wiki，在第一次写入前与用户商定位置。
+把记忆保存在 **wiki** 中：一个由互链 markdown pages 组成、生命周期长于当前 session 的 folder。只存在于 context 中的 tribal knowledge 会在 compaction 时丢失；wiki 是把它传给下一个 session 的方式。先寻找 shared wiki，也就是用户或其他 agents 已经在维护的 wiki，把你的 pages 写进去；如果它的 conventions 与下面不同，就遵循它的。只有确实不存在时，才在第一次写入前与用户商定位置。
 
 - `index.md` 按 category 列出每个 page，包含 link 和一行 summary。
 - 其他每个 page 只讲一件事：一个 decision、一个 recurring problem、一个 subsystem 或一项 user preference。让相关 pages 互相 link。
@@ -45,6 +45,13 @@ wiki 是历史记录。它从不声称描述 things 现在如何，因为它跟�
 - 当 claim 涉及 code 时，引用它当时为真的 commit 及其 repo：“As of `mattpocock/skills@abc1234`, `retro` loads `writing-for-agents` in step 1.”
 - 不要在描述 code 时写 “currently”、“now” 或 “is” 却不附 date 或 commit。
 - 当情况变化时，添加新的 dated claim，并把旧 claim 标记为 superseded。不要改写旧 claim。
+
+## Procedures
+
+有些你要运行的 procedure 位于其他 skill 中，与这个 skill 安装在一起。要运行其中一个，读取下面 path 处的 `SKILL.md`（相对于此 skill 的 directory），并遵循它。
+
+- **Retro**（`../retro/SKILL.md`）：大约每五个 subagent session 运行一次 retro，包括 `implement-spec` run 派发的 session。优先选择出了问题的那几个。用你自己的判断替代 retro 的最后一步：决定哪些 candidates 值得跟进，然后跟进它们。
+- **Large chunks of work**：用 `../to-spec/SKILL.md` 写 spec，用 `../to-tickets/SKILL.md` 拆成 tickets，把两者发布到 issue tracker，再用 `../implement-spec/SKILL.md` 实现。
 
 ## Strategic View
 

@@ -35,9 +35,9 @@
 
 长度是症状，真正问题是文件吸收了 implementation details 和不属于 glossary 的 decisions。直接运行 `/grill-with-docs make my GLOSSARY.md more concise and remove any implementation details from it`。只有文件已经足够 lean，却仍覆盖两个不应同时装进读者脑中的 domains 时，才拆成 `GLOSSARY-MAP.md`；拆分 bloated file 只会得到多个 bloated files。
 
-**为什么叫 `GLOSSARY.md`，而不是 `GLOSSARY.md`？**
+**为什么叫 `GLOSSARY.md`，而不是 `CONTEXT.md`？**
 
-这个命名没有定论。`GLOSSARY.md` 更准确地表达“只放 glossary”，而 `GLOSSARY-MAP.md` 指向多个 bounded-context `GLOSSARY.md` 又更自然。可以在 fork 中改名，但整套 skills 都会查找 `GLOSSARY.md`，因此必须一起修改。
+它在 1.3.0 之前叫 `CONTEXT.md`（以及 `CONTEXT-MAP.md`）。这个文件是 glossary，仅此而已，所以 `GLOSSARY.md` 更准确；正如一位读者所说，“with ai agents everything is [context](https://www.aihero.dev/ai-coding-dictionary/context)”。如果你的 repo 仍有 `CONTEXT.md`，重新运行 `/setup-matt-pocock-skills`：它会主动用 `git mv` 迁移文件并更新 `docs/agents/domain.md`。整套 skills 都会查找 `GLOSSARY.md`，因此保留旧名意味着必须逐一修改它们。
 
 **`/ubiquitous-language` 去哪了？**
 

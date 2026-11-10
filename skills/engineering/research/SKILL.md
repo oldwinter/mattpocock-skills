@@ -3,7 +3,7 @@ name: research
 description: 根据高可信的一手来源调查一个问题，并把 findings 作为 Markdown 文件记录在 repo 中。用于用户希望研究某个主题、收集文档或 API facts，或把阅读工作交给 background agent 的场景。
 ---
 
-启动一个 **background agent** 做 research，这样你可以在它阅读时继续推进其他工作。
+启动一个 **background agent** 做 research，这样你可以在它阅读时继续推进其他工作。让它从 fresh context window 开始。
 
 它的任务：
 

@@ -22,7 +22,7 @@ Scaffold engineering skills 假定存在的 per-repo configuration：
 
 - `git remote -v` 和 `.git/config`: 这是 GitHub repo 吗？哪一个？
 - Repo root 的 `AGENTS.md` 和 `CLAUDE.md`: 是否存在？其中是否已有 `## Agent skills` section？
-- Repo root 的 `GLOSSARY.md` 和 `GLOSSARY-MAP.md`
+- Repo root 的 `GLOSSARY.md` 和 `GLOSSARY-MAP.md`，以及 legacy 的 `CONTEXT.md` / `CONTEXT-MAP.md`。如果 legacy file 存在，主动提出用 `git mv` 把它改名为对应的 `GLOSSARY` 名称，并改写 `docs/agents/domain.md` 中的这些名称。
 - `docs/adr/` 和任何 `src/*/docs/adr/` directories
 - `docs/agents/`: 这个 skill 的 prior output 是否已存在？
 - `.scratch/`: 表示 local-markdown issue tracker convention 可能已在使用
@@ -47,6 +47,8 @@ Default posture：这些 skills 是为 GitHub 设计的。如果 `git remote` �
 - **Other**（Jira、Linear 等）— 要求用户用一段话描述 workflow；skill 会将其记录为 freeform prose
 
 把选择记录到 `docs/agents/issue-tracker.md`。GitHub 和 GitLab templates 都带有 “PRs as a request surface” flag，default 为 **off**；保持关闭且不要主动询问。希望把 external PRs 纳入 triage queue 的用户之后可以直接在文件中打开它。
+
+GitHub 或 GitLab tracker 需要一个可访问的 repo。当用户选择其中之一，而没有任何 `git remote` 指向该 host 时，先向用户获取 repo URL 并接好（必要时 `git init`，然后 `git remote add origin <url>`），再继续。完成标准是 `gh repo view` / `glab repo view` 能在此 directory 内打印该项目；如果做不到，停下来告诉用户缺少什么。
 
 **Section B: Triage label vocabulary.** 如果 exploration 发现没有安装 `triage` skill，就完全跳过本节；未安装的 skill 不需要 labels。
 

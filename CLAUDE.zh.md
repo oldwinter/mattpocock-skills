@@ -24,6 +24,8 @@ Top-level `README.md` 中的每个 skill entry，都必须将 skill name link �
 
 此 repo 的 prose（`SKILL.md` files、docs、`README.md`、`CHANGELOG.md`、ADRs、changesets、code comments）中不得使用 em dash。遇到需要 em dash 的句子时，按句意改成 comma、colon、period、parentheses 或 conjunction，绝不能机械替换字符。
 
+每个会派发 subagent 的 skill 都应说明让它从 fresh context window 开始。某些 harness（例如 Codex）默认 fork 父 conversation，而 fork 会继承父级 context，这恰恰是 subagent 想要摆脱的东西。
+
 ## Agent skills
 
 ### Triage labels

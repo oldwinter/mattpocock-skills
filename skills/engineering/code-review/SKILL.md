@@ -8,7 +8,7 @@ description: Review 自 fixed point（commit、branch、tag 或 merge-base）以
 - **Standards** — code 是否符合此 repo 的 documented coding standards？
 - **Spec** — code 是否 faithfully implement originating issue / spec？
 
-两条 axes 作为 **parallel sub-agents** 运行，避免彼此污染 context，然后此 skill aggregate findings。
+两条 axes 作为 **parallel sub-agents** 运行，避免彼此污染 context，然后此 skill aggregate findings。每个 sub-agent 都从 fresh context window 开始。
 
 Issue tracker 应该已经提供；如果没有，请告诉用户运行 `/setup-matt-pocock-skills`。
 

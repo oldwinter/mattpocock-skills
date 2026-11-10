@@ -14,4 +14,5 @@ npx skills@latest add oldwinter/mattpocock-skills --skill=<name>
 - **[writing-shape](./writing-shape/SKILL.zh.md)**: 将 raw material markdown file 逐段塑造成 article，并在每一步争论 format choices。
 - **[claude-handoff](./claude-handoff/SKILL.zh.md)**: 将当前 conversation 交给 fresh background agent，通过 `claude --bg` 注入 handoff summary 后立即继续工作。User-invoked。
 - **[setup-ts-deep-modules](./setup-ts-deep-modules/SKILL.zh.md)**: 为 TypeScript repo 接入 dependency-cruiser，使每个 package 都成为 deep module：implementation 隐藏在 subfolders 中，只能通过 entry-point files 访问。User-invoked。
+- **[software-factory](./software-factory/SKILL.zh.md)**: 设计 software factory 的共享语言：它运行哪些 tasks，以及接入哪些 services。配合 grilling session 使用。User-invoked。
 - **[chief-of-staff](./chief-of-staff/SKILL.zh.md)**: 通过协调 subagents 和 schedules，在单个 session 中推进长期目标。User-invoked。

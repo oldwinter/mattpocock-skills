@@ -21,7 +21,7 @@
 当设为 `yes` 时，MRs 会使用相同 labels 和 states 流转，并使用 `glab mr` equivalents：
 
 - **Read an MR**：`glab mr view <number> --comments`，以及 `glab mr diff <number>` 查看 diff。
-- **List external MRs for triage**：`glab mr list -F json`，然后只保留 author 不是 project member/owner 的 MRs（contributor's MR，而不是 maintainer's in-flight work）。
+- **List external MRs for triage**：`glab mr list -O json`，然后只保留 author 不是 project member/owner 的 MRs（contributor's MR，而不是 maintainer's in-flight work）。
 - **Comment / label / close**：`glab mr note`、`glab mr update --label`/`--unlabel`、`glab mr close`。
 
 不同于 GitHub，GitLab 的 issues 和 MRs 分别编号，所以当你知道 maintainer 指的是哪个 surface 时，`#42` 是 unambiguous 的。
@@ -39,8 +39,8 @@
 由 `/wayfinder` 使用。**map** 是一个单独 issue，**child** issues 表示 map 中的 Issues。
 
 - **Map**：带 `wayfinder:map` label 的单一 issue，body 中保存 Notes / Decisions-so-far / Fog。使用 `glab issue create --label wayfinder:map`。（在支持 native epics 的 GitLab tiers 上，也可以用 epic 承载 map；labelled issue everywhere works。）
-- **Child Issue**：description 顶部写 `Part of #<map>`，并带 labels `wayfinder:<type>`（`research`/`prototype`/`grilling`/`task`）。被 claim 后，将 Issue assign 给驱动 map 的 dev。
+- **Child ticket**：description 顶部写 `Part of #<map>`，链接到 map（`glab issue create --linked-issues <map> --link-type relates_to`），并带 labels `wayfinder:<type>`（`research`/`prototype`/`grilling`/`task`）。被 claim 后，将 ticket assign 给驱动 map 的 dev。
 - **Blocking**：GitLab 的 **native blocking link**，是 canonical 且 UI-visible 的表达。用 `/blocked_by #<n>` quick action 添加，作为 note 发布：`glab issue note <child> --message "/blocked_by #<blocker>"`。Native blocking links 是 Premium/Ultimate feature；free tier 或不可用时，fallback 到 description 顶部的 `Blocked by: #<n>, #<n>` line。所有 blockers closed 后，Issue 即 unblocked。
-- **Frontier query**：`glab issue list -F json` scoped 到 map children，去掉有 open blocker 的项，包括指向 open issue 的 native `blocked_by` link（`glab api projects/:id/issues/:iid/links`），或 `Blocked by` line 中的 open issue；也去掉已有 assignee 的项；map order 中第一个获胜。
+- **Frontier query**：用 `glab api projects/:id/issues/<map>/links` 列出 map 的 children，保留带 `wayfinder:<type>` label 的 open issues；去掉有 open blocker 的项，包括指向 open issue 的 native `blocked_by` link（`glab api projects/:id/issues/<child-iid>/links`），或 `Blocked by` line 中的 open issue；也去掉已有 assignee 的项；map order 中第一个获胜。
 - **Claim**：`glab issue update <n> --assignee @me`，这是 session 的 first write。
 - **Resolve**：`glab issue note <n> --message "<answer>"`，然后 `glab issue close <n>`，最后向 map 的 Decisions-so-far 追加 context pointer（gist + link）。

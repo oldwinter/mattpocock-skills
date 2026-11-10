@@ -18,7 +18,7 @@ Spawn sub-agents 前，先为 chosen candidate 写一段 user-facing explanation
 
 ### 2. Spawn sub-agents
 
-使用 Agent tool parallel spawn 3+ sub-agents。每个 sub-agent 必须为 deepened module 产出一个 **radically different** interface。
+使用 Agent tool parallel spawn 3+ sub-agents，每个都从 fresh context window 开始。每个 sub-agent 必须为 deepened module 产出一个 **radically different** interface。
 
 用独立 technical brief prompt 每个 sub-agent（file paths、coupling details、[DEEPENING.zh.md](DEEPENING.zh.md) 中的 dependency category、seam 后面放什么）。Brief 与 Step 1 中的 user-facing problem-space explanation 相互 independent。给每个 agent 一个不同 design constraint：
 

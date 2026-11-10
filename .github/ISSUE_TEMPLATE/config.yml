@@ -1,5 +1,14 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 问题与讨论
-    url: https://github.com/mattpocock/skills/discussions
-    about: 使用问题、想一起讨论的想法，以及不属于 skill 具体 failure 的其他内容。
+  - name: 问题或“我该怎么做……？”
+    url: https://github.com/mattpocock/skills/discussions/categories/q-a
+    about: 请在 Q&A 中提问。Issues 只用于 bug 和对现有 skill 的改动。
+  - name: 新 skill 想法，或想捐赠一个 skill
+    url: https://github.com/mattpocock/skills/discussions/categories/ideas
+    about: 请发到 Ideas。新 skills 不从 issues 开始。
+  - name: 请求支持其他 harness 或 issue tracker
+    url: https://github.com/mattpocock/skills/discussions/categories/ideas
+    about: 请发到 Ideas。先读 out-of-scope 说明，大多数 tracker 已被排除。
+  - name: 我的请求是否超出范围？
+    url: https://github.com/mattpocock/skills/blob/main/SCOPE.md
+    about: 每个 issue 必须达到的门槛，以及此 repo 已决定不接受的请求。
